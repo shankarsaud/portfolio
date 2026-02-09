@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WordPress Systems Specialist | Performance & Automation Engineering</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -162,35 +163,6 @@
             animation: fadeIn 1s ease-out 0.7s both;
         }
 
-        .quick-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary);
-            font-family: 'Syne', sans-serif;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: rgba(248, 250, 252, 0.6);
-            margin-top: 0.5rem;
-        }
-
         .cta-group {
             display: flex;
             gap: 1.5rem;
@@ -288,20 +260,179 @@
         }
 
         .social-link {
-            padding: 0.75rem 1.5rem;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 8px;
+            border-radius: 50%;
             text-decoration: none;
             color: var(--light);
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
         }
 
         .social-link:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: var(--primary);
             transform: translateY(-2px);
+            color: var(--primary);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            margin: 4rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 32px rgba(0, 217, 255, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--light);
+            font-family: 'Syne', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: rgba(248, 250, 252, 0.6);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .about-main {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .about-intro {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(248, 250, 252, 0.9);
+            font-weight: 500;
+        }
+
+        .about-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: rgba(248, 250, 252, 0.7);
+        }
+
+        .about-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .highlight-icon {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .highlight-content h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .highlight-content p {
+            color: rgba(248, 250, 252, 0.6);
+            line-height: 1.6;
+        }
+
+        .philosophy-section {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .philosophy-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .philosophy-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .philosophy-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .philosophy-card p {
+            color: rgba(248, 250, 252, 0.6);
+            line-height: 1.7;
         }
 
         /* Section Styles */
@@ -508,6 +639,204 @@
 
         .skill-bar-item.visible .skill-bar-fill {
             width: var(--skill-width);
+        }
+
+        /* Portfolio Section */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.875rem 1.75rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: rgba(248, 250, 252, 0.7);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .filter-btn:hover {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+        }
+
+        .filter-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .portfolio-item {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .portfolio-item.hide {
+            opacity: 0;
+            transform: scale(0.8);
+            height: 0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+        }
+
+        .portfolio-image {
+            position: relative;
+            height: 240px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(124, 58, 237, 0.2));
+            overflow: hidden;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .portfolio-icon {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-icon {
+            transform: scale(1.2);
+            color: var(--primary);
+        }
+
+        .portfolio-content {
+            padding: 2rem;
+        }
+
+        .portfolio-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .portfolio-description {
+            color: rgba(248, 250, 252, 0.7);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .portfolio-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .portfolio-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .portfolio-stat i {
+            font-size: 1rem;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-tag {
+            padding: 0.4rem 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        .portfolio-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .portfolio-link {
+            flex: 1;
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .portfolio-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .portfolio-link.secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+        }
+
+        .portfolio-link.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        .portfolio-link i {
+            margin-right: 0.5rem;
         }
 
         /* Project Cards */
@@ -847,11 +1176,23 @@
                 display: none;
             }
 
-            .quick-stats {
-                grid-template-columns: 1fr;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .philosophy-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -881,6 +1222,14 @@
             .cta-group {
                 flex-direction: column;
             }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn i {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -903,28 +1252,13 @@
         <!-- Hero Section -->
         <section class="hero" id="about">
             <div class="hero-content">
-                <div class="hero-tag">👋 Available for Projects</div>
+                <div class="hero-tag"><i class="fas fa-circle" style="font-size: 0.5rem; color: #00FF00;"></i> Available for Projects</div>
                 <h1>Hi, I'm <span class="gradient-text">Your Name</span></h1>
                 <p class="hero-subtitle">WordPress Systems Specialist building high-performance, automated web solutions that scale businesses.</p>
-                
-                <div class="quick-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100+</div>
-                        <div class="stat-label">Projects Completed</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Happy Clients</div>
-                    </div>
-                </div>
 
                 <div class="cta-group">
-                    <a href="#contact" class="btn btn-primary">Let's Work Together</a>
-                    <a href="#portfolio" class="btn btn-secondary">View Portfolio</a>
+                    <a href="#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Get In Touch</a>
+                    <a href="#portfolio" class="btn btn-secondary"><i class="fas fa-briefcase"></i> View Work</a>
                 </div>
             </div>
 
@@ -933,13 +1267,39 @@
                 <div class="profile-info">
                     <div class="profile-name">WordPress Specialist</div>
                     <div class="profile-title">Performance & Automation Engineer</div>
-                    <div class="profile-location">📍 Location • 🕐 Your Timezone</div>
+                    <div class="profile-location"><i class="fas fa-map-marker-alt"></i> Location • <i class="fas fa-clock"></i> Your Timezone</div>
                     <div class="social-links">
-                        <a href="#" class="social-link">LinkedIn</a>
-                        <a href="#" class="social-link">GitHub</a>
-                        <a href="#" class="social-link">Email</a>
-                        <a href="#" class="social-link">Download CV</a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-download"></i></a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt stat-icon"></i>
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-project-diagram stat-icon"></i>
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-trophy stat-icon"></i>
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfaction Rate</div>
                 </div>
             </div>
         </section>
@@ -947,28 +1307,85 @@
         <!-- About Me Section -->
         <section class="section">
             <div class="section-header">
-                <div class="section-tag">👤 ABOUT ME</div>
+                <div class="section-tag"><i class="fas fa-user"></i> ABOUT ME</div>
                 <h2>Who I Am</h2>
-                <p class="section-subtitle">More than just a developer</p>
+                <p class="section-subtitle">Passionate developer, problem solver, business enabler</p>
             </div>
 
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🎯</div>
-                    <h3 class="service-title">My Mission</h3>
-                    <p class="service-description">I help businesses transform their WordPress websites from simple content platforms into powerful, automated business systems that drive growth and efficiency.</p>
+            <div class="about-content">
+                <div class="about-main">
+                    <p class="about-intro">
+                        I'm a WordPress Systems Specialist with over 5 years of experience transforming websites into high-performance business platforms. My passion lies in solving complex technical challenges and building automated solutions that help businesses scale efficiently.
+                    </p>
+                    <p class="about-text">
+                        What sets me apart is my holistic approach to WordPress development. I don't just write code—I architect systems that align with business objectives. Whether it's reducing page load times by 70%, automating workflows that save 30+ hours per week, or building custom integrations that connect disparate systems, I focus on delivering measurable business value.
+                    </p>
+                    <p class="about-text">
+                        I believe in continuous learning and staying at the forefront of web technologies. My expertise spans from frontend optimization and UX design to backend architecture and DevOps practices. This comprehensive skill set allows me to see the big picture while executing flawlessly on the details.
+                    </p>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">💡</div>
-                    <h3 class="service-title">My Approach</h3>
-                    <p class="service-description">I don't just build websites—I engineer WordPress solutions that solve real business problems through performance optimization, automation, and seamless integrations.</p>
-                </div>
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Performance Focused</h4>
+                            <p>Average 60% improvement in page load times across all projects</p>
+                        </div>
+                    </div>
 
-                <div class="service-card">
-                    <div class="service-icon">🚀</div>
-                    <h3 class="service-title">My Value</h3>
-                    <p class="service-description">With 5+ years of specialized experience, I bring technical expertise, business acumen, and a results-driven mindset to every project I undertake.</p>
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Automation Expert</h4>
+                            <p>Built workflows saving clients 500+ hours annually</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Results Driven</h4>
+                            <p>Proven track record of increasing conversions by 40%+</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h4>Security Conscious</h4>
+                            <p>Zero security breaches across 100+ managed websites</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="philosophy-section">
+                <h3 class="philosophy-title">My Philosophy</h3>
+                <div class="philosophy-grid">
+                    <div class="philosophy-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Solve Problems, Not Symptoms</h4>
+                        <p>I dig deep to understand root causes rather than applying quick fixes that create technical debt.</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <i class="fas fa-handshake"></i>
+                        <h4>Partnership Over Transactions</h4>
+                        <p>I build long-term relationships with clients, becoming a trusted technical advisor for their business growth.</p>
+                    </div>
+                    <div class="philosophy-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>Continuous Improvement</h4>
+                        <p>Technology evolves rapidly. I stay current with best practices and emerging tools to deliver cutting-edge solutions.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -976,7 +1393,7 @@
         <!-- Experience Section with Tabs -->
         <section class="section" id="experience">
             <div class="section-header">
-                <div class="section-tag">💼 PROFESSIONAL JOURNEY</div>
+                <div class="section-tag"><i class="fas fa-briefcase"></i> PROFESSIONAL JOURNEY</div>
                 <h2>Experience & Education</h2>
                 <p class="section-subtitle">My career path and learning journey</p>
             </div>
@@ -1046,7 +1463,7 @@
             <div class="tab-content" id="certifications">
                 <div class="project-grid">
                     <div class="project-card">
-                        <div class="project-icon">🏆</div>
+                        <div class="project-icon"><i class="fas fa-trophy"></i></div>
                         <h3 class="project-title">WordPress Certified Developer</h3>
                         <p class="project-description">Official WordPress certification demonstrating expertise in theme development, plugin architecture, and WordPress core.</p>
                         <div class="project-tags">
@@ -1055,7 +1472,7 @@
                     </div>
 
                     <div class="project-card">
-                        <div class="project-icon">⚡</div>
+                        <div class="project-icon"><i class="fas fa-tachometer-alt"></i></div>
                         <h3 class="project-title">Google PageSpeed Insights Expert</h3>
                         <p class="project-description">Specialized certification in web performance optimization and Core Web Vitals mastery.</p>
                         <div class="project-tags">
@@ -1064,7 +1481,7 @@
                     </div>
 
                     <div class="project-card">
-                        <div class="project-icon">🔒</div>
+                        <div class="project-icon"><i class="fas fa-lock"></i></div>
                         <h3 class="project-title">WordPress Security Specialist</h3>
                         <p class="project-description">Advanced training in WordPress security best practices, vulnerability assessment, and hardening techniques.</p>
                         <div class="project-tags">
@@ -1078,7 +1495,7 @@
         <!-- Skills Section with Progress Bars -->
         <section class="section" id="skills">
             <div class="section-header">
-                <div class="section-tag">🛠️ EXPERTISE</div>
+                <div class="section-tag"><i class="fas fa-tools"></i> EXPERTISE</div>
                 <h2>Skills & Technologies</h2>
                 <p class="section-subtitle">Technical proficiencies and core competencies</p>
             </div>
@@ -1168,7 +1585,7 @@
             <div class="tab-content" id="tools">
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="service-icon">🎨</div>
+                        <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
                         <h4 class="service-title">Page Builders</h4>
                         <ul class="service-features">
                             <li>Elementor Pro (Expert)</li>
@@ -1179,7 +1596,7 @@
                     </div>
 
                     <div class="service-card">
-                        <div class="service-icon">⚡</div>
+                        <div class="service-icon"><i class="fas fa-bolt"></i></div>
                         <h4 class="service-title">Performance Tools</h4>
                         <ul class="service-features">
                             <li>WP Rocket (Expert)</li>
@@ -1190,7 +1607,7 @@
                     </div>
 
                     <div class="service-card">
-                        <div class="service-icon">🔍</div>
+                        <div class="service-icon"><i class="fas fa-search"></i></div>
                         <h4 class="service-title">SEO Platforms</h4>
                         <ul class="service-features">
                             <li>Yoast SEO (Expert)</li>
@@ -1201,7 +1618,7 @@
                     </div>
 
                     <div class="service-card">
-                        <div class="service-icon">🛒</div>
+                        <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
                         <h4 class="service-title">E-Commerce</h4>
                         <ul class="service-features">
                             <li>WooCommerce (Expert)</li>
@@ -1212,7 +1629,7 @@
                     </div>
 
                     <div class="service-card">
-                        <div class="service-icon">🤖</div>
+                        <div class="service-icon"><i class="fas fa-robot"></i></div>
                         <h4 class="service-title">Automation</h4>
                         <ul class="service-features">
                             <li>Zapier (Advanced)</li>
@@ -1223,7 +1640,7 @@
                     </div>
 
                     <div class="service-card">
-                        <div class="service-icon">🛡️</div>
+                        <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
                         <h4 class="service-title">Security</h4>
                         <ul class="service-features">
                             <li>Wordfence (Advanced)</li>
@@ -1301,232 +1718,207 @@
             </div>
         </section>
 
-        <!-- Portfolio Section with Slider -->
+        <!-- Portfolio Section -->
         <section class="section" id="portfolio">
             <div class="section-header">
-                <div class="section-tag">💼 PORTFOLIO</div>
+                <div class="section-tag"><i class="fas fa-briefcase"></i> PORTFOLIO</div>
                 <h2>Featured Projects</h2>
-                <p class="section-subtitle">Showcasing successful client solutions</p>
+                <p class="section-subtitle">Showcasing impactful solutions and real results</p>
             </div>
 
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <!-- Slide 1 -->
-                    <div class="slide">
-                        <div class="project-grid">
-                            <div class="project-card">
-                                <div class="project-icon">🏢</div>
-                                <h3 class="project-title">Enterprise E-Commerce Platform</h3>
-                                <p class="project-description">Built a high-performance WooCommerce platform processing $500K+ monthly. Implemented custom inventory management, multi-gateway payments, and automated order workflows.</p>
-                                <div class="project-tags">
-                                    <span class="project-tag">WooCommerce</span>
-                                    <span class="project-tag">Custom Integration</span>
-                                    <span class="project-tag">Automation</span>
-                                </div>
-                            </div>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all"><i class="fas fa-th"></i> All Projects</button>
+                <button class="filter-btn" data-filter="ecommerce"><i class="fas fa-shopping-cart"></i> E-Commerce</button>
+                <button class="filter-btn" data-filter="performance"><i class="fas fa-tachometer-alt"></i> Performance</button>
+                <button class="filter-btn" data-filter="automation"><i class="fas fa-robot"></i> Automation</button>
+                <button class="filter-btn" data-filter="custom"><i class="fas fa-code"></i> Custom Dev</button>
+            </div>
 
-                            <div class="project-card">
-                                <div class="project-icon">📈</div>
-                                <h3 class="project-title">SaaS Marketing Website</h3>
-                                <p class="project-description">Designed and developed a conversion-optimized marketing site that increased lead generation by 180% through strategic UX improvements and performance optimization.</p>
-                                <div class="project-tags">
-                                    <span class="project-tag">Elementor</span>
-                                    <span class="project-tag">SEO</span>
-                                    <span class="project-tag">Performance</span>
-                                </div>
-                            </div>
-
-                            <div class="project-card">
-                                <div class="project-icon">🎓</div>
-                                <h3 class="project-title">Learning Management System</h3>
-                                <p class="project-description">Created a custom LMS using LearnDash with automated student enrollment, progress tracking, and certificate generation serving 5,000+ active learners.</p>
-                                <div class="project-tags">
-                                    <span class="project-tag">LearnDash</span>
-                                    <span class="project-tag">Custom Development</span>
-                                    <span class="project-tag">API Integration</span>
-                                </div>
-                            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="ecommerce performance">
+                    <div class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-icon"><i class="fas fa-store"></i></div>
                         </div>
                     </div>
-
-                    <!-- Slide 2 -->
-                    <div class="slide">
-                        <div class="project-grid">
-                            <div class="project-card">
-                                <div class="project-icon">🏨</div>
-                                <h3 class="project-title">Hotel Booking Platform</h3>
-                                <p class="project-description">Developed a custom booking system with real-time availability, dynamic pricing, and PMS integration reducing manual bookings by 85%.</p>
-                                <div class="project-tags">
-                                    <span class="project-tag">Custom Plugin</span>
-                                    <span class="project-tag">Payment Gateway</span>
-                                    <span class="project-tag">Third-party API</span>
-                                </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Enterprise E-Commerce Platform</h3>
+                        <p class="portfolio-description">High-performance WooCommerce store processing $500K+ monthly revenue with custom inventory management and automated workflows.</p>
+                        <div class="portfolio-stats">
+                            <div class="portfolio-stat">
+                                <i class="fas fa-bolt"></i>
+                                <span>2.1s Load Time</span>
                             </div>
-
-                            <div class="project-card">
-                                <div class="project-icon">📰</div>
-                                <h3 class="project-title">News & Magazine Portal</h3>
-                                <p class="project-description">Built a high-traffic news platform handling 1M+ monthly visitors with advanced caching, CDN integration, and automated content workflows.</p>
-                                <div class="project-tags">
-                                    <span class="project-tag">Performance</span>
-                                    <span class="project-tag">Scalability</span>
-                                    <span class="project-tag">Automation</span>
-                                </div>
+                            <div class="portfolio-stat">
+                                <i class="fas fa-chart-line"></i>
+                                <span>180% ↑ Conversion</span>
                             </div>
-
-                            <div class="project-card">
-                                <div class="project-icon">💼</div>
-                                <h3 class="project-title">Professional Services Directory</h3>
-                                <p class="project-description">Created a searchable directory with advanced filtering, member profiles, and automated email marketing integration serving 500+ professionals.</p>
-                                <div class="project-tags">
-                                    <span class="project-tag">Custom Post Types</span>
-                                    <span class="project-tag">Advanced Search</span>
-                                    <span class="project-tag">Email Marketing</span>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">WooCommerce</span>
+                            <span class="portfolio-tag">Custom Integration</span>
+                            <span class="portfolio-tag">Performance</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i> Visit Site</a>
+                            <a href="#" class="portfolio-link secondary"><i class="fas fa-info-circle"></i> Case Study</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="slider-controls">
-                    <button class="slider-btn" id="prevBtn">‹</button>
-                    <button class="slider-btn" id="nextBtn">›</button>
-                </div>
-
-                <div class="slider-dots">
-                    <span class="slider-dot active" data-slide="0"></span>
-                    <span class="slider-dot" data-slide="1"></span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials with Slider -->
-        <section class="section">
-            <div class="section-header">
-                <div class="section-tag">💬 TESTIMONIALS</div>
-                <h2>What Clients Say</h2>
-                <p class="section-subtitle">Real feedback from satisfied clients</p>
-            </div>
-
-            <div class="slider-container">
-                <div class="slider-wrapper" id="testimonialSlider">
-                    <div class="slide">
-                        <div class="testimonial">
-                            <p class="testimonial-text">"Absolutely exceptional work! They transformed our slow, outdated website into a lightning-fast platform that converted 3x better. The attention to detail and technical expertise is unmatched."</p>
-                            <div class="testimonial-author">Sarah Johnson</div>
-                            <div class="testimonial-role">CEO, TechStart Inc.</div>
+                <div class="portfolio-item" data-category="performance">
+                    <div class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-icon"><i class="fas fa-chart-line"></i></div>
                         </div>
                     </div>
-
-                    <div class="slide">
-                        <div class="testimonial">
-                            <p class="testimonial-text">"The automation workflows they built save our team 25 hours every week. What used to take manual effort now happens automatically. Best investment we've made in our business operations."</p>
-                            <div class="testimonial-author">Michael Chen</div>
-                            <div class="testimonial-role">Operations Director, Global Services LLC</div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">SaaS Marketing Website</h3>
+                        <p class="portfolio-description">Conversion-optimized marketing site with strategic UX improvements and Core Web Vitals optimization.</p>
+                        <div class="portfolio-stats">
+                            <div class="portfolio-stat">
+                                <i class="fas fa-trophy"></i>
+                                <span>95 PageSpeed</span>
+                            </div>
+                            <div class="portfolio-stat">
+                                <i class="fas fa-users"></i>
+                                <span>180% ↑ Leads</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="slide">
-                        <div class="testimonial">
-                            <p class="testimonial-text">"Professional, responsive, and incredibly knowledgeable. They didn't just build what we asked for—they proposed better solutions we hadn't even considered. Our revenue increased 40% after the redesign."</p>
-                            <div class="testimonial-author">Emily Rodriguez</div>
-                            <div class="testimonial-role">Marketing Manager, E-Commerce Brand</div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Elementor</span>
+                            <span class="portfolio-tag">SEO</span>
+                            <span class="portfolio-tag">Optimization</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i> Visit Site</a>
+                            <a href="#" class="portfolio-link secondary"><i class="fas fa-info-circle"></i> Case Study</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="slider-controls">
-                    <button class="slider-btn" id="testimonialPrev">‹</button>
-                    <button class="slider-btn" id="testimonialNext">›</button>
+                <div class="portfolio-item" data-category="custom automation">
+                    <div class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-icon"><i class="fas fa-graduation-cap"></i></div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Learning Management System</h3>
+                        <p class="portfolio-description">Custom LMS with automated enrollment, progress tracking, and certificate generation serving 5,000+ learners.</p>
+                        <div class="portfolio-stats">
+                            <div class="portfolio-stat">
+                                <i class="fas fa-user-graduate"></i>
+                                <span>5K+ Students</span>
+                            </div>
+                            <div class="portfolio-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>85% Time Saved</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">LearnDash</span>
+                            <span class="portfolio-tag">Custom Dev</span>
+                            <span class="portfolio-tag">Automation</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i> Visit Site</a>
+                            <a href="#" class="portfolio-link secondary"><i class="fas fa-info-circle"></i> Case Study</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="slider-dots" id="testimonialDots">
-                    <span class="slider-dot active" data-slide="0"></span>
-                    <span class="slider-dot" data-slide="1"></span>
-                    <span class="slider-dot" data-slide="2"></span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Offered -->
-        <section class="section">
-            <div class="section-header">
-                <div class="section-tag">⚡ SERVICES</div>
-                <h2>What I Offer</h2>
-                <p class="section-subtitle">Comprehensive WordPress solutions for your business</p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🚀</div>
-                    <h3 class="service-title">Performance Optimization</h3>
-                    <p class="service-description">Transform slow websites into speed demons. I optimize every aspect from server configuration to code efficiency.</p>
-                    <ul class="service-features">
-                        <li>Core Web Vitals optimization</li>
-                        <li>Advanced caching strategies</li>
-                        <li>Database optimization</li>
-                        <li>CDN integration</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🤖</div>
-                    <h3 class="service-title">Workflow Automation</h3>
-                    <p class="service-description">Eliminate repetitive tasks with intelligent automation systems that save time and reduce errors.</p>
-                    <ul class="service-features">
-                        <li>Custom workflow design</li>
-                        <li>Third-party integrations</li>
-                        <li>Automated reporting</li>
-                        <li>Email & notification systems</li>
-                    </ul>
+                <div class="portfolio-item" data-category="custom ecommerce">
+                    <div class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-icon"><i class="fas fa-hotel"></i></div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Hotel Booking Platform</h3>
+                        <p class="portfolio-description">Custom booking system with real-time availability, dynamic pricing, and PMS integration.</p>
+                        <div class="portfolio-stats">
+                            <div class="portfolio-stat">
+                                <i class="fas fa-robot"></i>
+                                <span>85% Automated</span>
+                            </div>
+                            <div class="portfolio-stat">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$250K Revenue</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Custom Plugin</span>
+                            <span class="portfolio-tag">API Integration</span>
+                            <span class="portfolio-tag">Payment Gateway</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i> Visit Site</a>
+                            <a href="#" class="portfolio-link secondary"><i class="fas fa-info-circle"></i> Case Study</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">🛒</div>
-                    <h3 class="service-title">E-Commerce Solutions</h3>
-                    <p class="service-description">Build powerful online stores that convert visitors into customers and scale with your business.</p>
-                    <ul class="service-features">
-                        <li>WooCommerce setup & optimization</li>
-                        <li>Payment gateway integration</li>
-                        <li>Inventory management</li>
-                        <li>Conversion optimization</li>
-                    </ul>
+                <div class="portfolio-item" data-category="performance">
+                    <div class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-icon"><i class="fas fa-newspaper"></i></div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">News & Magazine Portal</h3>
+                        <p class="portfolio-description">High-traffic news platform handling 1M+ monthly visitors with advanced caching and CDN.</p>
+                        <div class="portfolio-stats">
+                            <div class="portfolio-stat">
+                                <i class="fas fa-eye"></i>
+                                <span>1M+ Visitors</span>
+                            </div>
+                            <div class="portfolio-stat">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>1.8s Load Time</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Performance</span>
+                            <span class="portfolio-tag">Scalability</span>
+                            <span class="portfolio-tag">CDN</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i> Visit Site</a>
+                            <a href="#" class="portfolio-link secondary"><i class="fas fa-info-circle"></i> Case Study</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">🔒</div>
-                    <h3 class="service-title">Security Hardening</h3>
-                    <p class="service-description">Protect your WordPress site from threats with comprehensive security measures and monitoring.</p>
-                    <ul class="service-features">
-                        <li>Security audits</li>
-                        <li>Malware removal & prevention</li>
-                        <li>SSL implementation</li>
-                        <li>Regular security updates</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <h3 class="service-title">Custom Development</h3>
-                    <p class="service-description">Get exactly what you need with custom plugins, themes, and functionality built specifically for your requirements.</p>
-                    <ul class="service-features">
-                        <li>Custom plugin development</li>
-                        <li>Theme customization</li>
-                        <li>API integrations</li>
-                        <li>Custom post types & taxonomies</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3 class="service-title">SEO & Analytics</h3>
-                    <p class="service-description">Improve visibility and track performance with technical SEO optimization and comprehensive analytics setup.</p>
-                    <ul class="service-features">
-                        <li>Technical SEO audit</li>
-                        <li>Schema markup implementation</li>
-                        <li>Analytics & tracking setup</li>
-                        <li>Performance monitoring</li>
-                    </ul>
+                <div class="portfolio-item" data-category="custom automation">
+                    <div class="portfolio-image">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-icon"><i class="fas fa-building"></i></div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Professional Services Directory</h3>
+                        <p class="portfolio-description">Searchable directory with advanced filtering, member profiles, and automated marketing.</p>
+                        <div class="portfolio-stats">
+                            <div class="portfolio-stat">
+                                <i class="fas fa-users"></i>
+                                <span>500+ Members</span>
+                            </div>
+                            <div class="portfolio-stat">
+                                <i class="fas fa-search"></i>
+                                <span>Advanced Search</span>
+                            </div>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Custom Post Types</span>
+                            <span class="portfolio-tag">Search</span>
+                            <span class="portfolio-tag">Marketing</span>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i> Visit Site</a>
+                            <a href="#" class="portfolio-link secondary"><i class="fas fa-info-circle"></i> Case Study</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1534,9 +1926,9 @@
         <!-- Contact Section -->
         <section class="section" id="contact">
             <div class="section-header">
-                <div class="section-tag">📬 GET IN TOUCH</div>
-                <h2>Let's Work Together</h2>
-                <p class="section-subtitle">Ready to transform your WordPress website?</p>
+                <div class="section-tag"><i class="fas fa-envelope"></i> GET IN TOUCH</div>
+                <h2>Let's Connect</h2>
+                <p class="section-subtitle">Ready to discuss your next project?</p>
             </div>
 
             <div class="contact-grid">
@@ -1545,7 +1937,7 @@
                         <div class="contact-icon">📧</div>
                         <div class="contact-details">
                             <h4>Email</h4>
-                            <a href="mailto:your.email@example.com">your.email@example.com</a>
+                            <a href="/cdn-cgi/l/email-protection#90e9ffe5e2bef5fdf1f9fcd0f5e8f1fde0fcf5bef3fffd"><span class="__cf_email__" data-cfemail="e39a8c9691cd868e828a8fa3869b828e938f86cd808c8e">[email&#160;protected]</span></a>
                         </div>
                     </div>
 
@@ -1611,7 +2003,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Tab Switching
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1628,75 +2020,34 @@
             });
         });
 
-        // Portfolio Slider
-        const portfolioSlider = document.querySelector('.slider-wrapper');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const dots = document.querySelectorAll('.slider-dots .slider-dot');
-        let currentSlide = 0;
-        const totalSlides = 2;
+        // Portfolio Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-        function updateSlider(index) {
-            currentSlide = index;
-            portfolioSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
-        }
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all filter buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
 
-        prevBtn.addEventListener('click', () => {
-            currentSlide = currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
-            updateSlider(currentSlide);
-        });
+                const filter = btn.dataset.filter;
 
-        nextBtn.addEventListener('click', () => {
-            currentSlide = currentSlide === totalSlides - 1 ? 0 : currentSlide + 1;
-            updateSlider(currentSlide);
-        });
-
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                updateSlider(parseInt(dot.dataset.slide));
+                portfolioItems.forEach(item => {
+                    const categories = item.dataset.category;
+                    
+                    if (filter === 'all') {
+                        item.classList.remove('hide');
+                    } else {
+                        if (categories.includes(filter)) {
+                            item.classList.remove('hide');
+                        } else {
+                            item.classList.add('hide');
+                        }
+                    }
+                });
             });
         });
-
-        // Testimonial Slider
-        const testimonialSlider = document.getElementById('testimonialSlider');
-        const testimonialPrev = document.getElementById('testimonialPrev');
-        const testimonialNext = document.getElementById('testimonialNext');
-        const testimonialDots = document.querySelectorAll('#testimonialDots .slider-dot');
-        let currentTestimonial = 0;
-        const totalTestimonials = 3;
-
-        function updateTestimonialSlider(index) {
-            currentTestimonial = index;
-            testimonialSlider.style.transform = `translateX(-${currentTestimonial * 100}%)`;
-            testimonialDots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentTestimonial);
-            });
-        }
-
-        testimonialPrev.addEventListener('click', () => {
-            currentTestimonial = currentTestimonial === 0 ? totalTestimonials - 1 : currentTestimonial - 1;
-            updateTestimonialSlider(currentTestimonial);
-        });
-
-        testimonialNext.addEventListener('click', () => {
-            currentTestimonial = currentTestimonial === totalTestimonials - 1 ? 0 : currentTestimonial + 1;
-            updateTestimonialSlider(currentTestimonial);
-        });
-
-        testimonialDots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                updateTestimonialSlider(parseInt(dot.dataset.slide));
-            });
-        });
-
-        // Auto-advance testimonials
-        setInterval(() => {
-            currentTestimonial = currentTestimonial === totalTestimonials - 1 ? 0 : currentTestimonial + 1;
-            updateTestimonialSlider(currentTestimonial);
-        }, 5000);
 
         // Skill Bar Animation
         const observerOptions = {
@@ -1729,12 +2080,7 @@
                 }
             });
         });
+</script>
 
-        // Form Submission (placeholder)
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message! This is a demo form. In production, this would send your message.');
-        });
-    </script>
 </body>
 </html>
