@@ -67,6 +67,12 @@
             justify-content: space-between;
             align-items: center;
             animation: fadeInDown 0.8s ease-out;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 8, 22, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            margin-bottom: 2rem;
         }
 
         .logo {
@@ -79,14 +85,34 @@
             background-clip: text;
         }
 
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background: var(--glass);
+        }
+
         /* Hero Section */
         .hero {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
             gap: 4rem;
             align-items: center;
-            min-height: 90vh;
-            padding: 4rem 0;
+            min-height: 80vh;
+            padding: 2rem 0 4rem;
         }
 
         .hero-content {
@@ -108,7 +134,7 @@
 
         h1 {
             font-family: 'Syne', sans-serif;
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
@@ -121,7 +147,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% 200%;
-            animation: gradientShift 3s ease infinite, fadeIn 1s ease-out 0.5s both;
+            animation: gradientShift 3s ease infinite;
         }
 
         @keyframes gradientShift {
@@ -132,33 +158,37 @@
         .hero-subtitle {
             font-size: 1.25rem;
             color: rgba(248, 250, 252, 0.7);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             animation: fadeIn 1s ease-out 0.7s both;
         }
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            animation: fadeIn 1s ease-out 0.9s both;
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .skill-tag {
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
+            border-radius: 12px;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
         }
 
-        .skill-tag:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-            box-shadow: 0 8px 20px rgba(0, 217, 255, 0.2);
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Syne', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(248, 250, 252, 0.6);
+            margin-top: 0.5rem;
         }
 
         .cta-group {
@@ -177,6 +207,7 @@
             cursor: pointer;
             border: none;
             font-family: 'Manrope', sans-serif;
+            display: inline-block;
         }
 
         .btn-primary {
@@ -202,125 +233,80 @@
             border-color: var(--primary);
         }
 
-        .trust-line {
-            margin-top: 3rem;
-            font-size: 0.95rem;
-            color: rgba(248, 250, 252, 0.5);
-            font-style: italic;
-            animation: fadeIn 1s ease-out 1.3s both;
-        }
-
-        /* Hero Visual */
-        .hero-visual {
-            position: relative;
-            animation: fadeInRight 1s ease-out 0.5s both;
-        }
-
-        .dashboard-mockup {
-            background: var(--glass);
+        /* Profile Card */
+        .profile-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
             border: 1px solid var(--glass-border);
             border-radius: 24px;
             padding: 2rem;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: float 6s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            animation: fadeInRight 1s ease-out;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .dashboard-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: rgba(248, 250, 252, 0.6);
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #10B981;
+        .profile-image {
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            font-weight: 800;
+            color: white;
+            font-family: 'Syne', sans-serif;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+        .profile-info {
+            text-align: center;
         }
 
-        .metric-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-title {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-location {
+            color: rgba(248, 250, 252, 0.6);
+            font-size: 0.95rem;
             margin-bottom: 1.5rem;
         }
 
-        .metric-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 1.25rem;
-            transition: all 0.3s ease;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .metric-card:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .social-link {
+            padding: 0.75rem 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--light);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
             transform: translateY(-2px);
         }
 
-        .metric-label {
-            font-size: 0.75rem;
-            color: rgba(248, 250, 252, 0.5);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .metric-value {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-            animation: progressLoad 2s ease-out;
-        }
-
-        @keyframes progressLoad {
-            from { width: 0; }
-        }
-
-        /* How I Think Section */
+        /* Section Styles */
         .section {
-            padding: 8rem 0;
+            margin: 6rem 0;
         }
 
         .section-header {
@@ -334,7 +320,6 @@
             background: var(--glass);
             border: 1px solid var(--glass-border);
             border-radius: 50px;
-            font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             margin-bottom: 1.5rem;
             backdrop-filter: blur(10px);
@@ -342,514 +327,559 @@
 
         h2 {
             font-family: 'Syne', sans-serif;
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
             margin-bottom: 1rem;
         }
 
         .section-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: rgba(248, 250, 252, 0.6);
         }
 
-        .approach-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .approach-card {
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0.5rem;
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
         }
 
-        .approach-card::before {
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: rgba(248, 250, 252, 0.6);
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .tab-btn:hover {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
             content: '';
             position: absolute;
-            top: 0;
             left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
         }
 
-        .approach-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(0, 217, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.1);
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
         }
 
-        .approach-card:hover::before {
-            transform: scaleX(1);
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 0 4px var(--darker), 0 0 0 6px var(--primary);
         }
 
-        .approach-header {
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .approach-old, .approach-new {
-            margin-bottom: 1rem;
-        }
-
-        .approach-label {
-            font-size: 0.85rem;
-            color: rgba(248, 250, 252, 0.5);
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .approach-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding: 0.75rem;
-            border-radius: 8px;
+        .timeline-company {
+            color: rgba(248, 250, 252, 0.7);
+            margin-bottom: 1rem;
         }
 
-        .approach-old .approach-text {
-            background: rgba(239, 68, 68, 0.1);
-            color: #F87171;
-            text-decoration: line-through;
+        .timeline-description {
+            color: rgba(248, 250, 252, 0.6);
+            line-height: 1.8;
         }
 
-        .approach-new .approach-text {
-            background: rgba(16, 185, 129, 0.1);
-            color: #34D399;
-        }
-
-        /* Tech Stack Section */
-        .stack-container {
+        /* Skill Bars */
+        .skill-bars {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
         }
 
-        .stack-category {
+        .skill-bar-item {
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-bar-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .skill-percentage {
+            color: var(--primary);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .skill-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            transition: width 1s ease-out;
+            width: 0;
+        }
+
+        .skill-bar-item.visible .skill-bar-fill {
+            width: var(--skill-width);
+        }
+
+        /* Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
             padding: 2rem;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
-        .stack-category:hover {
+        .project-card:hover {
+            transform: translateY(-8px);
             border-color: var(--primary);
-            box-shadow: 0 12px 32px rgba(0, 217, 255, 0.15);
+            box-shadow: 0 12px 32px rgba(0, 217, 255, 0.2);
         }
 
-        .stack-icon {
-            width: 48px;
-            height: 48px;
+        .project-icon {
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             margin-bottom: 1.5rem;
         }
 
-        .stack-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
+        .project-title {
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
-        .stack-subtitle {
-            font-size: 0.9rem;
-            color: rgba(248, 250, 252, 0.5);
+        .project-description {
+            color: rgba(248, 250, 252, 0.7);
             margin-bottom: 1.5rem;
+            line-height: 1.8;
         }
 
-        .stack-items {
+        .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
-        .stack-item {
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .project-tag {
+            padding: 0.4rem 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.2);
             border-radius: 6px;
             font-size: 0.85rem;
-            transition: all 0.2s ease;
-            cursor: default;
+            color: var(--primary);
         }
 
-        .stack-item:hover {
-            background: rgba(0, 217, 255, 0.1);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        /* Systems Section */
-        .systems-grid {
+        /* Services Grid */
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
-        .system-card {
+        .service-card {
             background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(124, 58, 237, 0.05));
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 2.5rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
-        .system-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .system-card:hover::after {
-            opacity: 1;
-        }
-
-        .system-card:hover {
-            transform: translateY(-8px);
+        .service-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
+            transform: translateY(-5px);
         }
 
-        .system-number {
-            font-family: 'Syne', sans-serif;
+        .service-icon {
             font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 1.5rem;
         }
 
-        .system-title {
-            font-family: 'Syne', sans-serif;
+        .service-title {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
         }
 
-        .system-description {
+        .service-description {
             color: rgba(248, 250, 252, 0.7);
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
         }
 
-        /* Skill Cloud */
-        .skill-cloud {
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            color: rgba(248, 250, 252, 0.6);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Slider Container */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            margin: 3rem 0;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            padding: 0 1rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .slider-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 3rem;
-            backdrop-filter: blur(20px);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .cloud-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .cloud-tag {
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
             transition: all 0.3s ease;
-            cursor: default;
-            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .cloud-tag:hover {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(124, 58, 237, 0.2));
+        .slider-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
             border-color: var(--primary);
-            transform: scale(1.1);
         }
 
-        /* Problem Solution */
-        .problem-solution-grid {
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--primary);
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        /* Testimonials */
+        .testimonial {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: rgba(248, 250, 252, 0.8);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-role {
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info {
             display: grid;
             gap: 1.5rem;
         }
 
-        .ps-row {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 2rem;
+        .contact-item {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            display: flex;
             align-items: center;
+            gap: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .contact-details h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details a {
+            color: rgba(248, 250, 252, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--primary);
+        }
+
+        .contact-form {
             background: var(--glass);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 2rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
         }
 
-        .ps-row:hover {
-            border-color: var(--primary);
-            transform: translateX(8px);
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        .ps-problem, .ps-solution {
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-
-        .ps-problem {
-            background: rgba(239, 68, 68, 0.05);
-            border: 1px dashed rgba(239, 68, 68, 0.3);
-        }
-
-        .ps-solution {
-            background: rgba(16, 185, 129, 0.05);
-            border: 1px dashed rgba(16, 185, 129, 0.3);
-        }
-
-        .ps-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .form-group label {
+            display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
 
-        .ps-problem .ps-label {
-            color: #F87171;
-        }
-
-        .ps-solution .ps-label {
-            color: #34D399;
-        }
-
-        .ps-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .ps-arrow {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        /* Tool Ecosystem */
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-        }
-
-        .tool-category {
-            background: var(--glass);
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 2rem;
-            backdrop-filter: blur(20px);
+            border-radius: 8px;
+            color: var(--light);
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
 
-        .tool-category:hover {
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
             border-color: var(--primary);
-            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .tool-category-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
         }
 
-        .tool-category-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .tool-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .tool-item {
-            font-size: 0.9rem;
-            color: rgba(248, 250, 252, 0.7);
-            padding-left: 1rem;
-            position: relative;
-        }
-
-        .tool-item::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-        }
-
-        /* Final CTA */
-        .final-cta {
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--glass-border);
             text-align: center;
-            padding: 6rem 0;
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(124, 58, 237, 0.05));
-            border-radius: 32px;
-            margin: 4rem 0;
+            color: rgba(248, 250, 252, 0.5);
         }
 
-        .final-cta h2 {
-            margin-bottom: 1rem;
-        }
-
-        .final-cta .section-subtitle {
-            margin-bottom: 3rem;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
+        /* Responsive Design */
+        @media (max-width: 968px) {
             .hero {
                 grid-template-columns: 1fr;
                 gap: 3rem;
+                min-height: auto;
             }
 
             h1 {
-                font-size: 3.5rem;
-            }
-
-            .approach-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stack-container {
-                grid-template-columns: 1fr;
-            }
-
-            .systems-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .tool-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
             h2 {
                 font-size: 2.5rem;
             }
 
-            .systems-grid {
+            .contact-grid {
                 grid-template-columns: 1fr;
             }
 
-            .tool-grid {
+            .nav-links {
+                display: none;
+            }
+
+            .quick-stats {
                 grid-template-columns: 1fr;
             }
 
-            .ps-row {
+            .project-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
             }
 
-            .ps-arrow {
-                transform: rotate(90deg);
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .tab-navigation {
+                flex-wrap: nowrap;
+                overflow-x: auto;
             }
 
             .cta-group {
                 flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
             }
         }
     </style>
@@ -860,528 +890,833 @@
     <div class="container">
         <!-- Navigation -->
         <nav>
-            <div class="logo">WP.Systems</div>
+            <div class="logo">WP Systems</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </nav>
 
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero" id="about">
             <div class="hero-content">
-                <div class="hero-tag">🔥 WordPress Systems Architect</div>
-                <h1>
-                    I Build <span class="gradient-text">WordPress Systems</span>, Not Just Websites
-                </h1>
-                <p class="hero-subtitle">
-                    WordPress Developer Focused on Performance, Automation & Business Growth
-                </p>
-                <div class="skill-tags">
-                    <div class="skill-tag">Custom Themes</div>
-                    <div class="skill-tag">WooCommerce Systems</div>
-                    <div class="skill-tag">Speed Optimization</div>
-                    <div class="skill-tag">Integrations</div>
-                    <div class="skill-tag">SEO Architecture</div>
+                <div class="hero-tag">👋 Available for Projects</div>
+                <h1>Hi, I'm <span class="gradient-text">Your Name</span></h1>
+                <p class="hero-subtitle">WordPress Systems Specialist building high-performance, automated web solutions that scale businesses.</p>
+                
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
                 </div>
+
                 <div class="cta-group">
-                    <a href="#systems" class="btn btn-primary">View Systems I Build</a>
-                    <a href="#stack" class="btn btn-secondary">Technical Stack</a>
+                    <a href="#contact" class="btn btn-primary">Let's Work Together</a>
+                    <a href="#portfolio" class="btn btn-secondary">View Portfolio</a>
                 </div>
-                <p class="trust-line">
-                    Working with businesses, healthcare consultants & service brands
-                </p>
             </div>
 
-            <div class="hero-visual">
-                <div class="dashboard-mockup">
-                    <div class="dashboard-header">
-                        <div class="dashboard-title">SYSTEM PERFORMANCE</div>
-                        <div class="status-indicator">
-                            <div class="status-dot"></div>
-                            <span style="font-size: 0.85rem; color: rgba(248, 250, 252, 0.6);">Live</span>
-                        </div>
-                    </div>
-                    <div class="metric-grid">
-                        <div class="metric-card">
-                            <div class="metric-label">Page Speed</div>
-                            <div class="metric-value">98</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Core Vitals</div>
-                            <div class="metric-value">A+</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Uptime</div>
-                            <div class="metric-value">99.9%</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Security</div>
-                            <div class="metric-value">✓</div>
-                        </div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 95%;"></div>
+            <div class="profile-card">
+                <div class="profile-image">WS</div>
+                <div class="profile-info">
+                    <div class="profile-name">WordPress Specialist</div>
+                    <div class="profile-title">Performance & Automation Engineer</div>
+                    <div class="profile-location">📍 Location • 🕐 Your Timezone</div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">Email</a>
+                        <a href="#" class="social-link">Download CV</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- How I Think Section -->
+        <!-- About Me Section -->
         <section class="section">
             <div class="section-header">
-                <div class="section-tag">💡 MINDSET</div>
-                <h2>My Approach to WordPress Projects</h2>
-                <p class="section-subtitle">I think like an engineer, not an installer</p>
+                <div class="section-tag">👤 ABOUT ME</div>
+                <h2>Who I Am</h2>
+                <p class="section-subtitle">More than just a developer</p>
             </div>
 
-            <div class="approach-grid">
-                <div class="approach-card">
-                    <div class="approach-header">THEME APPROACH</div>
-                    <div class="approach-old">
-                        <div class="approach-label">Most Devs Do</div>
-                        <div class="approach-text">Install theme</div>
-                    </div>
-                    <div class="approach-new">
-                        <div class="approach-label">I Do Instead</div>
-                        <div class="approach-text">Engineer structure</div>
-                    </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3 class="service-title">My Mission</h3>
+                    <p class="service-description">I help businesses transform their WordPress websites from simple content platforms into powerful, automated business systems that drive growth and efficiency.</p>
                 </div>
 
-                <div class="approach-card">
-                    <div class="approach-header">FUNCTIONALITY</div>
-                    <div class="approach-old">
-                        <div class="approach-label">Most Devs Do</div>
-                        <div class="approach-text">Add plugins</div>
-                    </div>
-                    <div class="approach-new">
-                        <div class="approach-label">I Do Instead</div>
-                        <div class="approach-text">Build lean systems</div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3 class="service-title">My Approach</h3>
+                    <p class="service-description">I don't just build websites—I engineer WordPress solutions that solve real business problems through performance optimization, automation, and seamless integrations.</p>
                 </div>
 
-                <div class="approach-card">
-                    <div class="approach-header">FOCUS</div>
-                    <div class="approach-old">
-                        <div class="approach-label">Most Devs Do</div>
-                        <div class="approach-text">Focus on design</div>
-                    </div>
-                    <div class="approach-new">
-                        <div class="approach-label">I Do Instead</div>
-                        <div class="approach-text">Performance + conversions</div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3 class="service-title">My Value</h3>
+                    <p class="service-description">With 5+ years of specialized experience, I bring technical expertise, business acumen, and a results-driven mindset to every project I undertake.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Tech Stack Section -->
-        <section class="section" id="stack">
+        <!-- Experience Section with Tabs -->
+        <section class="section" id="experience">
             <div class="section-header">
-                <div class="section-tag">🧠 ARCHITECTURE</div>
-                <h2>WordPress System Stack</h2>
-                <p class="section-subtitle">Layered expertise across the entire ecosystem</p>
+                <div class="section-tag">💼 PROFESSIONAL JOURNEY</div>
+                <h2>Experience & Education</h2>
+                <p class="section-subtitle">My career path and learning journey</p>
             </div>
 
-            <div class="stack-container">
-                <div class="stack-category">
-                    <div class="stack-icon">🧱</div>
-                    <h3 class="stack-title">Foundation (Core)</h3>
-                    <p class="stack-subtitle">WordPress fundamentals & custom development</p>
-                    <div class="stack-items">
-                        <div class="stack-item">Custom Theme Development</div>
-                        <div class="stack-item">Child Themes</div>
-                        <div class="stack-item">WP Hooks & Filters</div>
-                        <div class="stack-item">WP Query</div>
-                        <div class="stack-item">Template Hierarchy</div>
-                        <div class="stack-item">Custom Post Types</div>
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="work">Work Experience</button>
+                <button class="tab-btn" data-tab="education">Education</button>
+                <button class="tab-btn" data-tab="certifications">Certifications</button>
+            </div>
+
+            <!-- Work Experience Tab -->
+            <div class="tab-content active" id="work">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021 - Present</div>
+                        <div class="timeline-title">Senior WordPress Systems Engineer</div>
+                        <div class="timeline-company">Freelance / Contract</div>
+                        <div class="timeline-description">
+                            Leading complex WordPress projects for enterprise clients, specializing in performance optimization, custom automation workflows, and scalable system architecture. Reduced average page load times by 60% and implemented automation systems saving clients 20+ hours per week.
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2019 - 2021</div>
+                        <div class="timeline-title">WordPress Developer</div>
+                        <div class="timeline-company">Digital Agency Name</div>
+                        <div class="timeline-description">
+                            Developed and maintained 40+ WordPress websites for diverse clients. Implemented custom themes, plugins, and integrations. Pioneered the agency's performance optimization workflow, becoming the go-to specialist for speed optimization projects.
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2018 - 2019</div>
+                        <div class="timeline-title">Junior Web Developer</div>
+                        <div class="timeline-company">Web Studio Name</div>
+                        <div class="timeline-description">
+                            Started my professional journey building WordPress websites, learning best practices in theme development, plugin customization, and client communication. Completed 20+ successful projects under senior developer mentorship.
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="stack-category">
-                    <div class="stack-icon">🎨</div>
-                    <h3 class="stack-title">Frontend Layer</h3>
-                    <p class="stack-subtitle">Modern UI/UX implementation</p>
-                    <div class="stack-items">
-                        <div class="stack-item">Elementor Pro</div>
-                        <div class="stack-item">CSS Layout Systems</div>
-                        <div class="stack-item">Responsive Design</div>
-                        <div class="stack-item">UI/UX Structuring</div>
-                        <div class="stack-item">Gutenberg Blocks</div>
-                        <div class="stack-item">ACF Integration</div>
+            <!-- Education Tab -->
+            <div class="tab-content" id="education">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2014 - 2018</div>
+                        <div class="timeline-title">Bachelor of Computer Science</div>
+                        <div class="timeline-company">University Name</div>
+                        <div class="timeline-description">
+                            Focused on web development, database management, and software engineering principles. Graduated with honors. Completed senior project building a custom WordPress-based learning management system.
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2020</div>
+                        <div class="timeline-title">Advanced WordPress Development</div>
+                        <div class="timeline-company">Online Specialization Program</div>
+                        <div class="timeline-description">
+                            Completed intensive program covering advanced WordPress topics including custom post types, REST API, WP-CLI, and WordPress architecture patterns.
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="stack-category">
-                    <div class="stack-icon">🛒</div>
-                    <h3 class="stack-title">Commerce Systems</h3>
-                    <p class="stack-subtitle">E-commerce & payment solutions</p>
-                    <div class="stack-items">
-                        <div class="stack-item">WooCommerce Customization</div>
-                        <div class="stack-item">Payment Gateways</div>
-                        <div class="stack-item">Product Logic</div>
-                        <div class="stack-item">Checkout Optimization</div>
-                        <div class="stack-item">Inventory Systems</div>
+            <!-- Certifications Tab -->
+            <div class="tab-content" id="certifications">
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-icon">🏆</div>
+                        <h3 class="project-title">WordPress Certified Developer</h3>
+                        <p class="project-description">Official WordPress certification demonstrating expertise in theme development, plugin architecture, and WordPress core.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">2022</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="stack-category">
-                    <div class="stack-icon">⚡</div>
-                    <h3 class="stack-title">Performance Engineering</h3>
-                    <p class="stack-subtitle">Speed optimization & Core Web Vitals</p>
-                    <div class="stack-items">
-                        <div class="stack-item">Speed Optimization</div>
-                        <div class="stack-item">Image Optimization</div>
-                        <div class="stack-item">Lazy Loading</div>
-                        <div class="stack-item">Core Web Vitals</div>
-                        <div class="stack-item">Caching Strategies</div>
-                        <div class="stack-item">CDN Integration</div>
+                    <div class="project-card">
+                        <div class="project-icon">⚡</div>
+                        <h3 class="project-title">Google PageSpeed Insights Expert</h3>
+                        <p class="project-description">Specialized certification in web performance optimization and Core Web Vitals mastery.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">2023</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="stack-category">
-                    <div class="stack-icon">🔌</div>
-                    <h3 class="stack-title">Integrations</h3>
-                    <p class="stack-subtitle">API connections & third-party systems</p>
-                    <div class="stack-items">
-                        <div class="stack-item">REST API</div>
-                        <div class="stack-item">CRM Connections</div>
-                        <div class="stack-item">HubSpot Integration</div>
-                        <div class="stack-item">Form Automations</div>
-                        <div class="stack-item">Email Marketing</div>
-                    </div>
-                </div>
-
-                <div class="stack-category">
-                    <div class="stack-icon">🤖</div>
-                    <h3 class="stack-title">Automation</h3>
-                    <p class="stack-subtitle">Workflow automation & business logic</p>
-                    <div class="stack-items">
-                        <div class="stack-item">Uncanny Automator</div>
-                        <div class="stack-item">Workflow Automation</div>
-                        <div class="stack-item">Lead Routing</div>
-                        <div class="stack-item">WP Cron</div>
-                        <div class="stack-item">Event Triggers</div>
-                    </div>
-                </div>
-
-                <div class="stack-category">
-                    <div class="stack-icon">🔍</div>
-                    <h3 class="stack-title">SEO Engineering</h3>
-                    <p class="stack-subtitle">Technical SEO & search optimization</p>
-                    <div class="stack-items">
-                        <div class="stack-item">Technical SEO</div>
-                        <div class="stack-item">Schema Markup</div>
-                        <div class="stack-item">Yoast SEO</div>
-                        <div class="stack-item">Rank Math</div>
-                        <div class="stack-item">Sitemap Optimization</div>
-                    </div>
-                </div>
-
-                <div class="stack-category">
-                    <div class="stack-icon">🛠️</div>
-                    <h3 class="stack-title">Maintenance & Security</h3>
-                    <p class="stack-subtitle">Ongoing protection & optimization</p>
-                    <div class="stack-items">
-                        <div class="stack-item">Security Hardening</div>
-                        <div class="stack-item">Backup Systems</div>
-                        <div class="stack-item">Malware Prevention</div>
-                        <div class="stack-item">Wordfence</div>
-                        <div class="stack-item">Site Monitoring</div>
+                    <div class="project-card">
+                        <div class="project-icon">🔒</div>
+                        <h3 class="project-title">WordPress Security Specialist</h3>
+                        <p class="project-description">Advanced training in WordPress security best practices, vulnerability assessment, and hardening techniques.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">2022</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Systems I Build Section -->
-        <section class="section" id="systems">
+        <!-- Skills Section with Progress Bars -->
+        <section class="section" id="skills">
             <div class="section-header">
-                <div class="section-tag">⚙️ DELIVERABLES</div>
-                <h2>WordPress Systems I Engineer</h2>
-                <p class="section-subtitle">Complete solutions, not just websites</p>
+                <div class="section-tag">🛠️ EXPERTISE</div>
+                <h2>Skills & Technologies</h2>
+                <p class="section-subtitle">Technical proficiencies and core competencies</p>
             </div>
 
-            <div class="systems-grid">
-                <div class="system-card">
-                    <div class="system-number">01</div>
-                    <h3 class="system-title">Lead Generation Systems</h3>
-                    <p class="system-description">
-                        Custom form workflows with CRM integration, automated lead routing, and conversion tracking
-                    </p>
-                </div>
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="technical">Technical Skills</button>
+                <button class="tab-btn" data-tab="tools">Tools & Platforms</button>
+                <button class="tab-btn" data-tab="soft">Soft Skills</button>
+            </div>
 
-                <div class="system-card">
-                    <div class="system-number">02</div>
-                    <h3 class="system-title">WooCommerce Sales Systems</h3>
-                    <p class="system-description">
-                        Complete e-commerce platforms with payment gateways, inventory management, and checkout optimization
-                    </p>
-                </div>
+            <!-- Technical Skills Tab -->
+            <div class="tab-content active" id="technical">
+                <div class="skill-bars">
+                    <div class="skill-bar-item" style="--skill-width: 95%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">WordPress Development</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
 
-                <div class="system-card">
-                    <div class="system-number">03</div>
-                    <h3 class="system-title">High-Speed Business Websites</h3>
-                    <p class="system-description">
-                        Performance-optimized sites with 90+ PageSpeed scores and excellent Core Web Vitals
-                    </p>
-                </div>
+                    <div class="skill-bar-item" style="--skill-width: 90%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">Performance Optimization</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
 
-                <div class="system-card">
-                    <div class="system-number">04</div>
-                    <h3 class="system-title">SEO-Optimized Content Platforms</h3>
-                    <p class="system-description">
-                        Technical SEO infrastructure with schema markup, sitemaps, and search engine optimization
-                    </p>
-                </div>
+                    <div class="skill-bar-item" style="--skill-width: 88%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">PHP & MySQL</span>
+                            <span class="skill-percentage">88%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
 
-                <div class="system-card">
-                    <div class="system-number">05</div>
-                    <h3 class="system-title">CRM Integrated Websites</h3>
-                    <p class="system-description">
-                        Seamless connections between WordPress and external CRMs like HubSpot, Salesforce, and more
-                    </p>
-                </div>
+                    <div class="skill-bar-item" style="--skill-width: 85%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">JavaScript & jQuery</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
 
-                <div class="system-card">
-                    <div class="system-number">06</div>
-                    <h3 class="system-title">Automated Form Workflows</h3>
-                    <p class="system-description">
-                        Form → Email → CRM automation with conditional logic and multi-step processes
-                    </p>
+                    <div class="skill-bar-item" style="--skill-width: 92%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">HTML5 & CSS3</span>
+                            <span class="skill-percentage">92%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar-item" style="--skill-width: 87%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">API Integration & Automation</span>
+                            <span class="skill-percentage">87%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar-item" style="--skill-width: 83%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">SEO & Technical Optimization</span>
+                            <span class="skill-percentage">83%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools & Platforms Tab -->
+            <div class="tab-content" id="tools">
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎨</div>
+                        <h4 class="service-title">Page Builders</h4>
+                        <ul class="service-features">
+                            <li>Elementor Pro (Expert)</li>
+                            <li>Gutenberg (Advanced)</li>
+                            <li>WPBakery (Proficient)</li>
+                            <li>Divi Builder (Proficient)</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <h4 class="service-title">Performance Tools</h4>
+                        <ul class="service-features">
+                            <li>WP Rocket (Expert)</li>
+                            <li>Cloudflare (Advanced)</li>
+                            <li>GTmetrix (Expert)</li>
+                            <li>PageSpeed Insights (Expert)</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🔍</div>
+                        <h4 class="service-title">SEO Platforms</h4>
+                        <ul class="service-features">
+                            <li>Yoast SEO (Expert)</li>
+                            <li>Rank Math (Advanced)</li>
+                            <li>Google Search Console (Advanced)</li>
+                            <li>Schema Markup (Proficient)</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🛒</div>
+                        <h4 class="service-title">E-Commerce</h4>
+                        <ul class="service-features">
+                            <li>WooCommerce (Expert)</li>
+                            <li>Payment Gateways (Advanced)</li>
+                            <li>Inventory Systems (Proficient)</li>
+                            <li>Shipping Integration (Proficient)</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🤖</div>
+                        <h4 class="service-title">Automation</h4>
+                        <ul class="service-features">
+                            <li>Zapier (Advanced)</li>
+                            <li>Uncanny Automator (Expert)</li>
+                            <li>WP-CLI (Advanced)</li>
+                            <li>Custom Webhooks (Proficient)</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🛡️</div>
+                        <h4 class="service-title">Security</h4>
+                        <ul class="service-features">
+                            <li>Wordfence (Advanced)</li>
+                            <li>Sucuri (Proficient)</li>
+                            <li>SSL Configuration (Expert)</li>
+                            <li>Backup Solutions (Expert)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soft Skills Tab -->
+            <div class="tab-content" id="soft">
+                <div class="skill-bars">
+                    <div class="skill-bar-item" style="--skill-width: 93%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">Problem Solving</span>
+                            <span class="skill-percentage">93%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar-item" style="--skill-width: 90%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">Client Communication</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar-item" style="--skill-width: 88%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">Project Management</span>
+                            <span class="skill-percentage">88%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar-item" style="--skill-width: 91%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">Attention to Detail</span>
+                            <span class="skill-percentage">91%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar-item" style="--skill-width: 87%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">Team Collaboration</span>
+                            <span class="skill-percentage">87%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-bar-item" style="--skill-width: 89%;">
+                        <div class="skill-bar-header">
+                            <span class="skill-name">Time Management</span>
+                            <span class="skill-percentage">89%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skill Cloud Section -->
+        <!-- Portfolio Section with Slider -->
+        <section class="section" id="portfolio">
+            <div class="section-header">
+                <div class="section-tag">💼 PORTFOLIO</div>
+                <h2>Featured Projects</h2>
+                <p class="section-subtitle">Showcasing successful client solutions</p>
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="slide">
+                        <div class="project-grid">
+                            <div class="project-card">
+                                <div class="project-icon">🏢</div>
+                                <h3 class="project-title">Enterprise E-Commerce Platform</h3>
+                                <p class="project-description">Built a high-performance WooCommerce platform processing $500K+ monthly. Implemented custom inventory management, multi-gateway payments, and automated order workflows.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">WooCommerce</span>
+                                    <span class="project-tag">Custom Integration</span>
+                                    <span class="project-tag">Automation</span>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-icon">📈</div>
+                                <h3 class="project-title">SaaS Marketing Website</h3>
+                                <p class="project-description">Designed and developed a conversion-optimized marketing site that increased lead generation by 180% through strategic UX improvements and performance optimization.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Elementor</span>
+                                    <span class="project-tag">SEO</span>
+                                    <span class="project-tag">Performance</span>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-icon">🎓</div>
+                                <h3 class="project-title">Learning Management System</h3>
+                                <p class="project-description">Created a custom LMS using LearnDash with automated student enrollment, progress tracking, and certificate generation serving 5,000+ active learners.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">LearnDash</span>
+                                    <span class="project-tag">Custom Development</span>
+                                    <span class="project-tag">API Integration</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="slide">
+                        <div class="project-grid">
+                            <div class="project-card">
+                                <div class="project-icon">🏨</div>
+                                <h3 class="project-title">Hotel Booking Platform</h3>
+                                <p class="project-description">Developed a custom booking system with real-time availability, dynamic pricing, and PMS integration reducing manual bookings by 85%.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Custom Plugin</span>
+                                    <span class="project-tag">Payment Gateway</span>
+                                    <span class="project-tag">Third-party API</span>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-icon">📰</div>
+                                <h3 class="project-title">News & Magazine Portal</h3>
+                                <p class="project-description">Built a high-traffic news platform handling 1M+ monthly visitors with advanced caching, CDN integration, and automated content workflows.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Performance</span>
+                                    <span class="project-tag">Scalability</span>
+                                    <span class="project-tag">Automation</span>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-icon">💼</div>
+                                <h3 class="project-title">Professional Services Directory</h3>
+                                <p class="project-description">Created a searchable directory with advanced filtering, member profiles, and automated email marketing integration serving 500+ professionals.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Custom Post Types</span>
+                                    <span class="project-tag">Advanced Search</span>
+                                    <span class="project-tag">Email Marketing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prevBtn">‹</button>
+                    <button class="slider-btn" id="nextBtn">›</button>
+                </div>
+
+                <div class="slider-dots">
+                    <span class="slider-dot active" data-slide="0"></span>
+                    <span class="slider-dot" data-slide="1"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials with Slider -->
         <section class="section">
             <div class="section-header">
-                <div class="section-tag">💫 TECH CLOUD</div>
-                <h2>Technology Ecosystem</h2>
+                <div class="section-tag">💬 TESTIMONIALS</div>
+                <h2>What Clients Say</h2>
+                <p class="section-subtitle">Real feedback from satisfied clients</p>
             </div>
 
-            <div class="skill-cloud">
-                <div class="cloud-wrapper">
-                    <div class="cloud-tag">REST API</div>
-                    <div class="cloud-tag">WP Cron</div>
-                    <div class="cloud-tag">ACF</div>
-                    <div class="cloud-tag">Gutenberg</div>
-                    <div class="cloud-tag">Custom Post Types</div>
-                    <div class="cloud-tag">Taxonomies</div>
-                    <div class="cloud-tag">Elementor Pro</div>
-                    <div class="cloud-tag">Hooks & Filters</div>
-                    <div class="cloud-tag">Yoast SEO</div>
-                    <div class="cloud-tag">Rank Math</div>
-                    <div class="cloud-tag">Wordfence</div>
-                    <div class="cloud-tag">WP Rocket</div>
-                    <div class="cloud-tag">CDN</div>
-                    <div class="cloud-tag">WP Migration</div>
-                    <div class="cloud-tag">UpdraftPlus</div>
-                    <div class="cloud-tag">Google Analytics</div>
-                    <div class="cloud-tag">GTM</div>
-                    <div class="cloud-tag">Schema Markup</div>
-                    <div class="cloud-tag">SMTP</div>
-                    <div class="cloud-tag">ReCaptcha</div>
-                    <div class="cloud-tag">WooCommerce</div>
-                    <div class="cloud-tag">Stripe</div>
-                    <div class="cloud-tag">PayPal</div>
-                    <div class="cloud-tag">Contact Form 7</div>
-                    <div class="cloud-tag">WPForms</div>
-                    <div class="cloud-tag">Gravity Forms</div>
-                    <div class="cloud-tag">HubSpot</div>
-                    <div class="cloud-tag">Uncanny Automator</div>
-                    <div class="cloud-tag">Multisite</div>
-                    <div class="cloud-tag">Child Themes</div>
+            <div class="slider-container">
+                <div class="slider-wrapper" id="testimonialSlider">
+                    <div class="slide">
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Absolutely exceptional work! They transformed our slow, outdated website into a lightning-fast platform that converted 3x better. The attention to detail and technical expertise is unmatched."</p>
+                            <div class="testimonial-author">Sarah Johnson</div>
+                            <div class="testimonial-role">CEO, TechStart Inc.</div>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="testimonial">
+                            <p class="testimonial-text">"The automation workflows they built save our team 25 hours every week. What used to take manual effort now happens automatically. Best investment we've made in our business operations."</p>
+                            <div class="testimonial-author">Michael Chen</div>
+                            <div class="testimonial-role">Operations Director, Global Services LLC</div>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Professional, responsive, and incredibly knowledgeable. They didn't just build what we asked for—they proposed better solutions we hadn't even considered. Our revenue increased 40% after the redesign."</p>
+                            <div class="testimonial-author">Emily Rodriguez</div>
+                            <div class="testimonial-role">Marketing Manager, E-Commerce Brand</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-controls">
+                    <button class="slider-btn" id="testimonialPrev">‹</button>
+                    <button class="slider-btn" id="testimonialNext">›</button>
+                </div>
+
+                <div class="slider-dots" id="testimonialDots">
+                    <span class="slider-dot active" data-slide="0"></span>
+                    <span class="slider-dot" data-slide="1"></span>
+                    <span class="slider-dot" data-slide="2"></span>
                 </div>
             </div>
         </section>
 
-        <!-- Problem → Solution Section -->
+        <!-- Services Offered -->
         <section class="section">
             <div class="section-header">
-                <div class="section-tag">🎯 PROBLEM SOLVING</div>
-                <h2>What I Fix</h2>
-                <p class="section-subtitle">Transforming challenges into solutions</p>
+                <div class="section-tag">⚡ SERVICES</div>
+                <h2>What I Offer</h2>
+                <p class="section-subtitle">Comprehensive WordPress solutions for your business</p>
             </div>
 
-            <div class="problem-solution-grid">
-                <div class="ps-row">
-                    <div class="ps-problem">
-                        <div class="ps-label">Business Problem</div>
-                        <div class="ps-text">Website is slow</div>
-                    </div>
-                    <div class="ps-arrow">→</div>
-                    <div class="ps-solution">
-                        <div class="ps-label">What I Implement</div>
-                        <div class="ps-text">Performance optimization stack</div>
-                    </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3 class="service-title">Performance Optimization</h3>
+                    <p class="service-description">Transform slow websites into speed demons. I optimize every aspect from server configuration to code efficiency.</p>
+                    <ul class="service-features">
+                        <li>Core Web Vitals optimization</li>
+                        <li>Advanced caching strategies</li>
+                        <li>Database optimization</li>
+                        <li>CDN integration</li>
+                    </ul>
                 </div>
 
-                <div class="ps-row">
-                    <div class="ps-problem">
-                        <div class="ps-label">Business Problem</div>
-                        <div class="ps-text">Leads not converting</div>
-                    </div>
-                    <div class="ps-arrow">→</div>
-                    <div class="ps-solution">
-                        <div class="ps-label">What I Implement</div>
-                        <div class="ps-text">UX restructuring & form optimization</div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3 class="service-title">Workflow Automation</h3>
+                    <p class="service-description">Eliminate repetitive tasks with intelligent automation systems that save time and reduce errors.</p>
+                    <ul class="service-features">
+                        <li>Custom workflow design</li>
+                        <li>Third-party integrations</li>
+                        <li>Automated reporting</li>
+                        <li>Email & notification systems</li>
+                    </ul>
                 </div>
 
-                <div class="ps-row">
-                    <div class="ps-problem">
-                        <div class="ps-label">Business Problem</div>
-                        <div class="ps-text">Manual data entry work</div>
-                    </div>
-                    <div class="ps-arrow">→</div>
-                    <div class="ps-solution">
-                        <div class="ps-label">What I Implement</div>
-                        <div class="ps-text">Automation workflows & integrations</div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🛒</div>
+                    <h3 class="service-title">E-Commerce Solutions</h3>
+                    <p class="service-description">Build powerful online stores that convert visitors into customers and scale with your business.</p>
+                    <ul class="service-features">
+                        <li>WooCommerce setup & optimization</li>
+                        <li>Payment gateway integration</li>
+                        <li>Inventory management</li>
+                        <li>Conversion optimization</li>
+                    </ul>
                 </div>
 
-                <div class="ps-row">
-                    <div class="ps-problem">
-                        <div class="ps-label">Business Problem</div>
-                        <div class="ps-text">SEO not ranking</div>
-                    </div>
-                    <div class="ps-arrow">→</div>
-                    <div class="ps-solution">
-                        <div class="ps-label">What I Implement</div>
-                        <div class="ps-text">Technical SEO infrastructure</div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3 class="service-title">Security Hardening</h3>
+                    <p class="service-description">Protect your WordPress site from threats with comprehensive security measures and monitoring.</p>
+                    <ul class="service-features">
+                        <li>Security audits</li>
+                        <li>Malware removal & prevention</li>
+                        <li>SSL implementation</li>
+                        <li>Regular security updates</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3 class="service-title">Custom Development</h3>
+                    <p class="service-description">Get exactly what you need with custom plugins, themes, and functionality built specifically for your requirements.</p>
+                    <ul class="service-features">
+                        <li>Custom plugin development</li>
+                        <li>Theme customization</li>
+                        <li>API integrations</li>
+                        <li>Custom post types & taxonomies</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">SEO & Analytics</h3>
+                    <p class="service-description">Improve visibility and track performance with technical SEO optimization and comprehensive analytics setup.</p>
+                    <ul class="service-features">
+                        <li>Technical SEO audit</li>
+                        <li>Schema markup implementation</li>
+                        <li>Analytics & tracking setup</li>
+                        <li>Performance monitoring</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Tool Ecosystem Section -->
-        <section class="section">
+        <!-- Contact Section -->
+        <section class="section" id="contact">
             <div class="section-header">
-                <div class="section-tag">🧰 TOOLKIT</div>
-                <h2>Tool Ecosystem</h2>
-                <p class="section-subtitle">Organized technology stack by category</p>
+                <div class="section-tag">📬 GET IN TOUCH</div>
+                <h2>Let's Work Together</h2>
+                <p class="section-subtitle">Ready to transform your WordPress website?</p>
             </div>
 
-            <div class="tool-grid">
-                <div class="tool-category">
-                    <div class="tool-category-icon">🔍</div>
-                    <h4 class="tool-category-title">SEO</h4>
-                    <div class="tool-list">
-                        <div class="tool-item">Yoast SEO</div>
-                        <div class="tool-item">Rank Math</div>
-                        <div class="tool-item">Schema Pro</div>
-                        <div class="tool-item">Redirection</div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <a href="mailto:your.email@example.com">your.email@example.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <a href="tel:+1234567890">+1 (234) 567-890</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p style="color: rgba(248, 250, 252, 0.7);">Your City, Country</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-details">
+                            <h4>LinkedIn</h4>
+                            <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="tool-category">
-                    <div class="tool-category-icon">🛡️</div>
-                    <h4 class="tool-category-title">Security</h4>
-                    <div class="tool-list">
-                        <div class="tool-item">Wordfence</div>
-                        <div class="tool-item">Sucuri</div>
-                        <div class="tool-item">iThemes Security</div>
-                        <div class="tool-item">SSL/HTTPS</div>
-                    </div>
-                </div>
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 2rem;">Send a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
 
-                <div class="tool-category">
-                    <div class="tool-category-icon">⚡</div>
-                    <h4 class="tool-category-title">Performance</h4>
-                    <div class="tool-list">
-                        <div class="tool-item">WP Rocket</div>
-                        <div class="tool-item">Cloudflare</div>
-                        <div class="tool-item">ShortPixel</div>
-                        <div class="tool-item">Autoptimize</div>
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
 
-                <div class="tool-category">
-                    <div class="tool-category-icon">🎨</div>
-                    <h4 class="tool-category-title">Page Builders</h4>
-                    <div class="tool-list">
-                        <div class="tool-item">Elementor Pro</div>
-                        <div class="tool-item">Gutenberg</div>
-                        <div class="tool-item">ACF</div>
-                        <div class="tool-item">Custom Blocks</div>
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
 
-                <div class="tool-category">
-                    <div class="tool-category-icon">🤖</div>
-                    <h4 class="tool-category-title">Automation</h4>
-                    <div class="tool-list">
-                        <div class="tool-item">Uncanny Automator</div>
-                        <div class="tool-item">Zapier Integration</div>
-                        <div class="tool-item">WP Cron</div>
-                        <div class="tool-item">Webhooks</div>
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
 
-                <div class="tool-category">
-                    <div class="tool-category-icon">🛒</div>
-                    <h4 class="tool-category-title">Commerce</h4>
-                    <div class="tool-list">
-                        <div class="tool-item">WooCommerce</div>
-                        <div class="tool-item">Stripe</div>
-                        <div class="tool-item">PayPal</div>
-                        <div class="tool-item">Product Add-ons</div>
-                    </div>
-                </div>
-
-                <div class="tool-category">
-                    <div class="tool-category-icon">📊</div>
-                    <h4 class="tool-category-title">Analytics</h4>
-                    <div class="tool-list">
-                        <div class="tool-item">Google Analytics</div>
-                        <div class="tool-item">GTM</div>
-                        <div class="tool-item">MonsterInsights</div>
-                        <div class="tool-item">Hotjar</div>
-                    </div>
-                </div>
-
-                <div class="tool-category">
-                    <div class="tool-category-icon">📧</div>
-                    <h4 class="tool-category-title">Forms & Email</h4>
-                    <div class="tool-list">
-                        <div class="tool-item">WPForms</div>
-                        <div class="tool-item">Gravity Forms</div>
-                        <div class="tool-item">Contact Form 7</div>
-                        <div class="tool-item">SMTP Setup</div>
-                    </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
                 </div>
             </div>
-        </section>
-
-        <!-- Final CTA -->
-        <section class="final-cta">
-            <div class="section-tag">🚀 LET'S BUILD</div>
-            <h2>I Don't Just Build Pages</h2>
-            <p class="section-subtitle">I Build WordPress Infrastructure for Growing Businesses</p>
-            <a href="#contact" class="btn btn-primary">Let's Build Your System</a>
         </section>
     </div>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Your Name - WordPress Systems Specialist. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Built with passion for performance and automation</p>
+        </div>
+    </footer>
+
     <script>
-        // Scroll animations
+        // Tab Switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabGroup = btn.closest('.section');
+                const tabName = btn.dataset.tab;
+                
+                // Remove active class from all tabs and contents in this group
+                tabGroup.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                tabGroup.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                btn.classList.add('active');
+                tabGroup.querySelector(`#${tabName}`).classList.add('active');
+            });
+        });
+
+        // Portfolio Slider
+        const portfolioSlider = document.querySelector('.slider-wrapper');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dots = document.querySelectorAll('.slider-dots .slider-dot');
+        let currentSlide = 0;
+        const totalSlides = 2;
+
+        function updateSlider(index) {
+            currentSlide = index;
+            portfolioSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide = currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
+            updateSlider(currentSlide);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide = currentSlide === totalSlides - 1 ? 0 : currentSlide + 1;
+            updateSlider(currentSlide);
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                updateSlider(parseInt(dot.dataset.slide));
+            });
+        });
+
+        // Testimonial Slider
+        const testimonialSlider = document.getElementById('testimonialSlider');
+        const testimonialPrev = document.getElementById('testimonialPrev');
+        const testimonialNext = document.getElementById('testimonialNext');
+        const testimonialDots = document.querySelectorAll('#testimonialDots .slider-dot');
+        let currentTestimonial = 0;
+        const totalTestimonials = 3;
+
+        function updateTestimonialSlider(index) {
+            currentTestimonial = index;
+            testimonialSlider.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+            testimonialDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentTestimonial);
+            });
+        }
+
+        testimonialPrev.addEventListener('click', () => {
+            currentTestimonial = currentTestimonial === 0 ? totalTestimonials - 1 : currentTestimonial - 1;
+            updateTestimonialSlider(currentTestimonial);
+        });
+
+        testimonialNext.addEventListener('click', () => {
+            currentTestimonial = currentTestimonial === totalTestimonials - 1 ? 0 : currentTestimonial + 1;
+            updateTestimonialSlider(currentTestimonial);
+        });
+
+        testimonialDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                updateTestimonialSlider(parseInt(dot.dataset.slide));
+            });
+        });
+
+        // Auto-advance testimonials
+        setInterval(() => {
+            currentTestimonial = currentTestimonial === totalTestimonials - 1 ? 0 : currentTestimonial + 1;
+            updateTestimonialSlider(currentTestimonial);
+        }, 5000);
+
+        // Skill Bar Animation
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.5,
+            rootMargin: '0px'
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        const skillObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        // Observe all animated elements
-        document.querySelectorAll('.approach-card, .stack-category, .system-card, .tool-category, .ps-row').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
+        document.querySelectorAll('.skill-bar-item').forEach(el => {
+            skillObserver.observe(el);
         });
 
-        // Smooth scroll for anchor links
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1393,6 +1728,12 @@
                     });
                 }
             });
+        });
+
+        // Form Submission (placeholder)
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! This is a demo form. In production, this would send your message.');
         });
     </script>
 </body>
