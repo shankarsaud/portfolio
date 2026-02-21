@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alex Rivera — WordPress Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
   :root {
     --bg: #0a0a08;
@@ -26,34 +24,13 @@
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; overflow-x: hidden; }
-
   body {
     background: var(--bg);
     color: var(--text);
     font-family: var(--font-ui);
-    cursor: none;
     overflow-x: hidden;
   }
-
-  /* CUSTOM CURSOR */
-  .cursor {
-    position: fixed; width: 12px; height: 12px;
-    background: var(--gold); border-radius: 50%;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
-    mix-blend-mode: difference;
-  }
-  .cursor-ring {
-    position: fixed; width: 40px; height: 40px;
-    border: 1px solid var(--gold); border-radius: 50%;
-    pointer-events: none; z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
-  }
-  body:hover .cursor { opacity: 1; }
 
   /* NOISE OVERLAY */
   body::before {
@@ -73,7 +50,7 @@
     transition: border-color 0.4s, background 0.4s;
   }
   nav.scrolled {
-    background: rgba(10,10,8,0.9);
+    background: rgba(10,10,8,0.92);
     backdrop-filter: blur(20px);
     border-color: var(--border);
   }
@@ -126,9 +103,15 @@
     border-radius: 50%;
     filter: blur(80px);
     pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
   }
-  .orb1 { width: 500px; height: 500px; background: rgba(201,168,76,0.08); top: 10%; right: 5%; }
-  .orb2 { width: 300px; height: 300px; background: rgba(192,82,42,0.06); bottom: 20%; left: 10%; }
+  .orb1 { width: 500px; height: 500px; background: rgba(201,168,76,0.08); top: 10%; right: 5%; animation-delay: 0s; }
+  .orb2 { width: 300px; height: 300px; background: rgba(192,82,42,0.06); bottom: 20%; left: 10%; animation-delay: 3s; }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(20px, -30px); }
+  }
 
   .hero-eyebrow {
     font-family: var(--font-mono);
@@ -137,7 +120,9 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease forwards 0.3s;
     opacity: 0;
+    position: relative; z-index: 1;
   }
 
   .hero-name {
@@ -146,10 +131,11 @@
     font-weight: 900;
     line-height: 0.9;
     margin-bottom: 2rem;
+    position: relative; z-index: 1;
+    animation: fadeUp 1s ease forwards 0.5s;
     opacity: 0;
+    color: var(--cream);
   }
-  .hero-name .line { overflow: hidden; display: block; }
-  .hero-name .word { display: inline-block; }
   .hero-name em { font-style: italic; color: var(--gold); }
 
   .hero-tagline {
@@ -158,14 +144,25 @@
     max-width: 500px;
     line-height: 1.7;
     margin-bottom: 3rem;
-    opacity: 0;
     font-weight: 400;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+    opacity: 0;
   }
+  .hero-tagline strong { color: var(--text); }
 
   .hero-cta {
     display: flex; gap: 1.5rem; align-items: center;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.8s ease forwards 1s;
     opacity: 0;
   }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .btn-primary {
     background: var(--gold);
     color: var(--bg);
@@ -175,7 +172,7 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     border: none;
-    cursor: none;
+    cursor: pointer;
     text-decoration: none;
     font-weight: 500;
     transition: background 0.3s, transform 0.2s;
@@ -199,6 +196,8 @@
   .hero-stats {
     position: absolute; right: 3rem; bottom: 4rem;
     display: flex; flex-direction: column; gap: 2rem;
+    z-index: 1;
+    animation: fadeUp 0.8s ease forwards 1.2s;
     opacity: 0;
   }
   .stat-item { text-align: right; }
@@ -220,7 +219,12 @@
   .scroll-indicator {
     position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    z-index: 1;
+    animation: fadeIn 1s ease forwards 1.6s;
     opacity: 0;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
   }
   .scroll-line {
     width: 1px; height: 60px;
@@ -265,6 +269,7 @@
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 1.5rem;
+    color: var(--cream);
   }
 
   /* STORY / ABOUT */
@@ -274,8 +279,6 @@
     gap: 6rem;
     align-items: center;
   }
-
-  .story-left {}
 
   .story-text {
     font-size: 1.05rem;
@@ -293,10 +296,6 @@
     color: var(--cream);
     line-height: 1.5;
     margin: 2.5rem 0;
-  }
-
-  .story-right {
-    position: relative;
   }
 
   .code-window {
@@ -352,8 +351,7 @@
     padding: 2.5rem;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.4s;
-    cursor: none;
+    transition: border-color 0.4s, transform 0.3s;
   }
   .skill-card::before {
     content: '';
@@ -362,13 +360,14 @@
     opacity: 0;
     transition: opacity 0.4s;
   }
-  .skill-card:hover { border-color: var(--gold); }
+  .skill-card:hover { border-color: var(--gold); transform: translateY(-4px); }
   .skill-card:hover::before { opacity: 1; }
 
   .skill-card-icon {
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 1.5rem;
     display: block;
+    color: var(--gold);
   }
   .skill-card-title {
     font-family: var(--font-display);
@@ -383,7 +382,6 @@
     line-height: 1.7;
     margin-bottom: 1.5rem;
   }
-
   .skill-tags {
     display: flex; flex-wrap: wrap; gap: 0.5rem;
   }
@@ -396,7 +394,6 @@
     padding: 0.25rem 0.6rem;
     text-transform: uppercase;
   }
-
   .skill-level-bar {
     height: 2px;
     background: rgba(255,255,255,0.05);
@@ -429,8 +426,6 @@
   .timeline-item {
     position: relative;
     margin-bottom: 5rem;
-    opacity: 0;
-    transform: translateX(-30px);
   }
   .timeline-dot {
     position: absolute; left: -3.35rem; top: 0.4rem;
@@ -498,10 +493,9 @@
     border: 1px solid var(--border);
     position: relative;
     overflow: hidden;
-    cursor: none;
-    transition: border-color 0.4s;
+    transition: border-color 0.4s, transform 0.3s;
   }
-  .project-card:hover { border-color: rgba(201,168,76,0.6); }
+  .project-card:hover { border-color: rgba(201,168,76,0.6); transform: translateY(-4px); }
 
   .project-card-img {
     height: 220px;
@@ -516,6 +510,19 @@
     position: absolute; inset: 0;
     background: linear-gradient(to top, var(--bg2), transparent 60%);
   }
+
+  .project-icon-wrap {
+    position: relative; z-index: 1;
+    width: 80px; height: 80px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(201,168,76,0.08);
+    font-size: 2rem;
+    color: var(--gold);
+    transition: transform 0.3s;
+  }
+  .project-card:hover .project-icon-wrap { transform: scale(1.1); }
 
   .project-pattern {
     position: absolute; inset: 0; opacity: 0.15;
@@ -566,10 +573,41 @@
     min-height: 280px;
   }
 
-  /* PROCESS */
-  #process {
-    overflow: hidden;
+  /* Hidden projects */
+  .project-card.hidden {
+    display: none;
   }
+
+  /* Load More Button */
+  .load-more-wrap {
+    text-align: center;
+    margin-top: 3rem;
+  }
+  .btn-load-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 1rem 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s, transform 0.2s;
+  }
+  .btn-load-more:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .btn-load-more i { transition: transform 0.3s; }
+  .btn-load-more:hover i { transform: translateY(3px); }
+
+  /* PROCESS */
+  #process { overflow: hidden; }
 
   .process-steps {
     display: flex;
@@ -589,8 +627,6 @@
     flex: 1;
     padding: 5rem 2rem 2rem;
     position: relative;
-    opacity: 0;
-    transform: translateY(30px);
   }
   .process-step-num {
     position: absolute; top: 0; left: 2rem;
@@ -617,8 +653,6 @@
   }
 
   /* EDUCATION */
-  #education {}
-
   .edu-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -631,7 +665,9 @@
     padding: 2.5rem;
     position: relative;
     overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
   }
+  .edu-card:hover { border-color: var(--gold); transform: translateY(-4px); }
   .edu-card-year {
     font-family: var(--font-display);
     font-size: 5rem;
@@ -650,12 +686,11 @@
     margin-bottom: 0.5rem;
   }
   .edu-institution {
-    font-size: 0.85rem;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
+    color: var(--gold);
     letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
   }
   .edu-period {
     font-family: var(--font-mono);
@@ -686,6 +721,7 @@
     font-weight: 900;
     line-height: 1;
     margin-bottom: 2rem;
+    color: var(--cream);
   }
   .contact-title em { color: var(--gold); font-style: italic; }
   .contact-subtitle {
@@ -700,7 +736,7 @@
     flex-wrap: wrap;
   }
   .contact-link {
-    display: flex; align-items: center; gap: 0.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.15em;
@@ -725,19 +761,6 @@
     transition: color 0.3s, border-color 0.3s;
   }
   .email-big:hover { color: var(--gold); border-color: var(--gold); }
-
-  /* FOOTER */
-  footer {
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  footer p {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-  }
 
   /* MARQUEE */
   .marquee-section {
@@ -773,14 +796,32 @@
     flex-shrink: 0;
   }
 
-  /* WP VISUAL */
-  .wp-visual {
-    position: relative;
-    padding: 2rem;
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
   }
 
-  /* Animated counter */
-  .counter-num { display: inline-block; }
+  /* Fade-in on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
@@ -800,10 +841,6 @@
 </head>
 <body>
 
-<!-- Custom cursor -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-logo">AR</div>
@@ -822,11 +859,10 @@
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
 
-  <div class="hero-eyebrow">Available for hire · WordPress Developer</div>
+  <div class="hero-eyebrow"><i class="fa-solid fa-circle-dot fa-xs" style="margin-right:0.5rem"></i>Available for hire · WordPress Developer</div>
 
   <h1 class="hero-name">
-    <span class="line"><span class="word">Alex</span></span>
-    <span class="line"><span class="word"><em>Rivera</em></span></span>
+    Alex<br><em>Rivera</em>
   </h1>
 
   <p class="hero-tagline">
@@ -840,15 +876,15 @@
 
   <div class="hero-stats">
     <div class="stat-item">
-      <div class="stat-num"><span class="counter-num" data-target="6">0</span>+</div>
+      <div class="stat-num" id="counter1">6+</div>
       <div class="stat-label">Years Experience</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num"><span class="counter-num" data-target="80">0</span>+</div>
+      <div class="stat-num" id="counter2">80+</div>
       <div class="stat-label">Projects Delivered</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num"><span class="counter-num" data-target="99">0</span></div>
+      <div class="stat-num" id="counter3">99</div>
       <div class="stat-label">PageSpeed Score</div>
     </div>
   </div>
@@ -861,35 +897,33 @@
 
 <!-- MARQUEE -->
 <div class="marquee-section">
-  <div class="marquee-track" id="marqueeTrack">
-    <!-- items duplicated for seamless loop -->
-  </div>
+  <div class="marquee-track" id="marqueeTrack"></div>
 </div>
 
 <!-- STORY / ABOUT -->
 <section id="story">
   <div class="story-left">
     <div class="section-label">My Story</div>
-    <h2 class="section-title">Code that tells<br><em>your story</em></h2>
+    <h2 class="section-title">Code that tells<br><em style="color:var(--gold);font-style:italic">your story</em></h2>
 
-    <p class="story-text">
+    <p class="story-text reveal">
       It started in 2018 with a broken theme and a lot of <strong>curiosity</strong>. What began as debugging a client's blog turned into a deep obsession with the WordPress ecosystem — hooks, filters, the block editor, REST API — the whole beautiful, messy universe of it.
     </p>
 
-    <div class="story-highlight">
+    <div class="story-highlight reveal">
       "I don't just build websites. I engineer digital experiences that work when you're asleep."
     </div>
 
-    <p class="story-text">
+    <p class="story-text reveal">
       Today I specialise in <strong>custom theme development</strong>, <strong>plugin architecture</strong>, and <strong>WooCommerce</strong> solutions. I think deeply about performance — because a 1-second delay costs conversions — and I care obsessively about <strong>clean, documented code</strong> that your team can actually maintain.
     </p>
 
-    <p class="story-text">
+    <p class="story-text reveal">
       When I'm not in the editor, I'm contributing to open-source WordPress plugins and writing about web performance on my blog.
     </p>
   </div>
 
-  <div class="story-right">
+  <div class="story-right reveal">
     <div class="code-window">
       <div class="code-titlebar">
         <span class="dot dot-r"></span>
@@ -944,8 +978,8 @@
   <h2 class="section-title">What I bring<br>to the table</h2>
 
   <div class="skills-grid">
-    <div class="skill-card" data-level="97">
-      <span class="skill-card-icon">⚡</span>
+    <div class="skill-card reveal">
+      <span class="skill-card-icon"><i class="fa-brands fa-wordpress"></i></span>
       <div class="skill-card-title">WordPress Core</div>
       <p class="skill-card-desc">Deep knowledge of hooks, filters, template hierarchy, the WP REST API, and the block editor (Gutenberg). I extend WordPress — never fight it.</p>
       <div class="skill-tags">
@@ -958,8 +992,8 @@
       <div class="skill-level-bar"><div class="skill-level-fill" data-width="97%"></div></div>
     </div>
 
-    <div class="skill-card" data-level="92">
-      <span class="skill-card-icon">🛒</span>
+    <div class="skill-card reveal reveal-delay-1">
+      <span class="skill-card-icon"><i class="fa-solid fa-cart-shopping"></i></span>
       <div class="skill-card-title">WooCommerce</div>
       <p class="skill-card-desc">Custom payment gateways, subscription logic, product builder tools, and high-traffic store optimisation. Responsible for €2M+ in annual GMV.</p>
       <div class="skill-tags">
@@ -971,8 +1005,8 @@
       <div class="skill-level-bar"><div class="skill-level-fill" data-width="92%"></div></div>
     </div>
 
-    <div class="skill-card" data-level="88">
-      <span class="skill-card-icon">🎨</span>
+    <div class="skill-card reveal reveal-delay-2">
+      <span class="skill-card-icon"><i class="fa-solid fa-pen-nib"></i></span>
       <div class="skill-card-title">Frontend Craft</div>
       <p class="skill-card-desc">Pixel-perfect HTML/CSS, modern JavaScript, GSAP animations, and accessibility-first development. I care as much about WCAG as I do about visual polish.</p>
       <div class="skill-tags">
@@ -985,8 +1019,8 @@
       <div class="skill-level-bar"><div class="skill-level-fill" data-width="88%"></div></div>
     </div>
 
-    <div class="skill-card" data-level="90">
-      <span class="skill-card-icon">🚀</span>
+    <div class="skill-card reveal">
+      <span class="skill-card-icon"><i class="fa-solid fa-gauge-high"></i></span>
       <div class="skill-card-title">Performance & SEO</div>
       <p class="skill-card-desc">Obsessed with Core Web Vitals. I audit, optimise, and squeeze every millisecond from loading — resulting in 30–60% improvement in real-world metrics.</p>
       <div class="skill-tags">
@@ -999,8 +1033,8 @@
       <div class="skill-level-bar"><div class="skill-level-fill" data-width="90%"></div></div>
     </div>
 
-    <div class="skill-card" data-level="85">
-      <span class="skill-card-icon">🔧</span>
+    <div class="skill-card reveal reveal-delay-1">
+      <span class="skill-card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
       <div class="skill-card-title">DevOps & Tooling</div>
       <p class="skill-card-desc">Modern WordPress workflows with Git, WP-CLI, Composer, and CI/CD pipelines. I keep environments consistent and deployments boring (in the best way).</p>
       <div class="skill-tags">
@@ -1013,8 +1047,8 @@
       <div class="skill-level-bar"><div class="skill-level-fill" data-width="85%"></div></div>
     </div>
 
-    <div class="skill-card" data-level="80">
-      <span class="skill-card-icon">🗄️</span>
+    <div class="skill-card reveal reveal-delay-2">
+      <span class="skill-card-icon"><i class="fa-solid fa-database"></i></span>
       <div class="skill-card-title">Backend & APIs</div>
       <p class="skill-card-desc">PHP 8.x with OOP principles, MySQL query optimisation, and custom REST endpoints. I also wire up third-party APIs — CRMs, ERPs, payment processors.</p>
       <div class="skill-tags">
@@ -1035,7 +1069,7 @@
   <h2 class="section-title">Where I've<br>been building</h2>
 
   <div class="timeline">
-    <div class="timeline-item">
+    <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
       <div class="timeline-period">2022 — Present</div>
       <div class="timeline-role">Senior WordPress Developer</div>
@@ -1049,7 +1083,7 @@
       </div>
     </div>
 
-    <div class="timeline-item">
+    <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
       <div class="timeline-period">2020 — 2022</div>
       <div class="timeline-role">WordPress Developer</div>
@@ -1062,7 +1096,7 @@
       </div>
     </div>
 
-    <div class="timeline-item">
+    <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
       <div class="timeline-period">2018 — 2020</div>
       <div class="timeline-role">Junior Web Developer</div>
@@ -1082,8 +1116,9 @@
   <div class="section-label">Selected Work</div>
   <h2 class="section-title">Things I've<br>shipped</h2>
 
-  <div class="projects-grid">
-    <!-- Featured -->
+  <div class="projects-grid" id="projectsGrid">
+
+    <!-- VISIBLE: Project 1 — Featured -->
     <div class="project-card project-card-featured">
       <div class="project-card-img">
         <svg class="project-pattern" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
@@ -1093,8 +1128,8 @@
           <rect width="100%" height="100%" fill="url(#grid1)"/>
           <circle cx="200" cy="150" r="80" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
           <circle cx="200" cy="150" r="120" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-          <text x="200" y="165" text-anchor="middle" font-size="60" fill="rgba(201,168,76,0.5)">🛒</text>
         </svg>
+        <div class="project-icon-wrap"><i class="fa-solid fa-store"></i></div>
       </div>
       <div class="project-card-body">
         <div class="project-type">Featured · WooCommerce + Custom Plugin</div>
@@ -1112,7 +1147,7 @@
       </div>
     </div>
 
-    <!-- Cards -->
+    <!-- VISIBLE: Project 2 -->
     <div class="project-card">
       <div class="project-card-img">
         <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
@@ -1121,9 +1156,8 @@
           <rect x="170" y="60" width="200" height="20" rx="1" fill="rgba(122,158,126,0.15)"/>
           <rect x="170" y="90" width="160" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
           <rect x="170" y="110" width="180" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
-          <rect x="170" y="130" width="140" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
-          <text x="90" y="130" text-anchor="middle" font-size="50" fill="rgba(122,158,126,0.4)">📰</text>
         </svg>
+        <div class="project-icon-wrap"><i class="fa-solid fa-newspaper"></i></div>
       </div>
       <div class="project-card-body">
         <div class="project-type">Custom Theme · Publishing</div>
@@ -1138,14 +1172,15 @@
       </div>
     </div>
 
+    <!-- VISIBLE: Project 3 -->
     <div class="project-card">
       <div class="project-card-img">
         <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
           <rect width="100%" height="100%" fill="#0e0e0c"/>
           <circle cx="200" cy="110" r="60" fill="none" stroke="rgba(192,82,42,0.3)" stroke-width="1" stroke-dasharray="5,5"/>
           <circle cx="200" cy="110" r="30" fill="rgba(192,82,42,0.08)"/>
-          <text x="200" y="130" text-anchor="middle" font-size="40" fill="rgba(192,82,42,0.5)">🏥</text>
         </svg>
+        <div class="project-icon-wrap"><i class="fa-solid fa-hospital"></i></div>
       </div>
       <div class="project-card-body">
         <div class="project-type">Plugin Development · Healthcare</div>
@@ -1160,14 +1195,15 @@
       </div>
     </div>
 
-    <div class="project-card">
+    <!-- HIDDEN: Project 4 -->
+    <div class="project-card hidden">
       <div class="project-card-img">
         <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
           <rect width="100%" height="100%" fill="#0e0e0c"/>
           <polygon points="200,40 340,180 60,180" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
           <polygon points="200,70 310,170 90,170" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
-          <text x="200" y="155" text-anchor="middle" font-size="40" fill="rgba(201,168,76,0.4)">🎓</text>
         </svg>
+        <div class="project-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></div>
       </div>
       <div class="project-card-body">
         <div class="project-type">LMS · Education</div>
@@ -1181,6 +1217,66 @@
         </div>
       </div>
     </div>
+
+    <!-- HIDDEN: Project 5 -->
+    <div class="project-card hidden">
+      <div class="project-card-img">
+        <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#0e0e0c"/>
+          <rect x="50" y="50" width="300" height="120" rx="4" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+          <rect x="70" y="70" width="80" height="80" rx="2" fill="rgba(201,168,76,0.06)"/>
+          <rect x="170" y="75" width="160" height="12" rx="2" fill="rgba(201,168,76,0.15)"/>
+          <rect x="170" y="100" width="130" height="8" rx="2" fill="rgba(255,255,255,0.06)"/>
+          <rect x="170" y="118" width="100" height="8" rx="2" fill="rgba(255,255,255,0.06)"/>
+        </svg>
+        <div class="project-icon-wrap"><i class="fa-solid fa-house-chimney"></i></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-type">Custom Theme · Real Estate</div>
+        <div class="project-title">EstateView Pro</div>
+        <p class="project-desc">Property listing platform with map-based search, mortgage calculators, and agent CRM integration. Over 10,000 listings with lightning-fast filtered search via Elasticsearch.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Custom Theme</span>
+          <span class="stack-tag">Elasticsearch</span>
+          <span class="stack-tag">Google Maps API</span>
+          <span class="stack-tag">CRM Sync</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HIDDEN: Project 6 -->
+    <div class="project-card hidden">
+      <div class="project-card-img">
+        <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#0e0e0c"/>
+          <circle cx="100" cy="110" r="50" fill="none" stroke="rgba(122,158,126,0.3)" stroke-width="1"/>
+          <circle cx="200" cy="110" r="50" fill="none" stroke="rgba(122,158,126,0.2)" stroke-width="1"/>
+          <circle cx="300" cy="110" r="50" fill="none" stroke="rgba(122,158,126,0.15)" stroke-width="1"/>
+        </svg>
+        <div class="project-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-type">SaaS · Analytics</div>
+        <div class="project-title">WP Pulse Dashboard</div>
+        <p class="project-desc">Real-time WordPress performance monitoring SaaS. Tracks Core Web Vitals, uptime, and database query health across client sites with customisable alert thresholds.</p>
+        <div class="project-stack">
+          <span class="stack-tag">PHP 8.2</span>
+          <span class="stack-tag">WebSockets</span>
+          <span class="stack-tag">Chart.js</span>
+          <span class="stack-tag">WP Cron</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Load More -->
+  <div class="load-more-wrap">
+    <button class="btn-load-more" id="loadMoreBtn">
+      <i class="fa-solid fa-chevron-down"></i>
+      Load More Projects
+      <span id="remainingCount" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--gold);margin-left:0.25rem">(3 more)</span>
+    </button>
   </div>
 </section>
 
@@ -1193,7 +1289,7 @@
     <div class="process-step">
       <div class="process-step-num">01</div>
       <div class="process-step-title">Discover & Define</div>
-      <p class="process-step-desc">I start by asking the uncomfortable questions. What's the actual business goal? Who are the users? What does success look like in 3 months? Good questions create better briefs.</p>
+      <p class="process-step-desc">I start by asking the uncomfortable questions. What's the actual business goal? Who are the users? What does success look like in 3 months?</p>
     </div>
     <div class="process-step">
       <div class="process-step-num">02</div>
@@ -1213,7 +1309,7 @@
     <div class="process-step">
       <div class="process-step-num">05</div>
       <div class="process-step-title">Support & Grow</div>
-      <p class="process-step-desc">Launch is the beginning. I monitor, iterate, and help you respond to what real users actually do — not what we assumed they'd do in the brief.</p>
+      <p class="process-step-desc">Launch is the beginning. I monitor, iterate, and help you respond to what real users actually do — not what we assumed in the brief.</p>
     </div>
   </div>
 </section>
@@ -1224,7 +1320,7 @@
   <h2 class="section-title">The foundation<br>underneath</h2>
 
   <div class="edu-grid">
-    <div class="edu-card">
+    <div class="edu-card reveal">
       <div class="edu-card-year">18</div>
       <div class="edu-degree">B.Sc. Computer Science</div>
       <div class="edu-institution">University of Mumbai</div>
@@ -1232,7 +1328,7 @@
       <p class="edu-desc">Graduated with First Class Honours. Dissertation on optimising database query performance in CMS applications — directly applicable to every WordPress project I touch.</p>
     </div>
 
-    <div class="edu-card">
+    <div class="edu-card reveal reveal-delay-1">
       <div class="edu-card-year">22</div>
       <div class="edu-degree">WordPress Core Contributor</div>
       <div class="edu-institution">WordPress.org</div>
@@ -1240,15 +1336,15 @@
       <p class="edu-desc">Active contributor to WordPress core. Submitted patches to the Gutenberg project and contributed documentation. WordCamp speaker in 2023 on REST API performance.</p>
     </div>
 
-    <div class="edu-card">
+    <div class="edu-card reveal reveal-delay-2">
       <div class="edu-card-year">23</div>
       <div class="edu-degree">AWS Certified Developer</div>
       <div class="edu-institution">Amazon Web Services</div>
       <div class="edu-period">2023</div>
-      <p class="edu-desc">Associate-level certification covering serverless architecture, S3, CloudFront, and Lambda — technologies I apply when deploying WordPress at scale with high availability requirements.</p>
+      <p class="edu-desc">Associate-level certification covering serverless architecture, S3, CloudFront, and Lambda — applied when deploying WordPress at scale with high availability requirements.</p>
     </div>
 
-    <div class="edu-card">
+    <div class="edu-card reveal reveal-delay-3">
       <div class="edu-card-year">∞</div>
       <div class="edu-degree">Continuous Learning</div>
       <div class="edu-institution">Books, Podcasts & Side Projects</div>
@@ -1268,54 +1364,20 @@
   <a href="mailto:alex.rivera@example.com" class="email-big">alex.rivera@example.com</a>
 
   <div class="contact-links">
-    <a href="#" class="contact-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      LinkedIn
-    </a>
-    <a href="#" class="contact-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      GitHub
-    </a>
-    <a href="#" class="contact-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      Portfolio Site
-    </a>
-    <a href="#" class="contact-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Download CV
-    </a>
+    <a href="#" class="contact-link"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+    <a href="#" class="contact-link"><i class="fa-brands fa-github"></i> GitHub</a>
+    <a href="#" class="contact-link"><i class="fa-solid fa-globe"></i> Portfolio Site</a>
+    <a href="#" class="contact-link"><i class="fa-solid fa-file-arrow-down"></i> Download CV</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2024 Alex Rivera. Built with WordPress love ♥</p>
+  <p>© 2024 Alex Rivera. Built with WordPress love <i class="fa-solid fa-heart" style="color:var(--gold)"></i></p>
   <p>Designed & coded by hand · Mumbai, India</p>
 </footer>
 
 <script>
-  gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
-  /* ---- CURSOR ---- */
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    gsap.to(cursor, { x: mx, y: my, duration: 0.05 });
-    gsap.to(ring, { x: mx, y: my, duration: 0.25 });
-  });
-  document.querySelectorAll('a, button, .skill-card, .project-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      gsap.to(cursor, { width: 6, height: 6, duration: 0.2 });
-      gsap.to(ring, { width: 60, height: 60, borderColor: 'rgba(201,168,76,0.8)', duration: 0.3 });
-    });
-    el.addEventListener('mouseleave', () => {
-      gsap.to(cursor, { width: 12, height: 12, duration: 0.2 });
-      gsap.to(ring, { width: 40, height: 40, borderColor: 'rgba(201,168,76,0.5)', duration: 0.3 });
-    });
-  });
-
   /* ---- NAV SCROLL ---- */
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
@@ -1327,124 +1389,63 @@
   const items = [...skills, ...skills].map(s => `<span class="marquee-item"><span class="marquee-dot"></span>${s}</span>`).join('');
   track.innerHTML = items + items;
 
-  /* ---- HERO ANIMATIONS ---- */
-  const heroTl = gsap.timeline({ delay: 0.3 });
-  heroTl
-    .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0)
-    .fromTo('.hero-name .word', { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.2, ease: 'power4.out', stagger: 0.15 }, 0.3)
-    .to('.hero-tagline', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.8)
-    .to('.hero-cta', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 1.1)
-    .to('.hero-stats', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 1.3)
-    .to('.scroll-indicator', { opacity: 1, duration: 0.8 }, 1.6);
-
-  /* ---- ORB FLOAT ---- */
-  gsap.to('.orb1', { y: -40, x: 20, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-  gsap.to('.orb2', { y: 30, x: -15, duration: 8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 2 });
-
-  /* ---- COUNTER ANIMATION ---- */
-  document.querySelectorAll('.counter-num').forEach(el => {
-    const target = +el.dataset.target;
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 90%',
-      once: true,
-      onEnter: () => gsap.to({ val: 0 }, {
-        val: target,
-        duration: 2,
-        ease: 'power2.out',
-        onUpdate: function() { el.textContent = Math.round(this.targets()[0].val); }
-      })
+  /* ---- SKILL BARS on scroll ---- */
+  function animateSkillBars() {
+    document.querySelectorAll('.skill-level-fill').forEach(bar => {
+      const rect = bar.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.9 && bar.style.width === '') {
+        bar.style.width = bar.dataset.width;
+      }
     });
-  });
+  }
 
-  /* ---- SKILL BARS ---- */
-  document.querySelectorAll('.skill-level-fill').forEach(bar => {
-    ScrollTrigger.create({
-      trigger: bar,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => gsap.to(bar, { width: bar.dataset.width, duration: 1.6, ease: 'power3.out', delay: 0.2 })
+  /* ---- REVEAL ON SCROLL ---- */
+  function revealElements() {
+    document.querySelectorAll('.reveal').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.88) {
+        el.classList.add('visible');
+      }
     });
-  });
+    animateSkillBars();
+  }
 
-  /* ---- SKILL CARDS STAGGER ---- */
-  gsap.from('.skill-card', {
-    scrollTrigger: { trigger: '#skills .skills-grid', start: 'top 75%' },
-    opacity: 0, y: 50, duration: 0.8, stagger: 0.1, ease: 'power3.out'
-  });
+  window.addEventListener('scroll', revealElements);
+  window.addEventListener('load', revealElements);
+  revealElements();
 
-  /* ---- TIMELINE ---- */
-  document.querySelectorAll('.timeline-item').forEach((item, i) => {
-    gsap.to(item, {
-      scrollTrigger: { trigger: item, start: 'top 80%' },
-      opacity: 1, x: 0, duration: 0.9, ease: 'power3.out', delay: i * 0.15
+  /* ---- LOAD MORE PROJECTS ---- */
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  const hiddenCards = document.querySelectorAll('.project-card.hidden');
+  const remainingCount = document.getElementById('remainingCount');
+
+  loadMoreBtn.addEventListener('click', () => {
+    hiddenCards.forEach((card, i) => {
+      setTimeout(() => {
+        card.classList.remove('hidden');
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 20);
+        });
+      }, i * 100);
     });
-  });
-
-  /* ---- PROJECT CARDS ---- */
-  gsap.from('.project-card', {
-    scrollTrigger: { trigger: '#projects .projects-grid', start: 'top 75%' },
-    opacity: 0, y: 60, duration: 0.8, stagger: 0.12, ease: 'power3.out'
-  });
-
-  /* ---- PROCESS STEPS ---- */
-  document.querySelectorAll('.process-step').forEach((step, i) => {
-    gsap.to(step, {
-      scrollTrigger: { trigger: step, start: 'top 80%' },
-      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: i * 0.1
-    });
-  });
-
-  /* ---- SECTION HEADINGS REVEAL ---- */
-  document.querySelectorAll('.section-title').forEach(el => {
-    gsap.from(el, {
-      scrollTrigger: { trigger: el, start: 'top 85%' },
-      opacity: 0, y: 40, duration: 1, ease: 'power3.out'
-    });
-  });
-
-  /* ---- EDUCATION CARDS ---- */
-  gsap.from('.edu-card', {
-    scrollTrigger: { trigger: '#education .edu-grid', start: 'top 75%' },
-    opacity: 0, y: 50, rotateX: 8, duration: 0.9, stagger: 0.12, ease: 'power3.out',
-    transformOrigin: 'top center'
-  });
-
-  /* ---- CONTACT SECTION ---- */
-  gsap.from('.contact-title', {
-    scrollTrigger: { trigger: '#contact', start: 'top 75%' },
-    opacity: 0, y: 60, duration: 1.2, ease: 'power4.out'
+    loadMoreBtn.style.display = 'none';
   });
 
   /* ---- SMOOTH SCROLL ---- */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      e.preventDefault();
       const target = document.querySelector(a.getAttribute('href'));
-      if (target) gsap.to(window, { scrollTo: target, duration: 1.2, ease: 'power3.inOut' });
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     });
-  });
-
-  /* ---- CODE WINDOW TYPING EFFECT ---- */
-  ScrollTrigger.create({
-    trigger: '.code-window',
-    start: 'top 75%',
-    once: true,
-    onEnter: () => {
-      gsap.from('.code-window', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' });
-    }
-  });
-
-  /* ---- PARALLAX HERO ---- */
-  gsap.to('.hero-bg-grid', {
-    scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true },
-    y: 100, ease: 'none'
-  });
-
-  /* ---- STORY TEXT REVEAL ---- */
-  gsap.from('.story-text, .story-highlight', {
-    scrollTrigger: { trigger: '#story', start: 'top 75%' },
-    opacity: 0, y: 30, duration: 0.9, stagger: 0.15, ease: 'power3.out'
   });
 </script>
 </body>
