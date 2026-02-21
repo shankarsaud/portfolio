@@ -3,2147 +3,1449 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alex Rivera — WordPress Developer Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Alex Rivera — WordPress Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
 <style>
   :root {
-    --wp-blue: #2271b1;
-    --wp-blue-dark: #135e96;
-    --wp-blue-hover: #2980b9;
-    --wp-admin-bar: #1d2327;
-    --wp-sidebar: #1d2327;
-    --wp-sidebar-hover: #2c3338;
-    --wp-sidebar-active: #2271b1;
-    --wp-content-bg: #f0f0f1;
-    --wp-white: #ffffff;
-    --wp-border: #c3c4c7;
-    --wp-text: #1d2327;
-    --wp-text-muted: #646970;
-    --wp-green: #00a32a;
-    --wp-orange: #dba617;
-    --wp-red: #d63638;
-    --wp-purple: #9B51E0;
-    --accent: #f6f7f7;
-    --sidebar-width: 160px;
-    --admin-bar-height: 32px;
+    --bg: #0a0a08;
+    --bg2: #111110;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold2: #e8c96e;
+    --rust: #c0522a;
+    --sage: #7a9e7e;
+    --text: #e8e4dc;
+    --muted: #8a8478;
+    --border: rgba(201,168,76,0.2);
+    --font-display: 'Playfair Display', serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-ui: 'Syne', sans-serif;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--wp-content-bg);
-    color: var(--wp-text);
-    font-size: 13px;
-    line-height: 1.6;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    cursor: none;
     overflow-x: hidden;
   }
 
-  /* ═══════════════ ADMIN BAR ═══════════════ */
-  #admin-bar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: var(--admin-bar-height);
-    background: var(--wp-admin-bar);
-    display: flex;
-    align-items: center;
-    padding: 0 8px;
-    z-index: 99999;
-    gap: 0;
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed; width: 12px; height: 12px;
+    background: var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed; width: 40px; height: 40px;
+    border: 1px solid var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.5;
   }
 
-  .admin-bar-logo {
-    display: flex;
-    align-items: center;
-    padding: 0 8px;
-    height: 32px;
-    color: #c3c4c7;
-    font-size: 20px;
-    cursor: pointer;
-    transition: color 0.15s;
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 1.5rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s, background 0.4s;
   }
-  .admin-bar-logo:hover { color: #00b9eb; }
-
-  .admin-bar-items {
-    display: flex;
-    align-items: center;
-    height: 32px;
-    flex: 1;
+  nav.scrolled {
+    background: rgba(10,10,8,0.9);
+    backdrop-filter: blur(20px);
+    border-color: var(--border);
   }
-
-  .admin-bar-item {
-    display: flex;
-    align-items: center;
-    padding: 0 8px;
-    height: 32px;
-    color: #c3c4c7;
-    font-size: 12px;
-    cursor: pointer;
-    white-space: nowrap;
-    position: relative;
-    transition: all 0.15s;
-    text-decoration: none;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  .admin-bar-item:hover { background: #2c3338; color: #fff; }
-
-  .admin-bar-right {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 0;
-  }
-
-  .admin-bar-right .admin-bar-item {
-    font-size: 11px;
-  }
-
-  .ab-notification {
-    background: var(--wp-blue);
-    color: #fff;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 4px;
-    font-weight: 600;
-  }
-
-  /* ═══════════════ SIDEBAR ═══════════════ */
-  #sidebar {
-    position: fixed;
-    top: var(--admin-bar-height);
-    left: 0;
-    bottom: 0;
-    width: var(--sidebar-width);
-    background: var(--wp-sidebar);
-    z-index: 9999;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  #sidebar::-webkit-scrollbar { width: 4px; }
-  #sidebar::-webkit-scrollbar-thumb { background: #3c434a; }
-
-  .sidebar-section {
-    padding: 0;
-  }
-
-  .sidebar-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    color: #a7aaad;
-    cursor: pointer;
-    transition: all 0.15s;
-    border-left: 3px solid transparent;
-    font-size: 13px;
-    text-decoration: none;
-    position: relative;
-  }
-
-  .sidebar-item:hover {
-    color: #fff;
-    background: var(--wp-sidebar-hover);
-  }
-
-  .sidebar-item.active {
-    color: #fff;
-    background: var(--wp-sidebar-hover);
-    border-left-color: var(--wp-blue);
-  }
-
-  .sidebar-icon {
-    font-size: 16px;
-    width: 20px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .sidebar-divider {
-    height: 1px;
-    background: #2c3338;
-    margin: 8px 0;
-  }
-
-  .sidebar-label {
-    font-size: 10px;
-    color: #6c737a;
-    text-transform: uppercase;
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--gold);
     letter-spacing: 0.05em;
-    padding: 12px 12px 4px;
-    font-weight: 600;
   }
-
-  .sidebar-sub {
-    padding-left: 32px;
-    font-size: 12px;
-  }
-
-  .sidebar-badge {
-    margin-left: auto;
-    background: var(--wp-blue);
-    color: #fff;
-    border-radius: 10px;
-    padding: 1px 6px;
-    font-size: 10px;
-    font-weight: 600;
-  }
-
-  /* ═══════════════ MAIN CONTENT ═══════════════ */
-  #main {
-    margin-left: var(--sidebar-width);
-    margin-top: var(--admin-bar-height);
-    min-height: calc(100vh - var(--admin-bar-height));
-    padding: 20px;
-  }
-
-  /* ═══════════════ PAGE HEADER ═══════════════ */
-  .page-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
-  .page-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 23px;
-    font-weight: 700;
-    color: var(--wp-text);
-    line-height: 1.2;
-  }
-
-  .page-subtitle {
-    font-size: 12px;
-    color: var(--wp-text-muted);
-    margin-top: 2px;
-  }
-
-  .wp-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 3px;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    border: 1px solid;
-    transition: all 0.15s;
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
     text-decoration: none;
-    font-family: inherit;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
   }
-
-  .btn-primary {
-    background: var(--wp-blue);
-    border-color: var(--wp-blue-dark);
-    color: #fff;
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 100%;
+    height: 1px; background: var(--gold);
+    transition: right 0.3s;
   }
-  .btn-primary:hover { background: var(--wp-blue-dark); }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { right: 0; }
 
-  .btn-secondary {
-    background: #f6f7f7;
-    border-color: #8c8f94;
-    color: var(--wp-text);
-  }
-  .btn-secondary:hover { background: #fff; border-color: #999; }
-
-  /* ═══════════════ CARDS / WIDGETS ═══════════════ */
-  .wp-card {
-    background: #fff;
-    border: 1px solid var(--wp-border);
-    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
-    margin-bottom: 20px;
-    animation: fadeUp 0.3s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .wp-card-header {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--wp-border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff;
-  }
-
-  .wp-card-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--wp-text);
-  }
-
-  .wp-card-body {
-    padding: 16px;
-  }
-
-  /* ═══════════════ DASHBOARD GRID ═══════════════ */
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .dashboard-grid .full-width {
-    grid-column: 1 / -1;
-  }
-
-  /* ═══════════════ AT A GLANCE ═══════════════ */
-  .glance-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    padding: 16px;
-  }
-
-  .glance-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 14px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    transition: all 0.2s;
-    cursor: pointer;
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 3rem;
     position: relative;
     overflow: hidden;
   }
 
-  .glance-item::before {
-    content: '';
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.4;
+  }
+
+  .hero-orb {
     position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--accent-color, var(--wp-blue));
-    transform: scaleX(0);
-    transition: transform 0.2s;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .orb1 { width: 500px; height: 500px; background: rgba(201,168,76,0.08); top: 10%; right: 5%; }
+  .orb2 { width: 300px; height: 300px; background: rgba(192,82,42,0.06); bottom: 20%; left: 10%; }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
   }
 
-  .glance-item:hover::before { transform: scaleX(1); }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 900;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+    opacity: 0;
+  }
+  .hero-name .line { overflow: hidden; display: block; }
+  .hero-name .word { display: inline-block; }
+  .hero-name em { font-style: italic; color: var(--gold); }
 
-  .glance-item:hover {
-    border-color: var(--accent-color, var(--wp-blue));
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
+  .hero-tagline {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    opacity: 0;
+    font-weight: 400;
   }
 
-  .glance-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--accent-color, var(--wp-blue));
+  .hero-cta {
+    display: flex; gap: 1.5rem; align-items: center;
+    opacity: 0;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--bg);
+    padding: 1rem 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none;
+    cursor: none;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 1rem 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    position: absolute; right: 3rem; bottom: 4rem;
+    display: flex; flex-direction: column; gap: 2rem;
+    opacity: 0;
+  }
+  .stat-item { text-align: right; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
     line-height: 1;
   }
-
-  .glance-label {
-    font-size: 11px;
-    color: var(--wp-text-muted);
-    margin-top: 4px;
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 500;
   }
 
-  .glance-icon { font-size: 22px; margin-bottom: 6px; }
-
-  /* ═══════════════ ACTIVITY FEED ═══════════════ */
-  .activity-item {
-    display: flex;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f1;
-    align-items: flex-start;
-  }
-  .activity-item:last-child { border-bottom: none; }
-
-  .activity-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-top: 5px;
-    flex-shrink: 0;
-  }
-
-  .activity-content strong {
-    color: var(--wp-blue);
-    cursor: pointer;
-    font-weight: 500;
-  }
-  .activity-content strong:hover { text-decoration: underline; }
-
-  .activity-time {
-    font-size: 11px;
-    color: var(--wp-text-muted);
-    margin-top: 2px;
-  }
-
-  /* ═══════════════ SKILLS TABLE ═══════════════ */
-  .wp-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  .wp-table th {
-    text-align: left;
-    padding: 8px 12px;
-    background: #f6f7f7;
-    border-bottom: 1px solid var(--wp-border);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--wp-text-muted);
-    font-weight: 600;
-  }
-
-  .wp-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #f0f0f1;
-    vertical-align: middle;
-  }
-
-  .wp-table tr:last-child td { border-bottom: none; }
-  .wp-table tr:hover td { background: #f9f9f9; }
-
-  .skill-bar-wrap {
-    background: #f0f0f1;
-    border-radius: 10px;
-    height: 6px;
-    width: 120px;
-    overflow: hidden;
-  }
-
-  .skill-bar {
-    height: 100%;
-    border-radius: 10px;
-    background: var(--wp-blue);
-    transition: width 1s ease;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 500;
-    background: #e8f4fd;
-    color: var(--wp-blue);
-    margin: 2px;
-  }
-
-  .tag.green { background: #ecf7ed; color: var(--wp-green); }
-  .tag.orange { background: #fcf9e8; color: var(--wp-orange); }
-  .tag.purple { background: #f3eafd; color: var(--wp-purple); }
-  .tag.red { background: #fdf2f2; color: var(--wp-red); }
-
-  /* ═══════════════ STATUS INDICATOR ═══════════════ */
-  .status-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 6px;
-  }
-  .status-dot.green { background: var(--wp-green); box-shadow: 0 0 0 2px #ecf7ed; }
-  .status-dot.blue { background: var(--wp-blue); }
-  .status-dot.orange { background: var(--wp-orange); }
-
-  /* ═══════════════ PROFILE HERO ═══════════════ */
-  .profile-hero {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    padding: 20px;
-  }
-
-  .profile-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #2271b1 0%, #9B51E0 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-size: 32px;
-    color: #fff;
-    font-weight: 800;
-    flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(34, 113, 177, 0.3);
-  }
-
-  .profile-info h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--wp-text);
-    margin-bottom: 4px;
-  }
-
-  .profile-info .role {
-    font-size: 13px;
-    color: var(--wp-blue);
-    font-weight: 500;
-    margin-bottom: 8px;
-  }
-
-  .profile-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 10px;
-  }
-
-  .profile-meta-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    color: var(--wp-text-muted);
-  }
-
-  /* ═══════════════ QUICK DRAFT (CONTACT) ═══════════════ */
-  .wp-input {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid var(--wp-border);
-    border-radius: 3px;
-    font-size: 13px;
-    font-family: inherit;
-    transition: border-color 0.15s;
-    outline: none;
-    background: #fff;
-    color: var(--wp-text);
-    margin-bottom: 10px;
-  }
-
-  .wp-input:focus {
-    border-color: var(--wp-blue);
-    box-shadow: 0 0 0 1px var(--wp-blue);
-  }
-
-  textarea.wp-input {
-    resize: vertical;
-    min-height: 80px;
-  }
-
-  /* ═══════════════ PROJECTS (POSTS LIST) ═══════════════ */
-  .post-states {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--wp-border);
-    padding: 8px 16px 0;
-    background: #f6f7f7;
-  }
-
-  .post-state {
-    padding: 6px 10px;
-    font-size: 12px;
-    color: var(--wp-text-muted);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: all 0.15s;
-  }
-
-  .post-state.active {
-    color: var(--wp-text);
-    border-bottom-color: var(--wp-blue);
-    font-weight: 500;
-  }
-
-  .post-state:hover { color: var(--wp-blue); }
-
-  .post-state span {
-    color: var(--wp-text-muted);
-    font-size: 11px;
-    margin-left: 2px;
-  }
-
-  /* ═══════════════ SITE HEALTH ═══════════════ */
-  .health-ring-wrap {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 16px;
-  }
-
-  .health-ring {
-    width: 80px;
-    height: 80px;
-    position: relative;
-    flex-shrink: 0;
-  }
-
-  .health-ring svg {
-    transform: rotate(-90deg);
-  }
-
-  .health-ring-num {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Syne', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--wp-green);
-  }
-
-  .health-details { flex: 1; }
-  .health-stat {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px solid #f0f0f1;
-    font-size: 12px;
-  }
-  .health-stat:last-child { border: none; }
-
-  /* ═══════════════ TERMINAL / CODE ═══════════════ */
-  .terminal {
-    background: #1d2327;
-    border-radius: 4px;
-    overflow: hidden;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-  }
-
-  .terminal-header {
-    background: #2c3338;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .terminal-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-  }
-
-  .terminal-body {
-    padding: 14px;
-    color: #8bc34a;
-    line-height: 1.8;
-  }
-
-  .t-comment { color: #6c737a; }
-  .t-keyword { color: #00b9eb; }
-  .t-string { color: #f6c90e; }
-  .t-var { color: #ce9178; }
-  .t-fn { color: #9B51E0; }
-  .t-cursor {
-    display: inline-block;
-    width: 8px;
-    height: 14px;
-    background: #8bc34a;
-    vertical-align: middle;
-    animation: blink 1s step-end infinite;
-  }
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-
-  /* ═══════════════ PAGE VIEWS ═══════════════ */
-  .view-page {
-    display: none;
-  }
-  .view-page.active {
-    display: block;
-    animation: fadeUp 0.25s ease both;
-  }
-
-  /* ═══════════════ NOTICES ═══════════════ */
-  .notice {
-    border-left: 4px solid;
-    padding: 10px 14px;
-    margin-bottom: 16px;
-    background: #fff;
-    border-radius: 0 3px 3px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-  }
-
-  .notice-success { border-color: var(--wp-green); }
-  .notice-info { border-color: var(--wp-blue); }
-  .notice-warning { border-color: var(--wp-orange); }
-
-  /* ═══════════════ SEARCH ═══════════════ */
-  .admin-search {
-    display: flex;
-    align-items: center;
-    background: #2c3338;
-    border-radius: 3px;
-    padding: 0 8px;
-    gap: 6px;
-    margin-left: 8px;
-  }
-
-  .admin-search input {
-    background: transparent;
-    border: none;
-    color: #c3c4c7;
-    font-size: 12px;
-    outline: none;
-    padding: 4px 0;
-    width: 160px;
-    font-family: inherit;
-  }
-
-  .admin-search input::placeholder { color: #6c737a; }
-
-  /* ═══════════════ TOOLTIP ═══════════════ */
-  [data-tooltip] {
-    position: relative;
-  }
-  [data-tooltip]:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1d2327;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 3px;
-    font-size: 11px;
-    white-space: nowrap;
-    z-index: 9999;
-  }
-
-  /* ═══════════════ PROJECTS CARDS ═══════════════ */
-  .project-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f1;
-  }
-  .project-row:last-child { border: none; }
-
-  .project-thumb {
-    width: 48px;
-    height: 48px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-
-  .project-info { flex: 1; }
-
-  .project-name {
-    font-weight: 600;
-    color: var(--wp-text);
-    font-size: 13px;
-    cursor: pointer;
-    transition: color 0.15s;
-  }
-  .project-name:hover { color: var(--wp-blue); }
-
-  .project-meta {
-    font-size: 11px;
-    color: var(--wp-text-muted);
-    margin-top: 2px;
-  }
-
-  .project-actions {
-    display: flex;
-    gap: 6px;
-  }
-
-  .action-link {
-    font-size: 11px;
-    color: var(--wp-blue);
-    cursor: pointer;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-  .action-link:hover { color: var(--wp-blue-dark); text-decoration: underline; }
-  .action-link.trash { color: #b32d2e; }
-  .action-link.trash:hover { color: #8d1b1b; }
-
-  /* ═══════════════ PLUGINS PAGE ═══════════════ */
-  .plugin-row {
-    display: grid;
-    grid-template-columns: 40px 1fr auto;
-    gap: 12px;
-    align-items: start;
-    padding: 14px 0;
-    border-bottom: 1px solid #f0f0f1;
-  }
-  .plugin-row:last-child { border: none; }
-
-  .plugin-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-  }
-
-  .plugin-name { font-weight: 600; font-size: 13px; }
-  .plugin-desc { font-size: 12px; color: var(--wp-text-muted); margin-top: 3px; }
-  .plugin-author { font-size: 11px; color: var(--wp-text-muted); margin-top: 2px; }
-  .plugin-author a { color: var(--wp-blue); }
-
-  .plugin-toggle {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-  }
-
-  .toggle-switch {
-    width: 36px;
-    height: 18px;
-    background: #8c8f94;
-    border-radius: 9px;
-    position: relative;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .toggle-switch.on { background: var(--wp-green); }
-
-  .toggle-switch::after {
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    border-radius: 50%;
-    top: 2px;
-    left: 2px;
-    transition: left 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
-
-  .toggle-switch.on::after { left: 20px; }
-
-  /* ═══════════════ USERS PAGE ═══════════════ */
-  .user-row {
-    display: grid;
-    grid-template-columns: 36px 1fr auto;
-    gap: 12px;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f1;
-  }
-  .user-row:last-child { border: none; }
-
-  .user-avatar-sm {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-    color: #fff;
-    flex-shrink: 0;
-  }
-
-  /* ═══════════════ RESPONSIVE ═══════════════ */
-  @media (max-width: 768px) {
-    --sidebar-width: 36px;
-    #sidebar .sidebar-item span { display: none; }
-    .dashboard-grid { grid-template-columns: 1fr; }
-    .glance-grid { grid-template-columns: 1fr 1fr; }
-  }
-
-  /* ═══════════════ MEDIA QUERIES ═══════════════ */
-  @media (max-width: 600px) {
-    #main { padding: 12px; }
-    .profile-hero { flex-direction: column; }
-    .glance-grid { grid-template-columns: 1fr 1fr; }
-  }
-
-  /* ═══════════════ SCREEN FLASH ═══════════════ */
-  .screen-flash {
-    position: fixed;
-    inset: 0;
-    background: rgba(34, 113, 177, 0.1);
-    z-index: 99998;
-    pointer-events: none;
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
     opacity: 0;
-    transition: opacity 0.2s;
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.5); opacity: 0.4; }
+  }
+  .scroll-text {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
   }
 
-  .screen-flash.active { opacity: 1; }
+  /* SECTIONS COMMON */
+  section { padding: 8rem 3rem; }
 
-  /* ═══════════════ LOADING BAR ═══════════════ */
-  #loading-bar {
-    position: fixed;
-    top: var(--admin-bar-height);
-    left: var(--sidebar-width);
-    right: 0;
-    height: 2px;
-    background: var(--wp-blue);
-    z-index: 99998;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 40px; height: 1px;
+    background: var(--gold);
   }
 
-  /* ═══════════════ ABOUT PAGE ═══════════════ */
-  .about-grid {
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  /* STORY / ABOUT */
+  #story {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .story-left {}
+
+  .story-text {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .story-text strong { color: var(--text); }
+  .story-highlight {
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.5;
+    margin: 2.5rem 0;
+  }
+
+  .story-right {
+    position: relative;
+  }
+
+  .code-window {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .code-titlebar {
+    padding: 0.8rem 1rem;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 0.5rem; align-items: center;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .code-file {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-left: 0.5rem;
+  }
+  .code-body { padding: 1.5rem; }
+  .code-body pre {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+  .c-tag { color: #c678dd; }
+  .c-attr { color: #e06c75; }
+  .c-val { color: var(--gold2); }
+  .c-str { color: var(--sage); }
+  .c-comment { color: #5c6370; font-style: italic; }
+  .c-fn { color: #61afef; }
+  .c-key { color: #e06c75; }
+  .c-num { color: #d19a66; }
+
+  /* SKILLS */
+  #skills { background: var(--bg2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .skill-card {
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s;
+    cursor: none;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .skill-card:hover { border-color: var(--gold); }
+  .skill-card:hover::before { opacity: 1; }
+
+  .skill-card-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  .skill-card-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--cream);
+  }
+  .skill-card-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .skill-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.25rem 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .skill-level-bar {
+    height: 2px;
+    background: rgba(255,255,255,0.05);
+    margin-top: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-level-fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* EXPERIENCE TIMELINE */
+  #experience { position: relative; }
+
+  .timeline {
+    position: relative;
+    margin-top: 5rem;
+    padding-left: 3rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
   }
 
   .timeline-item {
-    display: flex;
-    gap: 12px;
-    padding: 12px 0;
     position: relative;
-  }
-
-  .timeline-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--wp-blue);
-    flex-shrink: 0;
-    margin-top: 4px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .timeline-line {
-    position: absolute;
-    left: 5px;
-    top: 24px;
-    bottom: -12px;
-    width: 2px;
-    background: #e0e0e0;
-  }
-
-  .timeline-item:last-child .timeline-line { display: none; }
-
-  .timeline-content {}
-  .timeline-date { font-size: 11px; color: var(--wp-text-muted); margin-bottom: 2px; }
-  .timeline-title { font-weight: 600; font-size: 13px; }
-  .timeline-desc { font-size: 12px; color: var(--wp-text-muted); margin-top: 2px; }
-
-  /* ═══════════════ SETTINGS PAGE ═══════════════ */
-  .settings-form-row {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    padding: 14px 0;
-    border-bottom: 1px solid #f0f0f1;
-  }
-  .settings-form-row:last-child { border: none; }
-  .settings-label { width: 180px; flex-shrink: 0; font-weight: 500; font-size: 13px; padding-top: 4px; }
-  .settings-label small { display: block; color: var(--wp-text-muted); font-weight: 400; font-size: 11px; margin-top: 2px; }
-  .settings-control { flex: 1; }
-
-  /* ═══════════════ CHART ═══════════════ */
-  .mini-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    height: 60px;
-    padding: 0 4px;
-  }
-
-  .chart-bar {
-    flex: 1;
-    background: var(--wp-blue);
-    border-radius: 2px 2px 0 0;
-    opacity: 0.7;
-    transition: all 0.3s;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .chart-bar:hover { opacity: 1; }
-
-  .chart-bar::after {
-    content: attr(data-val);
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    color: var(--wp-text-muted);
-    white-space: nowrap;
+    margin-bottom: 5rem;
     opacity: 0;
-    transition: opacity 0.15s;
+    transform: translateX(-30px);
+  }
+  .timeline-dot {
+    position: absolute; left: -3.35rem; top: 0.4rem;
+    width: 12px; height: 12px;
+    border: 2px solid var(--gold);
+    background: var(--bg);
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+  .timeline-item:hover .timeline-dot { background: var(--gold); }
+
+  .timeline-period {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-role {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.25rem;
+  }
+  .timeline-company {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .timeline-body {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 700px;
+  }
+  .timeline-achievements {
+    margin-top: 1.5rem;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .achievement {
+    display: flex; gap: 1rem; align-items: flex-start;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .achievement::before {
+    content: '→';
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
   }
 
-  .chart-bar:hover::after { opacity: 1; }
+  /* PROJECTS */
+  #projects { background: var(--bg2); }
 
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: border-color 0.4s;
+  }
+  .project-card:hover { border-color: rgba(201,168,76,0.6); }
+
+  .project-card-img {
+    height: 220px;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .project-card-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--bg2), transparent 60%);
+  }
+
+  .project-pattern {
+    position: absolute; inset: 0; opacity: 0.15;
+  }
+
+  .project-card-body { padding: 2rem; }
+
+  .project-type {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.75rem;
+  }
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .project-stack {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .stack-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    background: rgba(255,255,255,0.04);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .project-card-featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .project-card-featured .project-card-img {
+    height: 100%;
+    min-height: 280px;
+  }
+
+  /* PROCESS */
+  #process {
+    overflow: hidden;
+  }
+
+  .process-steps {
+    display: flex;
+    gap: 0;
+    margin-top: 5rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 2rem; left: 2rem; right: 2rem;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .process-step {
+    flex: 1;
+    padding: 5rem 2rem 2rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .process-step-num {
+    position: absolute; top: 0; left: 2rem;
+    width: 4rem; height: 4rem;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .process-step-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.75rem;
+  }
+  .process-step-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* EDUCATION */
+  #education {}
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .edu-card {
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .edu-card-year {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(201,168,76,0.06);
+    position: absolute;
+    top: -1rem; right: 1rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .edu-degree {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .edu-institution {
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+  .edu-period {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .edu-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  #contact {
+    text-align: center;
+    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+  }
+  #contact .hero-bg-grid { opacity: 0.2; }
+
+  .contact-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+  .contact-title em { color: var(--gold); font-style: italic; }
+  .contact-subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    max-width: 500px;
+    margin-left: auto; margin-right: auto;
+  }
+  .contact-links {
+    display: flex; gap: 1rem; justify-content: center;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  .email-big {
+    font-family: var(--font-mono);
+    font-size: clamp(0.9rem, 2.5vw, 1.4rem);
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    margin-bottom: 3rem;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .email-big:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    padding: 2rem 0;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 1.5rem;
+    padding: 0 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .marquee-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* WP VISUAL */
+  .wp-visual {
+    position: relative;
+    padding: 2rem;
+  }
+
+  /* Animated counter */
+  .counter-num { display: inline-block; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    #hero { padding: 0 1.5rem; }
+    #story { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card-featured { grid-column: 1; grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .hero-stats { right: 1.5rem; }
+    .process-steps { flex-direction: column; }
+    .process-steps::before { top: 0; bottom: 0; left: 2rem; width: 1px; height: auto; right: auto; }
+  }
 </style>
 </head>
 <body>
 
-<div class="screen-flash" id="screen-flash"></div>
-<div id="loading-bar"></div>
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ═══════════════ ADMIN BAR ═══════════════ -->
-<div id="admin-bar">
-  <div class="admin-bar-logo" title="WordPress">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-    </svg>
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">AR</div>
+  <ul class="nav-links">
+    <li><a href="#story">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#contact">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+
+  <div class="hero-eyebrow">Available for hire · WordPress Developer</div>
+
+  <h1 class="hero-name">
+    <span class="line"><span class="word">Alex</span></span>
+    <span class="line"><span class="word"><em>Rivera</em></span></span>
+  </h1>
+
+  <p class="hero-tagline">
+    I craft <strong>performant, accessible</strong> WordPress experiences — from pixel-perfect themes to complex WooCommerce ecosystems — that actually <strong>convert and rank</strong>.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Let's Work Together</a>
+    <a href="#projects" class="btn-outline">View My Work</a>
   </div>
 
-  <div class="admin-bar-items">
-    <div class="admin-bar-item">🏠 Alex's Portfolio</div>
-    <div class="admin-bar-item">+ New</div>
-    <div class="admin-bar-item">
-      💬 Comments
-      <span class="ab-notification">3</span>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter-num" data-target="6">0</span>+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter-num" data-target="80">0</span>+</div>
+      <div class="stat-label">Projects Delivered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter-num" data-target="99">0</span></div>
+      <div class="stat-label">PageSpeed Score</div>
     </div>
   </div>
 
-  <div class="admin-search">
-    <span style="color:#6c737a;font-size:12px">🔍</span>
-    <input type="text" placeholder="Search portfolio..." id="search-input">
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
   </div>
+</section>
 
-  <div class="admin-bar-right">
-    <div class="admin-bar-item">
-      <span class="status-dot green"></span>
-      Available for Hire
-    </div>
-    <div class="admin-bar-item">
-      <img src="https://www.gravatar.com/avatar/?d=identicon&s=24" width="24" height="24" style="border-radius:50%;border:2px solid #3c434a">
-      &nbsp;Alex Rivera ▾
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ SIDEBAR ═══════════════ -->
-<div id="sidebar">
-  <div class="sidebar-section" style="padding-top:12px">
-    <div class="sidebar-item active" data-page="dashboard" onclick="navigate('dashboard', this)">
-      <span class="sidebar-icon">🏠</span>
-      <span>Dashboard</span>
-    </div>
-
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-label">Portfolio</div>
-
-    <div class="sidebar-item" data-page="projects" onclick="navigate('projects', this)">
-      <span class="sidebar-icon">📁</span>
-      <span>Projects</span>
-      <span class="sidebar-badge">8</span>
-    </div>
-
-    <div class="sidebar-item" data-page="about" onclick="navigate('about', this)">
-      <span class="sidebar-icon">👤</span>
-      <span>About Me</span>
-    </div>
-
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-label">Capabilities</div>
-
-    <div class="sidebar-item" data-page="plugins" onclick="navigate('plugins', this)">
-      <span class="sidebar-icon">🔌</span>
-      <span>Skills</span>
-    </div>
-
-    <div class="sidebar-item" data-page="themes" onclick="navigate('themes', this)">
-      <span class="sidebar-icon">🎨</span>
-      <span>Services</span>
-    </div>
-
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-label">Connect</div>
-
-    <div class="sidebar-item" data-page="users" onclick="navigate('users', this)">
-      <span class="sidebar-icon">🤝</span>
-      <span>Clients</span>
-    </div>
-
-    <div class="sidebar-item" data-page="contact" onclick="navigate('contact', this)">
-      <span class="sidebar-icon">✉️</span>
-      <span>Contact</span>
-    </div>
-
-    <div class="sidebar-divider"></div>
-
-    <div class="sidebar-item" data-page="settings" onclick="navigate('settings', this)">
-      <span class="sidebar-icon">⚙️</span>
-      <span>Settings</span>
-    </div>
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <!-- items duplicated for seamless loop -->
   </div>
 </div>
 
-<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
-<div id="main">
+<!-- STORY / ABOUT -->
+<section id="story">
+  <div class="story-left">
+    <div class="section-label">My Story</div>
+    <h2 class="section-title">Code that tells<br><em>your story</em></h2>
 
-  <!-- ════════ DASHBOARD PAGE ════════ -->
-  <div class="view-page active" id="page-dashboard">
+    <p class="story-text">
+      It started in 2018 with a broken theme and a lot of <strong>curiosity</strong>. What began as debugging a client's blog turned into a deep obsession with the WordPress ecosystem — hooks, filters, the block editor, REST API — the whole beautiful, messy universe of it.
+    </p>
 
-    <div class="page-header">
-      <div>
-        <div class="page-title">Dashboard</div>
-        <div class="page-subtitle">Welcome back! Here's your portfolio overview.</div>
-      </div>
-      <a class="wp-button btn-primary" onclick="navigate('contact', document.querySelector('[data-page=contact]'))">📬 Hire Me</a>
-      <a class="wp-button btn-secondary" href="https://github.com" target="_blank">⬇️ Download CV</a>
+    <div class="story-highlight">
+      "I don't just build websites. I engineer digital experiences that work when you're asleep."
     </div>
 
-    <div class="notice notice-success">
-      🎉 <strong>Open to opportunities!</strong> Currently available for full-time roles and freelance WordPress projects.
-    </div>
+    <p class="story-text">
+      Today I specialise in <strong>custom theme development</strong>, <strong>plugin architecture</strong>, and <strong>WooCommerce</strong> solutions. I think deeply about performance — because a 1-second delay costs conversions — and I care obsessively about <strong>clean, documented code</strong> that your team can actually maintain.
+    </p>
 
-    <!-- AT A GLANCE -->
-    <div class="wp-card full-width">
-      <div class="wp-card-header">
-        <div class="wp-card-title">At a Glance</div>
-        <div style="font-size:11px;color:var(--wp-text-muted)">Last updated: Today</div>
-      </div>
-      <div class="glance-grid">
-        <div class="glance-item" style="--accent-color:#2271b1" onclick="navigate('projects', document.querySelector('[data-page=projects]'))" data-tooltip="View all projects">
-          <div class="glance-icon">📁</div>
-          <div class="glance-number" style="color:#2271b1">28</div>
-          <div class="glance-label">Projects Built</div>
-        </div>
-        <div class="glance-item" style="--accent-color:#00a32a" data-tooltip="Clients I've worked with">
-          <div class="glance-icon">🤝</div>
-          <div class="glance-number" style="color:#00a32a">42</div>
-          <div class="glance-label">Happy Clients</div>
-        </div>
-        <div class="glance-item" style="--accent-color:#9B51E0" data-tooltip="Years of experience">
-          <div class="glance-icon">⭐</div>
-          <div class="glance-number" style="color:#9B51E0">7</div>
-          <div class="glance-label">Years Experience</div>
-        </div>
-        <div class="glance-item" style="--accent-color:#dba617" onclick="navigate('plugins', document.querySelector('[data-page=plugins]'))">
-          <div class="glance-icon">🔌</div>
-          <div class="glance-number" style="color:#dba617">12</div>
-          <div class="glance-label">Plugins Developed</div>
-        </div>
-        <div class="glance-item" style="--accent-color:#d63638">
-          <div class="glance-icon">🚀</div>
-          <div class="glance-number" style="color:#d63638">99</div>
-          <div class="glance-label">Avg Performance Score</div>
-        </div>
-        <div class="glance-item" style="--accent-color:#00b9eb">
-          <div class="glance-icon">☕</div>
-          <div class="glance-number" style="color:#00b9eb">∞</div>
-          <div class="glance-label">Cups of Coffee</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="dashboard-grid">
-
-      <!-- RECENT ACTIVITY -->
-      <div class="wp-card">
-        <div class="wp-card-header">
-          <div class="wp-card-title">Recent Activity</div>
-          <span style="font-size:11px;color:var(--wp-blue);cursor:pointer">View all</span>
-        </div>
-        <div class="wp-card-body" style="padding:8px 16px">
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-green)"></div>
-            <div class="activity-content">
-              Launched <strong>EcomStore Pro</strong> — WooCommerce multi-vendor platform
-              <div class="activity-time">2 days ago</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-blue)"></div>
-            <div class="activity-content">
-              Published <strong>Custom Gutenberg Block Library</strong> on WordPress.org
-              <div class="activity-time">1 week ago</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-purple)"></div>
-            <div class="activity-content">
-              Completed <strong>REST API integration</strong> for MemberHub SaaS
-              <div class="activity-time">2 weeks ago</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-orange)"></div>
-            <div class="activity-content">
-              Achieved <strong>Core Web Vitals</strong> certification for TravelBlog theme
-              <div class="activity-time">3 weeks ago</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-red)"></div>
-            <div class="activity-content">
-              Released <strong>WP Security Shield plugin</strong> v2.0.1
-              <div class="activity-time">1 month ago</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SITE HEALTH / TECH HEALTH -->
-      <div class="wp-card">
-        <div class="wp-card-header">
-          <div class="wp-card-title">Developer Health Score</div>
-        </div>
-        <div class="health-ring-wrap">
-          <div class="health-ring">
-            <svg width="80" height="80" viewBox="0 0 80 80">
-              <circle cx="40" cy="40" r="34" fill="none" stroke="#e0e0e0" stroke-width="8"/>
-              <circle cx="40" cy="40" r="34" fill="none" stroke="#00a32a" stroke-width="8"
-                stroke-dasharray="213.6" stroke-dashoffset="21.36"
-                stroke-linecap="round"/>
-            </svg>
-            <div class="health-ring-num">90</div>
-          </div>
-          <div class="health-details">
-            <div class="health-stat">
-              <span>🧪 Code Quality</span>
-              <span class="tag green">Excellent</span>
-            </div>
-            <div class="health-stat">
-              <span>⚡ Performance</span>
-              <span class="tag green">99/100</span>
-            </div>
-            <div class="health-stat">
-              <span>♿ Accessibility</span>
-              <span class="tag green">WCAG AA</span>
-            </div>
-            <div class="health-stat">
-              <span>🔒 Security</span>
-              <span class="tag green">A+ Grade</span>
-            </div>
-            <div class="health-stat">
-              <span>📱 Responsive</span>
-              <span class="tag green">All Devices</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TERMINAL -->
-      <div class="wp-card">
-        <div class="wp-card-header">
-          <div class="wp-card-title">$ terminal — whoami</div>
-        </div>
-        <div class="wp-card-body" style="padding:0">
-          <div class="terminal">
-            <div class="terminal-header">
-              <div class="terminal-dot" style="background:#ff5f57"></div>
-              <div class="terminal-dot" style="background:#febc2e"></div>
-              <div class="terminal-dot" style="background:#28c840"></div>
-              <span style="color:#6c737a;font-size:11px;margin-left:8px">bash — portfolio</span>
-            </div>
-            <div class="terminal-body">
-              <div><span class="t-comment">// $ whoami</span></div>
-              <div><span class="t-keyword">const</span> <span class="t-var">developer</span> = {</div>
-              <div>&nbsp;&nbsp;name: <span class="t-string">"Alex Rivera"</span>,</div>
-              <div>&nbsp;&nbsp;role: <span class="t-string">"Senior WordPress Developer"</span>,</div>
-              <div>&nbsp;&nbsp;location: <span class="t-string">"San Francisco, CA"</span>,</div>
-              <div>&nbsp;&nbsp;expertise: [<span class="t-string">"PHP"</span>, <span class="t-string">"WooCommerce"</span>,</div>
-              <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-string">"Gutenberg"</span>, <span class="t-string">"REST API"</span>],</div>
-              <div>&nbsp;&nbsp;available: <span class="t-keyword">true</span>,</div>
-              <div>&nbsp;&nbsp;coffee: <span class="t-fn">Infinity</span></div>
-              <div>}</div>
-              <div><span class="t-comment">// Ready to build something amazing?</span></div>
-              <div><span class="t-cursor"></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- QUICK STATS CHART -->
-      <div class="wp-card">
-        <div class="wp-card-header">
-          <div class="wp-card-title">Projects Over Time</div>
-          <span style="font-size:11px;color:var(--wp-text-muted)">Last 7 months</span>
-        </div>
-        <div class="wp-card-body">
-          <div class="mini-chart" id="mini-chart">
-            <div class="chart-bar" style="height:45%" data-val="3 projects"></div>
-            <div class="chart-bar" style="height:55%" data-val="4 projects"></div>
-            <div class="chart-bar" style="height:40%" data-val="3 projects"></div>
-            <div class="chart-bar" style="height:75%" data-val="5 projects"></div>
-            <div class="chart-bar" style="height:60%" data-val="4 projects"></div>
-            <div class="chart-bar" style="height:90%" data-val="6 projects"></div>
-            <div class="chart-bar" style="height:80%;background:var(--wp-green)" data-val="5 (ongoing)"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--wp-text-muted);margin-top:6px;padding:0 4px">
-            <span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span>
-          </div>
-
-          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px">
-            <div style="font-size:12px;color:var(--wp-text-muted)">Top technologies this year:</div>
-            <span class="tag">WordPress</span>
-            <span class="tag purple">Gutenberg</span>
-            <span class="tag green">WooCommerce</span>
-            <span class="tag orange">ACF</span>
-            <span class="tag">PHP 8</span>
-            <span class="tag purple">REST API</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <p class="story-text">
+      When I'm not in the editor, I'm contributing to open-source WordPress plugins and writing about web performance on my blog.
+    </p>
   </div>
 
-  <!-- ════════ PROJECTS PAGE ════════ -->
-  <div class="view-page" id="page-projects">
-    <div class="page-header">
-      <div>
-        <div class="page-title">Projects</div>
-        <div class="page-subtitle">All 8 featured works · Filtered by: All</div>
+  <div class="story-right">
+    <div class="code-window">
+      <div class="code-titlebar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="code-file">functions.php — alex-theme</span>
       </div>
-      <a class="wp-button btn-primary">+ Add New</a>
+      <div class="code-body">
+        <pre><span class="c-comment">// The philosophy: clean, purposeful code</span>
+<span class="c-comment">// that solves real business problems.</span>
+
+<span class="c-tag">add_action</span>( <span class="c-str">'wp_enqueue_scripts'</span>, <span class="c-fn">function</span>() {
+  wp_enqueue_style(
+    <span class="c-str">'alex-styles'</span>,
+    get_stylesheet_uri(),
+    [],
+    filemtime( <span class="c-fn">get_stylesheet_directory</span>() . <span class="c-str">'/style.css'</span> )
+  );
+} );
+
+<span class="c-comment">/**
+ * Register custom post types with full
+ * REST API support for headless capability.
+ */</span>
+<span class="c-tag">add_action</span>( <span class="c-str">'init'</span>, <span class="c-fn">function</span>() {
+  <span class="c-fn">register_post_type</span>( <span class="c-str">'project'</span>, [
+    <span class="c-attr">'public'</span>       => <span class="c-key">true</span>,
+    <span class="c-attr">'show_in_rest'</span> => <span class="c-key">true</span>,
+    <span class="c-attr">'supports'</span>     => [ <span class="c-str">'title'</span>, <span class="c-str">'editor'</span>, <span class="c-str">'thumbnail'</span> ],
+    <span class="c-attr">'has_archive'</span>  => <span class="c-key">true</span>,
+  ] );
+} );
+
+<span class="c-comment">// Performance: cache expensive queries</span>
+<span class="c-fn">function</span> <span class="c-fn">alex_get_featured</span>( $count = <span class="c-num">6</span> ) {
+  $key = <span class="c-str">"featured_posts_{$count}"</span>;
+  $posts = <span class="c-fn">wp_cache_get</span>( $key );
+  <span class="c-key">if</span> ( ! $posts ) {
+    $posts = <span class="c-fn">get_posts</span>( [ <span class="c-str">'numberposts'</span> => $count ] );
+    <span class="c-fn">wp_cache_set</span>( $key, $posts, <span class="c-str">''</span>, <span class="c-num">3600</span> );
+  }
+  <span class="c-key">return</span> $posts;
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Expertise</div>
+  <h2 class="section-title">What I bring<br>to the table</h2>
+
+  <div class="skills-grid">
+    <div class="skill-card" data-level="97">
+      <span class="skill-card-icon">⚡</span>
+      <div class="skill-card-title">WordPress Core</div>
+      <p class="skill-card-desc">Deep knowledge of hooks, filters, template hierarchy, the WP REST API, and the block editor (Gutenberg). I extend WordPress — never fight it.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Custom Themes</span>
+        <span class="skill-tag">Plugin Dev</span>
+        <span class="skill-tag">Gutenberg Blocks</span>
+        <span class="skill-tag">CPTs & Taxonomies</span>
+        <span class="skill-tag">Multisite</span>
+      </div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="97%"></div></div>
     </div>
 
-    <div class="wp-card">
-      <div class="post-states">
-        <div class="post-state active">All <span>(8)</span></div>
-        <div class="post-state">Published <span>(6)</span></div>
-        <div class="post-state">WooCommerce <span>(3)</span></div>
-        <div class="post-state">Headless <span>(2)</span></div>
-        <div class="post-state">Plugins <span>(3)</span></div>
+    <div class="skill-card" data-level="92">
+      <span class="skill-card-icon">🛒</span>
+      <div class="skill-card-title">WooCommerce</div>
+      <p class="skill-card-desc">Custom payment gateways, subscription logic, product builder tools, and high-traffic store optimisation. Responsible for €2M+ in annual GMV.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Custom Gateways</span>
+        <span class="skill-tag">Subscriptions</span>
+        <span class="skill-tag">HPOS</span>
+        <span class="skill-tag">Multi-currency</span>
       </div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="92%"></div></div>
+    </div>
 
-      <div class="wp-card-body">
-        <div class="project-row">
-          <div class="project-thumb" style="background:#f0f7ff">🛒</div>
-          <div class="project-info">
-            <div class="project-name">EcomStore Pro — Multi-Vendor Marketplace</div>
-            <div class="project-meta">WooCommerce · PHP 8.2 · REST API · 50k+ monthly users</div>
-            <div style="margin-top:4px"><span class="tag green">Live</span> <span class="tag">WooCommerce</span> <span class="tag purple">Stripe</span></div>
-          </div>
-          <div style="text-align:right">
-            <div class="project-actions" style="justify-content:flex-end;margin-bottom:4px">
-              <a class="action-link">Edit</a> |
-              <a class="action-link">Preview</a> |
-              <a class="action-link">GitHub</a> |
-              <a class="action-link trash">Archive</a>
-            </div>
-            <div style="font-size:11px;color:var(--wp-text-muted)">Feb 2025</div>
-          </div>
+    <div class="skill-card" data-level="88">
+      <span class="skill-card-icon">🎨</span>
+      <div class="skill-card-title">Frontend Craft</div>
+      <p class="skill-card-desc">Pixel-perfect HTML/CSS, modern JavaScript, GSAP animations, and accessibility-first development. I care as much about WCAG as I do about visual polish.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">SCSS/BEM</span>
+        <span class="skill-tag">GSAP</span>
+        <span class="skill-tag">Alpine.js</span>
+        <span class="skill-tag">WCAG 2.1 AA</span>
+        <span class="skill-tag">Figma</span>
+      </div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="88%"></div></div>
+    </div>
+
+    <div class="skill-card" data-level="90">
+      <span class="skill-card-icon">🚀</span>
+      <div class="skill-card-title">Performance & SEO</div>
+      <p class="skill-card-desc">Obsessed with Core Web Vitals. I audit, optimise, and squeeze every millisecond from loading — resulting in 30–60% improvement in real-world metrics.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Core Web Vitals</span>
+        <span class="skill-tag">Object Caching</span>
+        <span class="skill-tag">CDN Config</span>
+        <span class="skill-tag">Technical SEO</span>
+        <span class="skill-tag">Yoast / RankMath</span>
+      </div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="90%"></div></div>
+    </div>
+
+    <div class="skill-card" data-level="85">
+      <span class="skill-card-icon">🔧</span>
+      <div class="skill-card-title">DevOps & Tooling</div>
+      <p class="skill-card-desc">Modern WordPress workflows with Git, WP-CLI, Composer, and CI/CD pipelines. I keep environments consistent and deployments boring (in the best way).</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Git / GitHub Actions</span>
+        <span class="skill-tag">WP-CLI</span>
+        <span class="skill-tag">Composer</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Kinsta / WP Engine</span>
+      </div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="85%"></div></div>
+    </div>
+
+    <div class="skill-card" data-level="80">
+      <span class="skill-card-icon">🗄️</span>
+      <div class="skill-card-title">Backend & APIs</div>
+      <p class="skill-card-desc">PHP 8.x with OOP principles, MySQL query optimisation, and custom REST endpoints. I also wire up third-party APIs — CRMs, ERPs, payment processors.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">PHP 8.x / OOP</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">REST API</span>
+        <span class="skill-tag">Webhooks</span>
+        <span class="skill-tag">Stripe / PayPal</span>
+      </div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="80%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career Journey</div>
+  <h2 class="section-title">Where I've<br>been building</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2022 — Present</div>
+      <div class="timeline-role">Senior WordPress Developer</div>
+      <div class="timeline-company">Digital Forge Agency · Remote</div>
+      <p class="timeline-body">Lead developer for a 12-person agency, owning the full stack for enterprise WordPress builds. Introduced code standards, peer review, and a component library that cut build time by 40%.</p>
+      <div class="timeline-achievements">
+        <div class="achievement">Architected a headless WordPress + Next.js platform serving 2M+ monthly visitors with sub-1s LCP</div>
+        <div class="achievement">Built a custom WooCommerce subscription platform with 3 payment providers and real-time inventory sync</div>
+        <div class="achievement">Reduced agency deploy time from 4 hours to 18 minutes via GitHub Actions + WP-CLI automation</div>
+        <div class="achievement">Mentored 3 junior developers through pair programming and internal workshops</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2020 — 2022</div>
+      <div class="timeline-role">WordPress Developer</div>
+      <div class="timeline-company">PixelCraft Studio · Mumbai</div>
+      <p class="timeline-body">Mid-level developer responsible for custom theme builds and WooCommerce integrations for e-commerce clients in the fashion and lifestyle verticals.</p>
+      <div class="timeline-achievements">
+        <div class="achievement">Delivered 25+ client projects on time and within budget, maintaining a 4.9/5 client satisfaction score</div>
+        <div class="achievement">Built a bespoke product configurator plugin for a furniture brand — increased average order value by 23%</div>
+        <div class="achievement">Migrated a legacy VB.NET e-commerce site to WooCommerce, retaining 100% of SEO rankings</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2018 — 2020</div>
+      <div class="timeline-role">Junior Web Developer</div>
+      <div class="timeline-company">Freelance · Self-employed</div>
+      <p class="timeline-body">Started from scratch — no clients, just determination. Built my way up from fixing broken themes to delivering full projects. Learned the business side as much as the code.</p>
+      <div class="timeline-achievements">
+        <div class="achievement">Acquired first 10 clients through Upwork and word-of-mouth; maintained 100% Job Success Score</div>
+        <div class="achievement">Self-taught PHP OOP, MySQL, and REST APIs through building real production projects</div>
+        <div class="achievement">Launched an open-source WordPress plugin with 500+ active installs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Things I've<br>shipped</h2>
+
+  <div class="projects-grid">
+    <!-- Featured -->
+    <div class="project-card project-card-featured">
+      <div class="project-card-img">
+        <svg class="project-pattern" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(201,168,76,0.4)" stroke-width="0.5"/>
+          </pattern></defs>
+          <rect width="100%" height="100%" fill="url(#grid1)"/>
+          <circle cx="200" cy="150" r="80" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <circle cx="200" cy="150" r="120" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <text x="200" y="165" text-anchor="middle" font-size="60" fill="rgba(201,168,76,0.5)">🛒</text>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-type">Featured · WooCommerce + Custom Plugin</div>
+        <div class="project-title">Artisan Home Store</div>
+        <p class="project-desc">Full WooCommerce build for a premium furniture brand. Custom product configurator plugin lets customers visualise 3,000+ product combinations in real-time. Integrated with their ERP for live stock levels. Result: 34% increase in conversion rate.</p>
+        <div class="project-stack">
+          <span class="stack-tag">WordPress 6.x</span>
+          <span class="stack-tag">WooCommerce</span>
+          <span class="stack-tag">Custom Plugin</span>
+          <span class="stack-tag">PHP 8.2</span>
+          <span class="stack-tag">Alpine.js</span>
+          <span class="stack-tag">Stripe</span>
+          <span class="stack-tag">REST API</span>
         </div>
+      </div>
+    </div>
 
-        <div class="project-row">
-          <div class="project-thumb" style="background:#f0fff4">📰</div>
-          <div class="project-info">
-            <div class="project-name">HeadlessPress — Next.js + WordPress Headless CMS</div>
-            <div class="project-meta">WordPress REST API · GraphQL · Next.js 14 · Vercel</div>
-            <div style="margin-top:4px"><span class="tag green">Live</span> <span class="tag purple">Headless</span> <span class="tag orange">GraphQL</span></div>
-          </div>
-          <div style="text-align:right">
-            <div class="project-actions" style="justify-content:flex-end;margin-bottom:4px">
-              <a class="action-link">Edit</a> |
-              <a class="action-link">Preview</a> |
-              <a class="action-link">GitHub</a> |
-              <a class="action-link trash">Archive</a>
-            </div>
-            <div style="font-size:11px;color:var(--wp-text-muted)">Jan 2025</div>
-          </div>
+    <!-- Cards -->
+    <div class="project-card">
+      <div class="project-card-img">
+        <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#0e0e0c"/>
+          <rect x="30" y="40" width="120" height="140" rx="2" fill="none" stroke="rgba(122,158,126,0.4)" stroke-width="1"/>
+          <rect x="170" y="60" width="200" height="20" rx="1" fill="rgba(122,158,126,0.15)"/>
+          <rect x="170" y="90" width="160" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
+          <rect x="170" y="110" width="180" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
+          <rect x="170" y="130" width="140" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
+          <text x="90" y="130" text-anchor="middle" font-size="50" fill="rgba(122,158,126,0.4)">📰</text>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-type">Custom Theme · Publishing</div>
+        <div class="project-title">The Daily Brief</div>
+        <p class="project-desc">Editorial WordPress theme for a news publication handling 500K daily readers. Built with block patterns, full-site editing, and aggressive caching. 98 PageSpeed score.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Block Theme</span>
+          <span class="stack-tag">Full-Site Editing</span>
+          <span class="stack-tag">Redis Cache</span>
+          <span class="stack-tag">CDN</span>
         </div>
+      </div>
+    </div>
 
-        <div class="project-row">
-          <div class="project-thumb" style="background:#fdf3ff">🔌</div>
-          <div class="project-info">
-            <div class="project-name">WP Security Shield — Plugin (12k+ Active Installs)</div>
-            <div class="project-meta">PHP · WordPress Plugin API · Security · OWASP Compliance</div>
-            <div style="margin-top:4px"><span class="tag green">Published</span> <span class="tag red">Security</span> <span class="tag">Plugin</span></div>
-          </div>
-          <div style="text-align:right">
-            <div class="project-actions" style="justify-content:flex-end;margin-bottom:4px">
-              <a class="action-link">Edit</a> |
-              <a class="action-link">Preview</a> |
-              <a class="action-link">GitHub</a>
-            </div>
-            <div style="font-size:11px;color:var(--wp-text-muted)">Dec 2024</div>
-          </div>
+    <div class="project-card">
+      <div class="project-card-img">
+        <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#0e0e0c"/>
+          <circle cx="200" cy="110" r="60" fill="none" stroke="rgba(192,82,42,0.3)" stroke-width="1" stroke-dasharray="5,5"/>
+          <circle cx="200" cy="110" r="30" fill="rgba(192,82,42,0.08)"/>
+          <text x="200" y="130" text-anchor="middle" font-size="40" fill="rgba(192,82,42,0.5)">🏥</text>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-type">Plugin Development · Healthcare</div>
+        <div class="project-title">MedConnect Booking</div>
+        <p class="project-desc">Custom appointment booking plugin for a 12-clinic healthcare network. HIPAA-aware data handling, real-time availability via REST API, and SMS notifications.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Custom Plugin</span>
+          <span class="stack-tag">REST API</span>
+          <span class="stack-tag">Twilio SMS</span>
+          <span class="stack-tag">HIPAA Aware</span>
         </div>
+      </div>
+    </div>
 
-        <div class="project-row">
-          <div class="project-thumb" style="background:#fff8f0">🎓</div>
-          <div class="project-info">
-            <div class="project-name">LearnHub — LMS Platform with MemberPress</div>
-            <div class="project-meta">LMS · MemberPress · BuddyBoss · Custom Gutenberg Blocks</div>
-            <div style="margin-top:4px"><span class="tag green">Live</span> <span class="tag orange">LMS</span> <span class="tag">Membership</span></div>
-          </div>
-          <div style="text-align:right">
-            <div class="project-actions" style="justify-content:flex-end;margin-bottom:4px">
-              <a class="action-link">Edit</a> |
-              <a class="action-link">Preview</a>
-            </div>
-            <div style="font-size:11px;color:var(--wp-text-muted)">Nov 2024</div>
-          </div>
-        </div>
-
-        <div class="project-row">
-          <div class="project-thumb" style="background:#f5f0ff">✈️</div>
-          <div class="project-info">
-            <div class="project-name">TravelBlog — Custom Theme with FSE (Full Site Editing)</div>
-            <div class="project-meta">WordPress 6.4 · FSE · Block Patterns · PageSpeed 99</div>
-            <div style="margin-top:4px"><span class="tag green">Live</span> <span class="tag purple">FSE</span> <span class="tag">Theme</span></div>
-          </div>
-          <div style="text-align:right">
-            <div class="project-actions" style="justify-content:flex-end;margin-bottom:4px">
-              <a class="action-link">Edit</a> |
-              <a class="action-link">Preview</a> |
-              <a class="action-link">GitHub</a>
-            </div>
-            <div style="font-size:11px;color:var(--wp-text-muted)">Oct 2024</div>
-          </div>
-        </div>
-
-        <div class="project-row">
-          <div class="project-thumb" style="background:#fff0f0">🏥</div>
-          <div class="project-info">
-            <div class="project-name">ClinicBook — Healthcare Appointment System</div>
-            <div class="project-meta">HIPAA compliant · Custom CPT · ACF · Twilio SMS · Stripe</div>
-            <div style="margin-top:4px"><span class="tag green">Live</span> <span class="tag red">Healthcare</span> <span class="tag">CPT</span></div>
-          </div>
-          <div style="text-align:right">
-            <div class="project-actions" style="justify-content:flex-end;margin-bottom:4px">
-              <a class="action-link">Edit</a> |
-              <a class="action-link">Preview</a>
-            </div>
-            <div style="font-size:11px;color:var(--wp-text-muted)">Sep 2024</div>
-          </div>
-        </div>
-
-        <div class="project-row">
-          <div class="project-thumb" style="background:#f0fff8">🧩</div>
-          <div class="project-info">
-            <div class="project-name">GutenbergKit — 30+ Custom Block Library</div>
-            <div class="project-meta">React · @wordpress/blocks · Block.json · NPM Package</div>
-            <div style="margin-top:4px"><span class="tag green">Published</span> <span class="tag">Gutenberg</span> <span class="tag purple">React</span></div>
-          </div>
-          <div style="text-align:right">
-            <div class="project-actions" style="justify-content:flex-end;margin-bottom:4px">
-              <a class="action-link">Edit</a> |
-              <a class="action-link">GitHub</a>
-            </div>
-            <div style="font-size:11px;color:var(--wp-text-muted)">Aug 2024</div>
-          </div>
-        </div>
-
-        <div class="project-row">
-          <div class="project-thumb" style="background:#fffbf0">🏢</div>
-          <div class="project-info">
-            <div class="project-name">AgencyHub — WordPress Multisite Network</div>
-            <div class="project-meta">Multisite · Domain Mapping · White-label · 20+ sub-sites</div>
-            <div style="margin-top:4px"><span class="tag green">Live</span> <span class="tag orange">Multisite</span></div>
-          </div>
-          <div style="text-align:right">
-            <div class="project-actions" style="justify-content:flex-end;margin-bottom:4px">
-              <a class="action-link">Edit</a> |
-              <a class="action-link">Preview</a>
-            </div>
-            <div style="font-size:11px;color:var(--wp-text-muted)">Jul 2024</div>
-          </div>
+    <div class="project-card">
+      <div class="project-card-img">
+        <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#0e0e0c"/>
+          <polygon points="200,40 340,180 60,180" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <polygon points="200,70 310,170 90,170" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+          <text x="200" y="155" text-anchor="middle" font-size="40" fill="rgba(201,168,76,0.4)">🎓</text>
+        </svg>
+      </div>
+      <div class="project-card-body">
+        <div class="project-type">LMS · Education</div>
+        <div class="project-title">AcademyPro LMS</div>
+        <p class="project-desc">Headless WordPress REST API backend powering a React-based LMS frontend. Custom progress tracking, certificate generation, and Stripe course subscriptions.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Headless WP</span>
+          <span class="stack-tag">REST API</span>
+          <span class="stack-tag">Next.js</span>
+          <span class="stack-tag">Stripe</span>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ════════ ABOUT PAGE ════════ -->
-  <div class="view-page" id="page-about">
-    <div class="page-header">
-      <div class="page-title">About Me</div>
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-label">How I Think</div>
+  <h2 class="section-title">My build process<br>— no surprises</h2>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="process-step-num">01</div>
+      <div class="process-step-title">Discover & Define</div>
+      <p class="process-step-desc">I start by asking the uncomfortable questions. What's the actual business goal? Who are the users? What does success look like in 3 months? Good questions create better briefs.</p>
     </div>
-
-    <div class="wp-card">
-      <div class="profile-hero">
-        <div class="profile-avatar">AR</div>
-        <div class="profile-info">
-          <h2>Alex Rivera</h2>
-          <div class="role">🚀 Senior WordPress Developer & WooCommerce Expert</div>
-          <p style="font-size:13px;color:var(--wp-text-muted);max-width:500px">
-            I architect and build scalable WordPress ecosystems — from custom plugin development and headless APIs to high-performance WooCommerce stores and full-site editing themes. I turn complex requirements into elegant code.
-          </p>
-          <div class="profile-meta">
-            <div class="profile-meta-item">📍 San Francisco, CA</div>
-            <div class="profile-meta-item">💼 7 Years Experience</div>
-            <div class="profile-meta-item">🎓 BSc Computer Science, UC Berkeley</div>
-            <div class="profile-meta-item"><span class="status-dot green"></span> Available Now</div>
-          </div>
-          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-            <a class="wp-button btn-primary" onclick="navigate('contact',document.querySelector('[data-page=contact]'))">✉️ Contact Me</a>
-            <a class="wp-button btn-secondary">🐙 GitHub</a>
-            <a class="wp-button btn-secondary">💼 LinkedIn</a>
-            <a class="wp-button btn-secondary">🐦 Twitter</a>
-          </div>
-        </div>
-      </div>
+    <div class="process-step">
+      <div class="process-step-num">02</div>
+      <div class="process-step-title">Architect First</div>
+      <p class="process-step-desc">Before writing a line of code, I plan the data model, plugin structure, and performance strategy. Architectural decisions made early save weeks of refactoring later.</p>
     </div>
-
-    <div class="about-grid">
-      <div class="wp-card">
-        <div class="wp-card-header"><div class="wp-card-title">📅 Experience Timeline</div></div>
-        <div class="wp-card-body">
-          <div class="timeline-item">
-            <div style="position:relative">
-              <div class="timeline-dot"></div>
-              <div class="timeline-line"></div>
-            </div>
-            <div class="timeline-content">
-              <div class="timeline-date">Jan 2022 – Present</div>
-              <div class="timeline-title">Senior WordPress Developer · Automattic (Contract)</div>
-              <div class="timeline-desc">Built enterprise WooCommerce platforms, contributed to Core, led team of 4 devs.</div>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div style="position:relative">
-              <div class="timeline-dot" style="background:var(--wp-purple)"></div>
-              <div class="timeline-line"></div>
-            </div>
-            <div class="timeline-content">
-              <div class="timeline-date">Mar 2019 – Dec 2021</div>
-              <div class="timeline-title">WordPress Developer · Digital Agency Pro</div>
-              <div class="timeline-desc">Delivered 30+ client sites. Specialized in custom themes, plugins, and WooCommerce.</div>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div style="position:relative">
-              <div class="timeline-dot" style="background:var(--wp-green)"></div>
-              <div class="timeline-line"></div>
-            </div>
-            <div class="timeline-content">
-              <div class="timeline-date">2017 – 2019</div>
-              <div class="timeline-title">Freelance WordPress Developer</div>
-              <div class="timeline-desc">Bootstrapped career building custom WordPress solutions for SMBs.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="wp-card">
-        <div class="wp-card-header"><div class="wp-card-title">🏆 Certifications & Awards</div></div>
-        <div class="wp-card-body">
-          <div class="activity-item">
-            <div class="activity-dot" style="background:#FFD700"></div>
-            <div class="activity-content">
-              <strong>WordPress Core Contributor</strong>
-              <div class="activity-time">Trac & GitHub patches merged into WordPress 6.x</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-blue)"></div>
-            <div class="activity-content">
-              <strong>Zend PHP 8 Certified Engineer</strong>
-              <div class="activity-time">Zend Technologies · 2023</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-purple)"></div>
-            <div class="activity-content">
-              <strong>WooCommerce Expert Certification</strong>
-              <div class="activity-time">Automattic · 2022</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-green)"></div>
-            <div class="activity-content">
-              <strong>Google PageSpeed Optimization Award</strong>
-              <div class="activity-time">Achieved 99/100 Lighthouse for 5+ client sites</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background:var(--wp-orange)"></div>
-            <div class="activity-content">
-              <strong>WordCamp Speaker</strong>
-              <div class="activity-time">WordCamp US 2023 · "Building Scalable Block Plugins"</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="process-step">
+      <div class="process-step-num">03</div>
+      <div class="process-step-title">Build Iteratively</div>
+      <p class="process-step-desc">Weekly demos, no big reveals. I ship working code in short cycles so you always know where we are. Feedback loops beat Gantt charts every time.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">04</div>
+      <div class="process-step-title">Optimise & Ship</div>
+      <p class="process-step-desc">Performance audits, cross-browser testing, accessibility checks, and staged deployments. I hand over fully documented code and run team training if needed.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">05</div>
+      <div class="process-step-title">Support & Grow</div>
+      <p class="process-step-desc">Launch is the beginning. I monitor, iterate, and help you respond to what real users actually do — not what we assumed they'd do in the brief.</p>
     </div>
   </div>
+</section>
 
-  <!-- ════════ SKILLS / PLUGINS PAGE ════════ -->
-  <div class="view-page" id="page-plugins">
-    <div class="page-header">
-      <div class="page-title">Skills</div>
-      <div class="page-subtitle">Active technologies in my development stack</div>
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Education & Growth</div>
+  <h2 class="section-title">The foundation<br>underneath</h2>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-card-year">18</div>
+      <div class="edu-degree">B.Sc. Computer Science</div>
+      <div class="edu-institution">University of Mumbai</div>
+      <div class="edu-period">2015 – 2018</div>
+      <p class="edu-desc">Graduated with First Class Honours. Dissertation on optimising database query performance in CMS applications — directly applicable to every WordPress project I touch.</p>
     </div>
 
-    <div class="wp-card" style="margin-bottom:20px">
-      <div class="wp-card-header">
-        <div class="wp-card-title">Core Proficiency</div>
-      </div>
-      <div class="wp-card-body" style="padding:0">
-        <table class="wp-table">
-          <thead>
-            <tr>
-              <th>Technology</th>
-              <th>Category</th>
-              <th>Proficiency</th>
-              <th>Level</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>WordPress Core</strong></td>
-              <td><span class="tag">CMS</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:99%"></div></div></td>
-              <td><span class="tag green">Expert</span></td>
-            </tr>
-            <tr>
-              <td><strong>PHP 8</strong></td>
-              <td><span class="tag">Backend</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div></td>
-              <td><span class="tag green">Expert</span></td>
-            </tr>
-            <tr>
-              <td><strong>WooCommerce</strong></td>
-              <td><span class="tag orange">eCommerce</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:97%;background:var(--wp-orange)"></div></div></td>
-              <td><span class="tag green">Expert</span></td>
-            </tr>
-            <tr>
-              <td><strong>Gutenberg / Block Editor</strong></td>
-              <td><span class="tag purple">Frontend</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%;background:var(--wp-purple)"></div></div></td>
-              <td><span class="tag green">Expert</span></td>
-            </tr>
-            <tr>
-              <td><strong>WordPress REST API</strong></td>
-              <td><span class="tag">API</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:93%"></div></div></td>
-              <td><span class="tag green">Expert</span></td>
-            </tr>
-            <tr>
-              <td><strong>React / JavaScript</strong></td>
-              <td><span class="tag purple">Frontend</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%;background:var(--wp-purple)"></div></div></td>
-              <td><span class="tag green">Advanced</span></td>
-            </tr>
-            <tr>
-              <td><strong>MySQL / MariaDB</strong></td>
-              <td><span class="tag">Database</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></td>
-              <td><span class="tag green">Advanced</span></td>
-            </tr>
-            <tr>
-              <td><strong>Docker / DevOps</strong></td>
-              <td><span class="tag orange">DevOps</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%;background:var(--wp-orange)"></div></div></td>
-              <td><span class="tag orange">Intermediate</span></td>
-            </tr>
-            <tr>
-              <td><strong>GraphQL / WPGraphQL</strong></td>
-              <td><span class="tag">API</span></td>
-              <td><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></td>
-              <td><span class="tag">Intermediate</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="edu-card">
+      <div class="edu-card-year">22</div>
+      <div class="edu-degree">WordPress Core Contributor</div>
+      <div class="edu-institution">WordPress.org</div>
+      <div class="edu-period">2022 — Present</div>
+      <p class="edu-desc">Active contributor to WordPress core. Submitted patches to the Gutenberg project and contributed documentation. WordCamp speaker in 2023 on REST API performance.</p>
     </div>
 
-    <div class="wp-card">
-      <div class="wp-card-header"><div class="wp-card-title">🔌 Installed Plugins (My Plugin Toolkit)</div></div>
-      <div class="wp-card-body">
-        <div class="plugin-row">
-          <div class="plugin-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">🛒</div>
-          <div>
-            <div class="plugin-name">Advanced Custom Fields Pro</div>
-            <div class="plugin-desc">Custom field framework powering complex data architectures. Used in 100% of client projects.</div>
-            <div class="plugin-author">By <a href="#">Elliot Condon</a> · v6.2.1 · ⭐ 4.9</div>
-          </div>
-          <div class="plugin-toggle">
-            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
-            <span style="font-size:10px;color:var(--wp-green)">Active</span>
-          </div>
-        </div>
+    <div class="edu-card">
+      <div class="edu-card-year">23</div>
+      <div class="edu-degree">AWS Certified Developer</div>
+      <div class="edu-institution">Amazon Web Services</div>
+      <div class="edu-period">2023</div>
+      <p class="edu-desc">Associate-level certification covering serverless architecture, S3, CloudFront, and Lambda — technologies I apply when deploying WordPress at scale with high availability requirements.</p>
+    </div>
 
-        <div class="plugin-row">
-          <div class="plugin-icon" style="background:linear-gradient(135deg,#f7971e,#ffd200)">⚡</div>
-          <div>
-            <div class="plugin-name">WP Rocket (Performance)</div>
-            <div class="plugin-desc">Caching, minification, lazy loading. Primary tool for achieving 99+ PageSpeed scores.</div>
-            <div class="plugin-author">By <a href="#">WP Media</a> · v3.15 · ⭐ 4.9</div>
-          </div>
-          <div class="plugin-toggle">
-            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
-            <span style="font-size:10px;color:var(--wp-green)">Active</span>
-          </div>
-        </div>
-
-        <div class="plugin-row">
-          <div class="plugin-icon" style="background:linear-gradient(135deg,#11998e,#38ef7d)">🔒</div>
-          <div>
-            <div class="plugin-name">Wordfence Security</div>
-            <div class="plugin-desc">Enterprise-grade security scanning and firewall. Combined with custom hardening scripts.</div>
-            <div class="plugin-author">By <a href="#">Wordfence</a> · v7.11 · ⭐ 4.8</div>
-          </div>
-          <div class="plugin-toggle">
-            <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
-            <span style="font-size:10px;color:var(--wp-green)">Active</span>
-          </div>
-        </div>
-
-        <div class="plugin-row">
-          <div class="plugin-icon" style="background:linear-gradient(135deg,#2196f3,#00bcd4)">🔗</div>
-          <div>
-            <div class="plugin-name">WPGraphQL</div>
-            <div class="plugin-desc">Exposes WordPress data as a GraphQL API for headless and decoupled architectures.</div>
-            <div class="plugin-author">By <a href="#">Jason Bahl</a> · v1.26 · ⭐ 4.7</div>
-          </div>
-          <div class="plugin-toggle">
-            <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
-            <span style="font-size:10px;color:var(--wp-text-muted)">Inactive</span>
-          </div>
-        </div>
-      </div>
+    <div class="edu-card">
+      <div class="edu-card-year">∞</div>
+      <div class="edu-degree">Continuous Learning</div>
+      <div class="edu-institution">Books, Podcasts & Side Projects</div>
+      <div class="edu-period">Every day</div>
+      <p class="edu-desc">Currently reading: "The Art of Readable Code". Recent courses: Advanced PHP Design Patterns, TypeScript for Backend Developers. Currently building: a WordPress performance monitoring SaaS.</p>
     </div>
   </div>
+</section>
 
-  <!-- ════════ SERVICES / THEMES PAGE ════════ -->
-  <div class="view-page" id="page-themes">
-    <div class="page-header">
-      <div class="page-title">Services</div>
-      <div class="page-subtitle">What I can build for you</div>
-    </div>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="hero-bg-grid"></div>
+  <div class="section-label" style="justify-content: center; margin-bottom: 2rem;">Let's Build Something</div>
+  <h2 class="contact-title">Ready to<br><em>hire me?</em></h2>
+  <p class="contact-subtitle">I'm actively looking for my next WordPress developer role — full-time, remote or hybrid. Let's talk.</p>
 
-    <div class="dashboard-grid">
-      <div class="wp-card" style="border-top:3px solid var(--wp-blue)">
-        <div class="wp-card-body" style="padding:20px;text-align:center">
-          <div style="font-size:36px;margin-bottom:10px">🏗️</div>
-          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px">Custom WordPress Development</div>
-          <p style="font-size:12px;color:var(--wp-text-muted);margin-bottom:12px">Bespoke themes, custom CPTs, plugin development tailored to your exact requirements.</p>
-          <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;text-align:left;margin-bottom:16px">
-            <div>✅ Custom Theme Development</div>
-            <div>✅ Plugin Architecture & Development</div>
-            <div>✅ Custom Post Types & Taxonomies</div>
-            <div>✅ Gutenberg Block Development</div>
-          </div>
-          <a class="wp-button btn-primary" style="width:100%;justify-content:center" onclick="navigate('contact',document.querySelector('[data-page=contact]'))">Get Quote</a>
-        </div>
-      </div>
+  <a href="mailto:alex.rivera@example.com" class="email-big">alex.rivera@example.com</a>
 
-      <div class="wp-card" style="border-top:3px solid var(--wp-orange)">
-        <div class="wp-card-body" style="padding:20px;text-align:center">
-          <div style="font-size:36px;margin-bottom:10px">🛒</div>
-          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px">WooCommerce Solutions</div>
-          <p style="font-size:12px;color:var(--wp-text-muted);margin-bottom:12px">High-performance eCommerce stores with custom checkout flows, payment integrations & more.</p>
-          <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;text-align:left;margin-bottom:16px">
-            <div>✅ Custom WooCommerce Themes</div>
-            <div>✅ Payment Gateway Integration</div>
-            <div>✅ Inventory & Order Management</div>
-            <div>✅ Multi-vendor Marketplaces</div>
-          </div>
-          <a class="wp-button btn-primary" style="width:100%;justify-content:center;background:var(--wp-orange);border-color:#c49a10" onclick="navigate('contact',document.querySelector('[data-page=contact]'))">Get Quote</a>
-        </div>
-      </div>
-
-      <div class="wp-card" style="border-top:3px solid var(--wp-purple)">
-        <div class="wp-card-body" style="padding:20px;text-align:center">
-          <div style="font-size:36px;margin-bottom:10px">⚡</div>
-          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px">Headless WordPress (JAMstack)</div>
-          <p style="font-size:12px;color:var(--wp-text-muted);margin-bottom:12px">WordPress as a headless CMS powering blazing-fast Next.js or Nuxt.js frontends.</p>
-          <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;text-align:left;margin-bottom:16px">
-            <div>✅ REST API & GraphQL Setup</div>
-            <div>✅ Next.js / Nuxt.js Integration</div>
-            <div>✅ ISR & Static Generation</div>
-            <div>✅ Headless WooCommerce</div>
-          </div>
-          <a class="wp-button btn-primary" style="width:100%;justify-content:center;background:var(--wp-purple);border-color:#7a38c7" onclick="navigate('contact',document.querySelector('[data-page=contact]'))">Get Quote</a>
-        </div>
-      </div>
-
-      <div class="wp-card" style="border-top:3px solid var(--wp-green)">
-        <div class="wp-card-body" style="padding:20px;text-align:center">
-          <div style="font-size:36px;margin-bottom:10px">🚀</div>
-          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px">Performance Optimization</div>
-          <p style="font-size:12px;color:var(--wp-text-muted);margin-bottom:12px">Transform slow WordPress sites into lightning-fast experiences with 90+ PageSpeed scores.</p>
-          <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;text-align:left;margin-bottom:16px">
-            <div>✅ Core Web Vitals Optimization</div>
-            <div>✅ Advanced Caching Setup</div>
-            <div>✅ Image & Asset Optimization</div>
-            <div>✅ Database Query Optimization</div>
-          </div>
-          <a class="wp-button btn-primary" style="width:100%;justify-content:center;background:var(--wp-green);border-color:#007d1e" onclick="navigate('contact',document.querySelector('[data-page=contact]'))">Get Quote</a>
-        </div>
-      </div>
-    </div>
+  <div class="contact-links">
+    <a href="#" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="#" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="#" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Portfolio Site
+    </a>
+    <a href="#" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Download CV
+    </a>
   </div>
+</section>
 
-  <!-- ════════ CLIENTS / USERS PAGE ════════ -->
-  <div class="view-page" id="page-users">
-    <div class="page-header">
-      <div class="page-title">Clients & Testimonials</div>
-    </div>
-
-    <div class="wp-card">
-      <div class="wp-card-body" style="padding:0">
-        <table class="wp-table">
-          <thead>
-            <tr>
-              <th>Client</th>
-              <th>Company</th>
-              <th>Project Type</th>
-              <th>Rating</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div style="display:flex;align-items:center;gap:8px">
-                  <div class="user-avatar-sm" style="background:linear-gradient(135deg,#667eea,#764ba2)">SJ</div>
-                  <div><div style="font-weight:500">Sarah Johnson</div><div style="font-size:11px;color:var(--wp-text-muted)">sarah@techcorp.com</div></div>
-                </div>
-              </td>
-              <td>TechCorp Inc.</td>
-              <td><span class="tag purple">Headless WP</span></td>
-              <td>⭐⭐⭐⭐⭐</td>
-              <td><span class="tag green">Ongoing</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div style="display:flex;align-items:center;gap:8px">
-                  <div class="user-avatar-sm" style="background:linear-gradient(135deg,#f7971e,#ffd200)">MK</div>
-                  <div><div style="font-weight:500">Michael Kim</div><div style="font-size:11px;color:var(--wp-text-muted)">mike@shoply.com</div></div>
-                </div>
-              </td>
-              <td>Shoply</td>
-              <td><span class="tag orange">WooCommerce</span></td>
-              <td>⭐⭐⭐⭐⭐</td>
-              <td><span class="tag green">Completed</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div style="display:flex;align-items:center;gap:8px">
-                  <div class="user-avatar-sm" style="background:linear-gradient(135deg,#11998e,#38ef7d)">AR</div>
-                  <div><div style="font-weight:500">Amanda Ross</div><div style="font-size:11px;color:var(--wp-text-muted)">amanda@learnhub.io</div></div>
-                </div>
-              </td>
-              <td>LearnHub.io</td>
-              <td><span class="tag">LMS</span></td>
-              <td>⭐⭐⭐⭐⭐</td>
-              <td><span class="tag green">Completed</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div style="display:flex;align-items:center;gap:8px">
-                  <div class="user-avatar-sm" style="background:linear-gradient(135deg,#d63638,#ff6b6b)">DL</div>
-                  <div><div style="font-weight:500">Dr. Linda Park</div><div style="font-size:11px;color:var(--wp-text-muted)">lpark@clinicbook.com</div></div>
-                </div>
-              </td>
-              <td>ClinicBook</td>
-              <td><span class="tag red">Healthcare</span></td>
-              <td>⭐⭐⭐⭐⭐</td>
-              <td><span class="tag orange">In Review</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="wp-card">
-      <div class="wp-card-header"><div class="wp-card-title">💬 Testimonials</div></div>
-      <div class="wp-card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div style="background:#f9f9f9;border-radius:4px;padding:14px;border-left:3px solid var(--wp-blue)">
-          <p style="font-size:12px;font-style:italic;color:var(--wp-text-muted);margin-bottom:8px">"Alex rebuilt our WooCommerce store from scratch and our conversion rate jumped 40%. PageSpeed went from 54 to 99. Absolute wizard."</p>
-          <div style="font-size:12px;font-weight:600">Michael Kim · Shoply</div>
-        </div>
-        <div style="background:#f9f9f9;border-radius:4px;padding:14px;border-left:3px solid var(--wp-purple)">
-          <p style="font-size:12px;font-style:italic;color:var(--wp-text-muted);margin-bottom:8px">"The headless WordPress setup Alex delivered is extraordinary. Our Lighthouse score is 100 across all categories. We couldn't be happier."</p>
-          <div style="font-size:12px;font-weight:600">Sarah Johnson · TechCorp Inc.</div>
-        </div>
-        <div style="background:#f9f9f9;border-radius:4px;padding:14px;border-left:3px solid var(--wp-green)">
-          <p style="font-size:12px;font-style:italic;color:var(--wp-text-muted);margin-bottom:8px">"Alex delivered our entire LMS platform in 8 weeks. Complex membership logic, perfectly executed. Our students love the experience."</p>
-          <div style="font-size:12px;font-weight:600">Amanda Ross · LearnHub.io</div>
-        </div>
-        <div style="background:#f9f9f9;border-radius:4px;padding:14px;border-left:3px solid var(--wp-orange)">
-          <p style="font-size:12px;font-style:italic;color:var(--wp-text-muted);margin-bottom:8px">"HIPAA compliance was non-negotiable. Alex handled everything meticulously — custom audit logs, encrypted data, the works. Trustworthy."</p>
-          <div style="font-size:12px;font-weight:600">Dr. Linda Park · ClinicBook</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════ CONTACT PAGE ════════ -->
-  <div class="view-page" id="page-contact">
-    <div class="page-header">
-      <div class="page-title">Contact Me</div>
-      <div class="page-subtitle">I typically respond within 24 hours</div>
-    </div>
-
-    <div class="dashboard-grid">
-      <div class="wp-card">
-        <div class="wp-card-header"><div class="wp-card-title">✏️ Send a Message</div></div>
-        <div class="wp-card-body">
-          <div id="contact-success" style="display:none" class="notice notice-success">
-            ✅ Message sent! I'll get back to you within 24 hours.
-          </div>
-
-          <label style="display:block;font-size:12px;font-weight:500;margin-bottom:4px">Your Name *</label>
-          <input type="text" class="wp-input" placeholder="Jane Doe" id="contact-name">
-
-          <label style="display:block;font-size:12px;font-weight:500;margin-bottom:4px">Email Address *</label>
-          <input type="email" class="wp-input" placeholder="jane@company.com" id="contact-email">
-
-          <label style="display:block;font-size:12px;font-weight:500;margin-bottom:4px">Subject</label>
-          <input type="text" class="wp-input" placeholder="WordPress Project Inquiry" id="contact-subject">
-
-          <label style="display:block;font-size:12px;font-weight:500;margin-bottom:4px">Message *</label>
-          <textarea class="wp-input" placeholder="Tell me about your project..." id="contact-message"></textarea>
-
-          <div style="display:flex;gap:8px;align-items:center">
-            <button class="wp-button btn-primary" onclick="sendMessage()">📬 Send Message</button>
-            <button class="wp-button btn-secondary" onclick="document.querySelectorAll('.wp-input').forEach(i=>i.value='')">Clear</button>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="wp-card" style="margin-bottom:20px">
-          <div class="wp-card-header"><div class="wp-card-title">📋 Quick Info</div></div>
-          <div class="wp-card-body">
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div>
-                <div style="font-size:11px;color:var(--wp-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Email</div>
-                <div style="color:var(--wp-blue);font-weight:500">alex@wordpressdev.io</div>
-              </div>
-              <div>
-                <div style="font-size:11px;color:var(--wp-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Location</div>
-                <div>San Francisco, CA (UTC-8) · Remote Worldwide</div>
-              </div>
-              <div>
-                <div style="font-size:11px;color:var(--wp-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Availability</div>
-                <div><span class="status-dot green"></span>Available immediately · 40h/week</div>
-              </div>
-              <div>
-                <div style="font-size:11px;color:var(--wp-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Response Time</div>
-                <div>Usually within 24 hours</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="wp-card">
-          <div class="wp-card-header"><div class="wp-card-title">🌐 Social Links</div></div>
-          <div class="wp-card-body">
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <a class="sidebar-item" style="border-radius:3px;background:#f6f7f7" href="#">🐙 GitHub — @alexrivera-wp</a>
-              <a class="sidebar-item" style="border-radius:3px;background:#f6f7f7" href="#">💼 LinkedIn — /in/alexrivera</a>
-              <a class="sidebar-item" style="border-radius:3px;background:#f6f7f7" href="#">🐦 Twitter — @alexwpdev</a>
-              <a class="sidebar-item" style="border-radius:3px;background:#f6f7f7" href="#">🌐 Website — alexwpdev.com</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════ SETTINGS PAGE ════════ -->
-  <div class="view-page" id="page-settings">
-    <div class="page-header">
-      <div class="page-title">Settings</div>
-      <div class="page-subtitle">Portfolio preferences & configuration</div>
-    </div>
-
-    <div class="wp-card">
-      <div class="wp-card-header"><div class="wp-card-title">General Settings</div></div>
-      <div class="wp-card-body" style="padding:0 16px">
-        <div class="settings-form-row">
-          <div class="settings-label">Site Title<small>Your professional headline</small></div>
-          <div class="settings-control">
-            <input type="text" class="wp-input" value="Alex Rivera — Senior WordPress Developer" style="max-width:400px">
-          </div>
-        </div>
-        <div class="settings-form-row">
-          <div class="settings-label">Tagline<small>Short description</small></div>
-          <div class="settings-control">
-            <input type="text" class="wp-input" value="Building powerful WordPress ecosystems, one plugin at a time." style="max-width:400px">
-          </div>
-        </div>
-        <div class="settings-form-row">
-          <div class="settings-label">Availability Status</div>
-          <div class="settings-control">
-            <select class="wp-input" style="max-width:200px">
-              <option>✅ Available Now</option>
-              <option>⏳ Available Soon</option>
-              <option>❌ Not Available</option>
-            </select>
-          </div>
-        </div>
-        <div class="settings-form-row">
-          <div class="settings-label">Theme<small>Portfolio color scheme</small></div>
-          <div class="settings-control" style="display:flex;gap:8px;flex-wrap:wrap">
-            <div style="width:30px;height:30px;border-radius:50%;background:#2271b1;border:3px solid #1d2327;cursor:pointer"></div>
-            <div style="width:30px;height:30px;border-radius:50%;background:#9B51E0;cursor:pointer;opacity:0.6"></div>
-            <div style="width:30px;height:30px;border-radius:50%;background:#00a32a;cursor:pointer;opacity:0.6"></div>
-            <div style="width:30px;height:30px;border-radius:50%;background:#d63638;cursor:pointer;opacity:0.6"></div>
-            <div style="width:30px;height:30px;border-radius:50%;background:#1d2327;cursor:pointer;opacity:0.6"></div>
-          </div>
-        </div>
-        <div class="settings-form-row">
-          <div class="settings-label">Open to Work Badge</div>
-          <div class="settings-control">
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
-              <input type="checkbox" checked style="width:14px;height:14px">
-              <span style="font-size:12px">Show "Available for Hire" badge in admin bar</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="wp-card">
-      <div class="wp-card-header"><div class="wp-card-title">💾 Save Changes</div></div>
-      <div class="wp-card-body">
-        <button class="wp-button btn-primary" onclick="saveSettings()">💾 Save Settings</button>
-        <span style="font-size:11px;color:var(--wp-text-muted);margin-left:12px" id="settings-saved"></span>
-      </div>
-    </div>
-  </div>
-
-</div>
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 Alex Rivera. Built with WordPress love ♥</p>
+  <p>Designed & coded by hand · Mumbai, India</p>
+</footer>
 
 <script>
-  // ═══════════ NAVIGATION ═══════════
-  function navigate(page, el) {
-    // Hide all pages
-    document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-    // Show target page
-    document.getElementById('page-' + page).classList.add('active');
-    if (el) el.classList.add('active');
-
-    // Loading bar effect
-    const bar = document.getElementById('loading-bar');
-    bar.style.transform = 'scaleX(0.7)';
-    setTimeout(() => {
-      bar.style.transform = 'scaleX(1)';
-      setTimeout(() => {
-        bar.style.transition = 'none';
-        bar.style.transform = 'scaleX(0)';
-        setTimeout(() => { bar.style.transition = 'transform 0.3s ease'; }, 50);
-      }, 200);
-    }, 50);
-
-    // Flash
-    const flash = document.getElementById('screen-flash');
-    flash.classList.add('active');
-    setTimeout(() => flash.classList.remove('active'), 200);
-
-    // Update subtitle
-    const titles = {
-      dashboard: 'Dashboard — Overview',
-      projects: 'Projects — All Work',
-      about: 'About Me',
-      plugins: 'Skills — Tech Stack',
-      themes: 'Services — What I Offer',
-      users: 'Clients & Testimonials',
-      contact: 'Contact — Get In Touch',
-      settings: 'Settings'
-    };
-
-    window.scrollTo(0, 0);
-  }
-
-  // ═══════════ CONTACT FORM ═══════════
-  function sendMessage() {
-    const name = document.getElementById('contact-name').value;
-    const email = document.getElementById('contact-email').value;
-    const msg = document.getElementById('contact-message').value;
-
-    if (!name || !email || !msg) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-
-    const success = document.getElementById('contact-success');
-    success.style.display = 'flex';
-    document.querySelectorAll('#page-contact .wp-input').forEach(i => i.value = '');
-
-    setTimeout(() => {
-      success.style.display = 'none';
-    }, 5000);
-  }
-
-  // ═══════════ SETTINGS SAVE ═══════════
-  function saveSettings() {
-    const el = document.getElementById('settings-saved');
-    el.textContent = '✅ Settings saved successfully!';
-    el.style.color = 'var(--wp-green)';
-    setTimeout(() => el.textContent = '', 3000);
-  }
-
-  // ═══════════ SEARCH ═══════════
-  document.getElementById('search-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      const q = this.value.toLowerCase();
-      const pages = {
-        'project': 'projects', 'work': 'projects',
-        'about': 'about', 'me': 'about',
-        'skill': 'plugins', 'stack': 'plugins', 'plugin': 'plugins',
-        'service': 'themes', 'hire': 'themes',
-        'contact': 'contact', 'email': 'contact',
-        'client': 'users', 'testimonial': 'users'
-      };
-      for (const [key, page] of Object.entries(pages)) {
-        if (q.includes(key)) {
-          navigate(page, document.querySelector(`[data-page=${page}]`));
-          this.value = '';
-          return;
-        }
-      }
-    }
+  /* ---- CURSOR ---- */
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    gsap.to(cursor, { x: mx, y: my, duration: 0.05 });
+    gsap.to(ring, { x: mx, y: my, duration: 0.25 });
   });
-
-  // ═══════════ ANIMATED SKILL BARS ═══════════
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('.skill-bar').forEach(bar => {
-          const width = bar.style.width;
-          bar.style.width = '0';
-          requestAnimationFrame(() => {
-            setTimeout(() => bar.style.width = width, 50);
-          });
-        });
-      }
+  document.querySelectorAll('a, button, .skill-card, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      gsap.to(cursor, { width: 6, height: 6, duration: 0.2 });
+      gsap.to(ring, { width: 60, height: 60, borderColor: 'rgba(201,168,76,0.8)', duration: 0.3 });
+    });
+    el.addEventListener('mouseleave', () => {
+      gsap.to(cursor, { width: 12, height: 12, duration: 0.2 });
+      gsap.to(ring, { width: 40, height: 40, borderColor: 'rgba(201,168,76,0.5)', duration: 0.3 });
     });
   });
 
-  document.querySelectorAll('#page-plugins').forEach(el => observer.observe(el));
-
-  // ═══════════ ADMIN BAR NEW BUTTON CLICK ═══════════
-  document.querySelector('.admin-bar-items .admin-bar-item:nth-child(2)').addEventListener('click', () => {
-    navigate('contact', document.querySelector('[data-page=contact]'));
+  /* ---- NAV SCROLL ---- */
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
   });
 
-  // ═══════════ STAGGERED CARD ANIMATIONS ═══════════
-  function animateCards() {
-    document.querySelectorAll('.wp-card').forEach((card, i) => {
-      card.style.animationDelay = `${i * 0.05}s`;
+  /* ---- MARQUEE CONTENT ---- */
+  const skills = ['WordPress', 'WooCommerce', 'PHP 8.x', 'Gutenberg Blocks', 'REST API', 'Custom Themes', 'Plugin Development', 'Performance', 'SEO', 'GSAP', 'Alpine.js', 'Next.js', 'MySQL', 'DevOps', 'Headless WP'];
+  const track = document.getElementById('marqueeTrack');
+  const items = [...skills, ...skills].map(s => `<span class="marquee-item"><span class="marquee-dot"></span>${s}</span>`).join('');
+  track.innerHTML = items + items;
+
+  /* ---- HERO ANIMATIONS ---- */
+  const heroTl = gsap.timeline({ delay: 0.3 });
+  heroTl
+    .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0)
+    .fromTo('.hero-name .word', { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.2, ease: 'power4.out', stagger: 0.15 }, 0.3)
+    .to('.hero-tagline', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.8)
+    .to('.hero-cta', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 1.1)
+    .to('.hero-stats', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 1.3)
+    .to('.scroll-indicator', { opacity: 1, duration: 0.8 }, 1.6);
+
+  /* ---- ORB FLOAT ---- */
+  gsap.to('.orb1', { y: -40, x: 20, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  gsap.to('.orb2', { y: 30, x: -15, duration: 8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 2 });
+
+  /* ---- COUNTER ANIMATION ---- */
+  document.querySelectorAll('.counter-num').forEach(el => {
+    const target = +el.dataset.target;
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 90%',
+      once: true,
+      onEnter: () => gsap.to({ val: 0 }, {
+        val: target,
+        duration: 2,
+        ease: 'power2.out',
+        onUpdate: function() { el.textContent = Math.round(this.targets()[0].val); }
+      })
     });
-  }
-  animateCards();
+  });
+
+  /* ---- SKILL BARS ---- */
+  document.querySelectorAll('.skill-level-fill').forEach(bar => {
+    ScrollTrigger.create({
+      trigger: bar,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => gsap.to(bar, { width: bar.dataset.width, duration: 1.6, ease: 'power3.out', delay: 0.2 })
+    });
+  });
+
+  /* ---- SKILL CARDS STAGGER ---- */
+  gsap.from('.skill-card', {
+    scrollTrigger: { trigger: '#skills .skills-grid', start: 'top 75%' },
+    opacity: 0, y: 50, duration: 0.8, stagger: 0.1, ease: 'power3.out'
+  });
+
+  /* ---- TIMELINE ---- */
+  document.querySelectorAll('.timeline-item').forEach((item, i) => {
+    gsap.to(item, {
+      scrollTrigger: { trigger: item, start: 'top 80%' },
+      opacity: 1, x: 0, duration: 0.9, ease: 'power3.out', delay: i * 0.15
+    });
+  });
+
+  /* ---- PROJECT CARDS ---- */
+  gsap.from('.project-card', {
+    scrollTrigger: { trigger: '#projects .projects-grid', start: 'top 75%' },
+    opacity: 0, y: 60, duration: 0.8, stagger: 0.12, ease: 'power3.out'
+  });
+
+  /* ---- PROCESS STEPS ---- */
+  document.querySelectorAll('.process-step').forEach((step, i) => {
+    gsap.to(step, {
+      scrollTrigger: { trigger: step, start: 'top 80%' },
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: i * 0.1
+    });
+  });
+
+  /* ---- SECTION HEADINGS REVEAL ---- */
+  document.querySelectorAll('.section-title').forEach(el => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+      opacity: 0, y: 40, duration: 1, ease: 'power3.out'
+    });
+  });
+
+  /* ---- EDUCATION CARDS ---- */
+  gsap.from('.edu-card', {
+    scrollTrigger: { trigger: '#education .edu-grid', start: 'top 75%' },
+    opacity: 0, y: 50, rotateX: 8, duration: 0.9, stagger: 0.12, ease: 'power3.out',
+    transformOrigin: 'top center'
+  });
+
+  /* ---- CONTACT SECTION ---- */
+  gsap.from('.contact-title', {
+    scrollTrigger: { trigger: '#contact', start: 'top 75%' },
+    opacity: 0, y: 60, duration: 1.2, ease: 'power4.out'
+  });
+
+  /* ---- SMOOTH SCROLL ---- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) gsap.to(window, { scrollTo: target, duration: 1.2, ease: 'power3.inOut' });
+    });
+  });
+
+  /* ---- CODE WINDOW TYPING EFFECT ---- */
+  ScrollTrigger.create({
+    trigger: '.code-window',
+    start: 'top 75%',
+    once: true,
+    onEnter: () => {
+      gsap.from('.code-window', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out' });
+    }
+  });
+
+  /* ---- PARALLAX HERO ---- */
+  gsap.to('.hero-bg-grid', {
+    scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true },
+    y: 100, ease: 'none'
+  });
+
+  /* ---- STORY TEXT REVEAL ---- */
+  gsap.from('.story-text, .story-highlight', {
+    scrollTrigger: { trigger: '#story', start: 'top 75%' },
+    opacity: 0, y: 30, duration: 0.9, stagger: 0.15, ease: 'power3.out'
+  });
 </script>
 </body>
 </html>
