@@ -3,24 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alex Rivera — WordPress Developer</title>
+<title>Shankar Saud — WordPress Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
   :root {
-    --bg: #0a0a08;
-    --bg2: #111110;
-    --cream: #f5f0e8;
-    --gold: #c9a84c;
-    --gold2: #e8c96e;
-    --rust: #c0522a;
-    --sage: #7a9e7e;
-    --text: #e8e4dc;
-    --muted: #8a8478;
-    --border: rgba(201,168,76,0.2);
+    --bg:       #faf8f3;
+    --bg2:      #f0ebe0;
+    --navy:     #1b3a5c;
+    --navy2:    #2a5a8e;
+    --rust:     #c0522a;
+    --sage:     #4a7c59;
+    --text:     #1c1917;
+    --muted:    #7a6e64;
+    --border:   rgba(27,58,92,0.13);
     --font-display: 'Playfair Display', serif;
-    --font-mono: 'DM Mono', monospace;
-    --font-ui: 'Syne', sans-serif;
+    --font-mono:    'DM Mono', monospace;
+    --font-ui:      'Syne', sans-serif;
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,12 +31,12 @@
     overflow-x: hidden;
   }
 
-  /* NOISE OVERLAY */
+  /* PAPER TEXTURE */
   body::before {
     content: '';
     position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 1000; opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.6;
   }
 
   /* NAV */
@@ -50,15 +49,17 @@
     transition: border-color 0.4s, background 0.4s;
   }
   nav.scrolled {
-    background: rgba(10,10,8,0.92);
+    background: rgba(250,248,243,0.93);
     backdrop-filter: blur(20px);
     border-color: var(--border);
+    box-shadow: 0 1px 20px rgba(27,58,92,0.06);
   }
   .nav-logo {
     font-family: var(--font-display);
     font-size: 1.3rem;
-    color: var(--gold);
+    color: var(--navy);
     letter-spacing: 0.05em;
+    font-weight: 700;
   }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
@@ -74,10 +75,10 @@
   .nav-links a::after {
     content: '';
     position: absolute; bottom: -4px; left: 0; right: 100%;
-    height: 1px; background: var(--gold);
+    height: 1px; background: var(--navy);
     transition: right 0.3s;
   }
-  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover { color: var(--navy); }
   .nav-links a:hover::after { right: 0; }
 
   /* HERO */
@@ -92,10 +93,10 @@
   .hero-bg-grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      linear-gradient(rgba(27,58,92,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(27,58,92,0.06) 1px, transparent 1px);
     background-size: 80px 80px;
-    opacity: 0.4;
+    opacity: 0.5;
   }
 
   .hero-orb {
@@ -105,7 +106,7 @@
     pointer-events: none;
     animation: orbFloat 8s ease-in-out infinite;
   }
-  .orb1 { width: 500px; height: 500px; background: rgba(201,168,76,0.08); top: 10%; right: 5%; animation-delay: 0s; }
+  .orb1 { width: 500px; height: 500px; background: rgba(27,58,92,0.07); top: 10%; right: 5%; animation-delay: 0s; }
   .orb2 { width: 300px; height: 300px; background: rgba(192,82,42,0.06); bottom: 20%; left: 10%; animation-delay: 3s; }
 
   @keyframes orbFloat {
@@ -116,7 +117,7 @@
   .hero-eyebrow {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--gold);
+    color: var(--navy);
     letter-spacing: 0.3em;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
@@ -127,22 +128,22 @@
 
   .hero-name {
     font-family: var(--font-display);
-    font-size: clamp(4rem, 10vw, 9rem);
+    font-size: clamp(3.5rem, 9vw, 8rem);
     font-weight: 900;
-    line-height: 0.9;
+    line-height: 0.92;
     margin-bottom: 2rem;
     position: relative; z-index: 1;
     animation: fadeUp 1s ease forwards 0.5s;
     opacity: 0;
-    color: var(--cream);
+    color: var(--text);
   }
-  .hero-name em { font-style: italic; color: var(--gold); }
+  .hero-name em { font-style: italic; color: var(--navy); }
 
   .hero-tagline {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--muted);
     max-width: 500px;
-    line-height: 1.7;
+    line-height: 1.8;
     margin-bottom: 3rem;
     font-weight: 400;
     position: relative; z-index: 1;
@@ -164,8 +165,8 @@
   }
 
   .btn-primary {
-    background: var(--gold);
-    color: var(--bg);
+    background: var(--navy);
+    color: #fff;
     padding: 1rem 2.5rem;
     font-family: var(--font-mono);
     font-size: 0.8rem;
@@ -178,9 +179,10 @@
     transition: background 0.3s, transform 0.2s;
     display: inline-block;
   }
-  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+  .btn-primary:hover { background: var(--navy2); transform: translateY(-2px); }
+
   .btn-outline {
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     color: var(--muted);
     padding: 1rem 2.5rem;
     font-family: var(--font-mono);
@@ -191,7 +193,7 @@
     transition: border-color 0.3s, color 0.3s;
     display: inline-block;
   }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-outline:hover { border-color: var(--navy); color: var(--navy); }
 
   .hero-stats {
     position: absolute; right: 3rem; bottom: 4rem;
@@ -205,7 +207,7 @@
     font-family: var(--font-display);
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--navy);
     line-height: 1;
   }
   .stat-label {
@@ -223,12 +225,10 @@
     animation: fadeIn 1s ease forwards 1.6s;
     opacity: 0;
   }
-  @keyframes fadeIn {
-    from { opacity: 0; } to { opacity: 1; }
-  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   .scroll-line {
     width: 1px; height: 60px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
+    background: linear-gradient(to bottom, var(--navy), transparent);
     animation: scrollPulse 2s ease-in-out infinite;
   }
   @keyframes scrollPulse {
@@ -244,13 +244,13 @@
     writing-mode: vertical-rl;
   }
 
-  /* SECTIONS COMMON */
+  /* SECTIONS */
   section { padding: 8rem 3rem; }
 
   .section-label {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: var(--gold);
+    color: var(--navy);
     letter-spacing: 0.3em;
     text-transform: uppercase;
     margin-bottom: 1rem;
@@ -260,7 +260,7 @@
     content: '';
     display: inline-block;
     width: 40px; height: 1px;
-    background: var(--gold);
+    background: var(--navy);
   }
 
   .section-title {
@@ -269,10 +269,10 @@
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    color: var(--cream);
+    color: var(--text);
   }
 
-  /* STORY / ABOUT */
+  /* STORY */
   #story {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -281,33 +281,34 @@
   }
 
   .story-text {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     line-height: 1.9;
     color: var(--muted);
     margin-bottom: 1.5rem;
   }
   .story-text strong { color: var(--text); }
   .story-highlight {
-    border-left: 2px solid var(--gold);
+    border-left: 2.5px solid var(--navy);
     padding-left: 1.5rem;
     font-family: var(--font-display);
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-style: italic;
-    color: var(--cream);
-    line-height: 1.5;
+    color: var(--navy);
+    line-height: 1.6;
     margin: 2.5rem 0;
   }
 
   .code-window {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
+    background: #1c1f26;
+    border: 1px solid rgba(27,58,92,0.2);
+    border-radius: 6px;
     overflow: hidden;
+    box-shadow: 0 20px 60px rgba(27,58,92,0.12);
   }
   .code-titlebar {
     padding: 0.8rem 1rem;
-    background: rgba(255,255,255,0.03);
-    border-bottom: 1px solid var(--border);
+    background: #252830;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     display: flex; gap: 0.5rem; align-items: center;
   }
   .dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -317,20 +318,20 @@
   .code-file {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: var(--muted);
+    color: rgba(255,255,255,0.35);
     margin-left: 0.5rem;
   }
   .code-body { padding: 1.5rem; }
   .code-body pre {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    line-height: 1.8;
+    line-height: 1.9;
     white-space: pre-wrap;
   }
   .c-tag { color: #c678dd; }
   .c-attr { color: #e06c75; }
-  .c-val { color: var(--gold2); }
-  .c-str { color: var(--sage); }
+  .c-val { color: #e8c96e; }
+  .c-str { color: #98c379; }
   .c-comment { color: #5c6370; font-style: italic; }
   .c-fn { color: #61afef; }
   .c-key { color: #e06c75; }
@@ -342,68 +343,72 @@
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    gap: 1.5rem;
     margin-top: 4rem;
   }
 
   .skill-card {
+    background: var(--bg);
     border: 1px solid var(--border);
     padding: 2.5rem;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.4s, transform 0.3s;
+    transition: border-color 0.4s, transform 0.3s, box-shadow 0.3s;
   }
   .skill-card::before {
     content: '';
     position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(201,168,76,0.05), transparent);
+    background: linear-gradient(135deg, rgba(27,58,92,0.04), transparent);
     opacity: 0;
     transition: opacity 0.4s;
   }
-  .skill-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .skill-card:hover {
+    border-color: var(--navy);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(27,58,92,0.1);
+  }
   .skill-card:hover::before { opacity: 1; }
 
   .skill-card-icon {
     font-size: 1.6rem;
     margin-bottom: 1.5rem;
     display: block;
-    color: var(--gold);
+    color: var(--navy);
   }
   .skill-card-title {
     font-family: var(--font-display);
     font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: var(--cream);
+    color: var(--text);
   }
   .skill-card-desc {
     font-size: 0.85rem;
     color: var(--muted);
-    line-height: 1.7;
+    line-height: 1.75;
     margin-bottom: 1.5rem;
   }
-  .skill-tags {
-    display: flex; flex-wrap: wrap; gap: 0.5rem;
-  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .skill-tag {
     font-family: var(--font-mono);
     font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    border: 1px solid rgba(201,168,76,0.3);
+    letter-spacing: 0.08em;
+    color: var(--navy);
+    border: 1px solid rgba(27,58,92,0.22);
     padding: 0.25rem 0.6rem;
     text-transform: uppercase;
+    background: rgba(27,58,92,0.04);
   }
   .skill-level-bar {
     height: 2px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(27,58,92,0.08);
     margin-top: 1.5rem;
     position: relative;
     overflow: hidden;
   }
   .skill-level-fill {
     position: absolute; left: 0; top: 0; bottom: 0;
-    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    background: linear-gradient(90deg, var(--navy), var(--navy2));
     width: 0;
     transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
   }
@@ -420,7 +425,7 @@
     content: '';
     position: absolute; left: 0; top: 0; bottom: 0;
     width: 1px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
+    background: linear-gradient(to bottom, var(--navy), transparent);
   }
 
   .timeline-item {
@@ -430,17 +435,17 @@
   .timeline-dot {
     position: absolute; left: -3.35rem; top: 0.4rem;
     width: 12px; height: 12px;
-    border: 2px solid var(--gold);
+    border: 2px solid var(--navy);
     background: var(--bg);
     border-radius: 50%;
     transition: background 0.3s;
   }
-  .timeline-item:hover .timeline-dot { background: var(--gold); }
+  .timeline-item:hover .timeline-dot { background: var(--navy); }
 
   .timeline-period {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: var(--gold);
+    color: var(--navy);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
@@ -449,23 +454,25 @@
     font-family: var(--font-display);
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--text);
     margin-bottom: 0.25rem;
   }
   .timeline-company {
     font-size: 0.9rem;
     color: var(--muted);
     margin-bottom: 1.5rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
   }
   .timeline-body {
     font-size: 0.9rem;
     color: var(--muted);
-    line-height: 1.8;
+    line-height: 1.85;
     max-width: 700px;
   }
   .timeline-achievements {
     margin-top: 1.5rem;
-    display: flex; flex-direction: column; gap: 0.6rem;
+    display: flex; flex-direction: column; gap: 0.65rem;
   }
   .achievement {
     display: flex; gap: 1rem; align-items: flex-start;
@@ -474,9 +481,10 @@
   }
   .achievement::before {
     content: '→';
-    color: var(--gold);
+    color: var(--navy);
     flex-shrink: 0;
     margin-top: 0.1rem;
+    font-weight: 700;
   }
 
   /* PROJECTS */
@@ -485,21 +493,26 @@
   .projects-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
     margin-top: 4rem;
   }
 
   .project-card {
+    background: var(--bg);
     border: 1px solid var(--border);
     position: relative;
     overflow: hidden;
-    transition: border-color 0.4s, transform 0.3s;
+    transition: border-color 0.4s, transform 0.3s, box-shadow 0.3s;
   }
-  .project-card:hover { border-color: rgba(201,168,76,0.6); transform: translateY(-4px); }
+  .project-card:hover {
+    border-color: rgba(27,58,92,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(27,58,92,0.1);
+  }
 
   .project-card-img {
     height: 220px;
-    background: var(--bg);
+    background: var(--bg2);
     display: flex; align-items: center; justify-content: center;
     font-size: 4rem;
     overflow: hidden;
@@ -508,7 +521,7 @@
   .project-card-img::after {
     content: '';
     position: absolute; inset: 0;
-    background: linear-gradient(to top, var(--bg2), transparent 60%);
+    background: linear-gradient(to top, var(--bg), transparent 60%);
   }
 
   .project-icon-wrap {
@@ -517,23 +530,20 @@
     border: 1px solid var(--border);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(201,168,76,0.08);
+    background: rgba(27,58,92,0.06);
     font-size: 2rem;
-    color: var(--gold);
+    color: var(--navy);
     transition: transform 0.3s;
   }
   .project-card:hover .project-icon-wrap { transform: scale(1.1); }
 
-  .project-pattern {
-    position: absolute; inset: 0; opacity: 0.15;
-  }
+  .project-pattern { position: absolute; inset: 0; opacity: 0.25; }
 
   .project-card-body { padding: 2rem; }
-
   .project-type {
     font-family: var(--font-mono);
     font-size: 0.65rem;
-    color: var(--gold);
+    color: var(--navy);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin-bottom: 0.75rem;
@@ -542,25 +552,24 @@
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--text);
     margin-bottom: 0.75rem;
   }
   .project-desc {
     font-size: 0.85rem;
     color: var(--muted);
-    line-height: 1.7;
+    line-height: 1.75;
     margin-bottom: 1.5rem;
   }
-  .project-stack {
-    display: flex; flex-wrap: wrap; gap: 0.5rem;
-  }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .stack-tag {
     font-family: var(--font-mono);
     font-size: 0.65rem;
     color: var(--muted);
-    background: rgba(255,255,255,0.04);
+    background: var(--bg2);
     padding: 0.25rem 0.6rem;
     border-radius: 2px;
+    border: 1px solid var(--border);
   }
 
   .project-card-featured {
@@ -568,27 +577,15 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-  .project-card-featured .project-card-img {
-    height: 100%;
-    min-height: 280px;
-  }
+  .project-card-featured .project-card-img { height: 100%; min-height: 280px; }
 
-  /* Hidden projects */
-  .project-card.hidden {
-    display: none;
-  }
+  .project-card.hidden { display: none; }
 
-  /* Load More Button */
-  .load-more-wrap {
-    text-align: center;
-    margin-top: 3rem;
-  }
+  .load-more-wrap { text-align: center; margin-top: 3rem; }
   .btn-load-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
     background: transparent;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     color: var(--muted);
     padding: 1rem 2.5rem;
     font-family: var(--font-mono);
@@ -598,11 +595,7 @@
     cursor: pointer;
     transition: border-color 0.3s, color 0.3s, transform 0.2s;
   }
-  .btn-load-more:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-    transform: translateY(-2px);
-  }
+  .btn-load-more:hover { border-color: var(--navy); color: var(--navy); transform: translateY(-2px); }
   .btn-load-more i { transition: transform 0.3s; }
   .btn-load-more:hover i { transform: translateY(3px); }
 
@@ -610,8 +603,7 @@
   #process { overflow: hidden; }
 
   .process-steps {
-    display: flex;
-    gap: 0;
+    display: flex; gap: 0;
     margin-top: 5rem;
     position: relative;
   }
@@ -622,7 +614,6 @@
     height: 1px;
     background: var(--border);
   }
-
   .process-step {
     flex: 1;
     padding: 5rem 2rem 2rem;
@@ -631,48 +622,52 @@
   .process-step-num {
     position: absolute; top: 0; left: 2rem;
     width: 4rem; height: 4rem;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     background: var(--bg);
     display: flex; align-items: center; justify-content: center;
     font-family: var(--font-display);
     font-size: 1.2rem;
-    color: var(--gold);
+    color: var(--navy);
     font-weight: 700;
   }
   .process-step-title {
     font-family: var(--font-display);
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--text);
     margin-bottom: 0.75rem;
   }
   .process-step-desc {
     font-size: 0.82rem;
     color: var(--muted);
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
   /* EDUCATION */
   .edu-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
     margin-top: 4rem;
   }
-
   .edu-card {
+    background: var(--bg);
     border: 1px solid var(--border);
     padding: 2.5rem;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
   }
-  .edu-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .edu-card:hover {
+    border-color: var(--navy);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(27,58,92,0.09);
+  }
   .edu-card-year {
     font-family: var(--font-display);
     font-size: 5rem;
     font-weight: 900;
-    color: rgba(201,168,76,0.06);
+    color: rgba(27,58,92,0.05);
     position: absolute;
     top: -1rem; right: 1rem;
     line-height: 1;
@@ -682,13 +677,13 @@
     font-family: var(--font-display);
     font-size: 1.4rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--text);
     margin-bottom: 0.5rem;
   }
   .edu-institution {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--gold);
+    color: var(--navy);
     letter-spacing: 0.1em;
     margin-bottom: 0.5rem;
   }
@@ -703,30 +698,35 @@
   .edu-desc {
     font-size: 0.85rem;
     color: var(--muted);
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
   /* CONTACT */
   #contact {
     text-align: center;
-    background: var(--bg2);
+    background: var(--navy);
     position: relative;
     overflow: hidden;
+    color: #fff;
   }
-  #contact .hero-bg-grid { opacity: 0.2; }
-
+  #contact .hero-bg-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
   .contact-title {
     font-family: var(--font-display);
     font-size: clamp(3rem, 8vw, 7rem);
     font-weight: 900;
     line-height: 1;
     margin-bottom: 2rem;
-    color: var(--cream);
+    color: #fff;
   }
-  .contact-title em { color: var(--gold); font-style: italic; }
+  .contact-title em { color: #e8c96e; font-style: italic; }
   .contact-subtitle {
     font-size: 1rem;
-    color: var(--muted);
+    color: rgba(255,255,255,0.6);
     margin-bottom: 3rem;
     max-width: 500px;
     margin-left: auto; margin-right: auto;
@@ -740,35 +740,49 @@
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.15em;
-    color: var(--muted);
+    color: rgba(255,255,255,0.55);
     text-decoration: none;
     text-transform: uppercase;
     padding: 0.75rem 1.5rem;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.15);
     transition: border-color 0.3s, color 0.3s;
   }
-  .contact-link:hover { border-color: var(--gold); color: var(--gold); }
-
+  .contact-link:hover { border-color: #e8c96e; color: #e8c96e; }
   .email-big {
     font-family: var(--font-mono);
-    font-size: clamp(0.9rem, 2.5vw, 1.4rem);
-    color: var(--text);
+    font-size: clamp(0.9rem, 2.2vw, 1.3rem);
+    color: rgba(255,255,255,0.85);
     text-decoration: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
     padding-bottom: 0.5rem;
     display: inline-block;
     margin-bottom: 3rem;
     transition: color 0.3s, border-color 0.3s;
   }
-  .email-big:hover { color: var(--gold); border-color: var(--gold); }
+  .email-big:hover { color: #e8c96e; border-color: #e8c96e; }
+  .section-label-light {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+  }
+  .section-label-light::before {
+    content: '';
+    display: inline-block;
+    width: 40px; height: 1px;
+    background: rgba(255,255,255,0.3);
+  }
 
   /* MARQUEE */
   .marquee-section {
-    padding: 2rem 0;
+    padding: 1.8rem 0;
     overflow: hidden;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    background: var(--bg);
+    background: var(--bg2);
   }
   .marquee-track {
     display: flex;
@@ -792,7 +806,7 @@
   .marquee-dot {
     width: 4px; height: 4px;
     border-radius: 50%;
-    background: var(--gold);
+    background: var(--navy);
     flex-shrink: 0;
   }
 
@@ -801,6 +815,7 @@
     padding: 2rem 3rem;
     border-top: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center;
+    background: var(--bg);
   }
   footer p {
     font-family: var(--font-mono);
@@ -809,16 +824,13 @@
     letter-spacing: 0.1em;
   }
 
-  /* Fade-in on scroll */
+  /* REVEAL */
   .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
@@ -843,7 +855,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <div class="nav-logo">AR</div>
+  <div class="nav-logo">SS</div>
   <ul class="nav-links">
     <li><a href="#story">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -859,14 +871,14 @@
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
 
-  <div class="hero-eyebrow"><i class="fa-solid fa-circle-dot fa-xs" style="margin-right:0.5rem"></i>Available for hire · WordPress Developer</div>
+  <div class="hero-eyebrow"><i class="fa-solid fa-circle-dot fa-xs" style="margin-right:0.5rem"></i>Available for hire · WordPress Developer · Mumbai</div>
 
   <h1 class="hero-name">
-    Alex<br><em>Rivera</em>
+    Shankar<br><em>Saud</em>
   </h1>
 
   <p class="hero-tagline">
-    I craft <strong>performant, accessible</strong> WordPress experiences — from pixel-perfect themes to complex WooCommerce ecosystems — that actually <strong>convert and rank</strong>.
+    I build <strong>fast, scalable</strong> WordPress experiences — custom themes, WooCommerce stores, and ACF-powered sites that are <strong>SEO-ready and pixel-perfect</strong>.
   </p>
 
   <div class="hero-cta">
@@ -876,16 +888,16 @@
 
   <div class="hero-stats">
     <div class="stat-item">
-      <div class="stat-num" id="counter1">6+</div>
+      <div class="stat-num">2+</div>
       <div class="stat-label">Years Experience</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" id="counter2">80+</div>
+      <div class="stat-num">5+</div>
       <div class="stat-label">Projects Delivered</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" id="counter3">99</div>
-      <div class="stat-label">PageSpeed Score</div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Client Satisfaction</div>
     </div>
   </div>
 
@@ -904,22 +916,22 @@
 <section id="story">
   <div class="story-left">
     <div class="section-label">My Story</div>
-    <h2 class="section-title">Code that tells<br><em style="color:var(--gold);font-style:italic">your story</em></h2>
+    <h2 class="section-title">Building the web,<br><em style="color:var(--navy);font-style:italic">one theme at a time</em></h2>
 
     <p class="story-text reveal">
-      It started in 2018 with a broken theme and a lot of <strong>curiosity</strong>. What began as debugging a client's blog turned into a deep obsession with the WordPress ecosystem — hooks, filters, the block editor, REST API — the whole beautiful, messy universe of it.
+      It started with a curiosity for how websites actually work — not just the surface, but the engine underneath. That curiosity pulled me deep into the WordPress ecosystem, where <strong>custom theme architecture, ACF relationships, and WooCommerce hooks</strong> became second nature.
     </p>
 
     <div class="story-highlight reveal">
-      "I don't just build websites. I engineer digital experiences that work when you're asleep."
+      "I don't just install themes. I engineer WordPress solutions that perform, rank, and convert."
     </div>
 
     <p class="story-text reveal">
-      Today I specialise in <strong>custom theme development</strong>, <strong>plugin architecture</strong>, and <strong>WooCommerce</strong> solutions. I think deeply about performance — because a 1-second delay costs conversions — and I care obsessively about <strong>clean, documented code</strong> that your team can actually maintain.
+      Over 2+ years I've worked across agencies, freelance projects, and high-profile event platforms. I've built responsive sites with <strong>Bootstrap and vanilla CSS</strong>, wired up <strong>custom post types and field groups</strong>, and optimised for Core Web Vitals until the PageSpeed numbers made clients smile.
     </p>
 
     <p class="story-text reveal">
-      When I'm not in the editor, I'm contributing to open-source WordPress plugins and writing about web performance on my blog.
+      Currently building at iDigitalise, where I collaborate with design and marketing teams to turn Figma files into fast, maintainable WordPress codebases.
     </p>
   </div>
 
@@ -929,44 +941,42 @@
         <span class="dot dot-r"></span>
         <span class="dot dot-y"></span>
         <span class="dot dot-g"></span>
-        <span class="code-file">functions.php — alex-theme</span>
+        <span class="code-file">functions.php — shankar-theme</span>
       </div>
       <div class="code-body">
-        <pre><span class="c-comment">// The philosophy: clean, purposeful code</span>
-<span class="c-comment">// that solves real business problems.</span>
+        <pre><span class="c-comment">// Clean, purposeful WordPress code.
+// Built to last — not just to launch.</span>
 
-<span class="c-tag">add_action</span>( <span class="c-str">'wp_enqueue_scripts'</span>, <span class="c-fn">function</span>() {
-  wp_enqueue_style(
-    <span class="c-str">'alex-styles'</span>,
-    get_stylesheet_uri(),
-    [],
-    filemtime( <span class="c-fn">get_stylesheet_directory</span>() . <span class="c-str">'/style.css'</span> )
-  );
-} );
-
-<span class="c-comment">/**
- * Register custom post types with full
- * REST API support for headless capability.
- */</span>
 <span class="c-tag">add_action</span>( <span class="c-str">'init'</span>, <span class="c-fn">function</span>() {
-  <span class="c-fn">register_post_type</span>( <span class="c-str">'project'</span>, [
-    <span class="c-attr">'public'</span>       => <span class="c-key">true</span>,
+  <span class="c-fn">register_post_type</span>( <span class="c-str">'portfolio'</span>, [
+    <span class="c-attr">'labels'</span>      => [ <span class="c-str">'name'</span> => <span class="c-str">'Portfolio'</span> ],
+    <span class="c-attr">'public'</span>      => <span class="c-key">true</span>,
     <span class="c-attr">'show_in_rest'</span> => <span class="c-key">true</span>,
-    <span class="c-attr">'supports'</span>     => [ <span class="c-str">'title'</span>, <span class="c-str">'editor'</span>, <span class="c-str">'thumbnail'</span> ],
-    <span class="c-attr">'has_archive'</span>  => <span class="c-key">true</span>,
+    <span class="c-attr">'supports'</span>    => [ <span class="c-str">'title'</span>, <span class="c-str">'editor'</span>, <span class="c-str">'thumbnail'</span> ],
+    <span class="c-attr">'has_archive'</span> => <span class="c-key">true</span>,
   ] );
 } );
 
-<span class="c-comment">// Performance: cache expensive queries</span>
-<span class="c-fn">function</span> <span class="c-fn">alex_get_featured</span>( $count = <span class="c-num">6</span> ) {
-  $key = <span class="c-str">"featured_posts_{$count}"</span>;
-  $posts = <span class="c-fn">wp_cache_get</span>( $key );
-  <span class="c-key">if</span> ( ! $posts ) {
-    $posts = <span class="c-fn">get_posts</span>( [ <span class="c-str">'numberposts'</span> => $count ] );
-    <span class="c-fn">wp_cache_set</span>( $key, $posts, <span class="c-str">''</span>, <span class="c-num">3600</span> );
-  }
-  <span class="c-key">return</span> $posts;
-}</pre>
+<span class="c-comment">/**
+ * ACF-powered flexible content builder.
+ * Each section type maps to a template part.
+ */</span>
+<span class="c-fn">function</span> <span class="c-fn">shankar_render_blocks</span>() {
+  <span class="c-key">if</span>( <span class="c-fn">have_rows</span>( <span class="c-str">'content_blocks'</span> ) ) :
+    <span class="c-key">while</span>( <span class="c-fn">have_rows</span>( <span class="c-str">'content_blocks'</span> ) ) : <span class="c-fn">the_row</span>();
+      $layout = <span class="c-fn">get_row_layout</span>();
+      <span class="c-fn">get_template_part</span>( <span class="c-str">"blocks/{$layout}"</span> );
+    <span class="c-key">endwhile</span>;
+  <span class="c-key">endif</span>;
+}
+
+<span class="c-comment">// WooCommerce: custom price logic with ACF</span>
+<span class="c-tag">add_filter</span>( <span class="c-str">'woocommerce_product_get_price'</span>,
+  <span class="c-fn">function</span>( $price, $product ) {
+    $custom = <span class="c-fn">get_field</span>( <span class="c-str">'custom_price'</span>, $product->get_id() );
+    <span class="c-key">return</span> $custom ?: $price;
+  }, <span class="c-num">10</span>, <span class="c-num">2</span>
+);</pre>
       </div>
     </div>
   </div>
@@ -981,84 +991,81 @@
     <div class="skill-card reveal">
       <span class="skill-card-icon"><i class="fa-brands fa-wordpress"></i></span>
       <div class="skill-card-title">WordPress Core</div>
-      <p class="skill-card-desc">Deep knowledge of hooks, filters, template hierarchy, the WP REST API, and the block editor (Gutenberg). I extend WordPress — never fight it.</p>
+      <p class="skill-card-desc">Deep understanding of the template hierarchy, hooks & filters, custom post types, and taxonomies. I extend WordPress the right way — never fighting the platform.</p>
       <div class="skill-tags">
         <span class="skill-tag">Custom Themes</span>
-        <span class="skill-tag">Plugin Dev</span>
-        <span class="skill-tag">Gutenberg Blocks</span>
         <span class="skill-tag">CPTs & Taxonomies</span>
+        <span class="skill-tag">ACF</span>
+        <span class="skill-tag">Elementor Pro</span>
         <span class="skill-tag">Multisite</span>
       </div>
-      <div class="skill-level-bar"><div class="skill-level-fill" data-width="97%"></div></div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="92%"></div></div>
     </div>
 
     <div class="skill-card reveal reveal-delay-1">
       <span class="skill-card-icon"><i class="fa-solid fa-cart-shopping"></i></span>
       <div class="skill-card-title">WooCommerce</div>
-      <p class="skill-card-desc">Custom payment gateways, subscription logic, product builder tools, and high-traffic store optimisation. Responsible for €2M+ in annual GMV.</p>
+      <p class="skill-card-desc">Custom product setups, payment gateway integration, and store performance optimisation. I build e-commerce experiences that are fast, intuitive, and conversion-focused.</p>
       <div class="skill-tags">
         <span class="skill-tag">Custom Gateways</span>
-        <span class="skill-tag">Subscriptions</span>
-        <span class="skill-tag">HPOS</span>
-        <span class="skill-tag">Multi-currency</span>
+        <span class="skill-tag">Product Config</span>
+        <span class="skill-tag">Checkout Flows</span>
+        <span class="skill-tag">Store Optimisation</span>
       </div>
-      <div class="skill-level-bar"><div class="skill-level-fill" data-width="92%"></div></div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="88%"></div></div>
     </div>
 
     <div class="skill-card reveal reveal-delay-2">
       <span class="skill-card-icon"><i class="fa-solid fa-pen-nib"></i></span>
       <div class="skill-card-title">Frontend Craft</div>
-      <p class="skill-card-desc">Pixel-perfect HTML/CSS, modern JavaScript, GSAP animations, and accessibility-first development. I care as much about WCAG as I do about visual polish.</p>
+      <p class="skill-card-desc">Pixel-perfect HTML5, CSS3 with LESS/Bootstrap 5, jQuery, and responsive design. I care as much about mobile rendering and cross-browser consistency as visual polish.</p>
       <div class="skill-tags">
-        <span class="skill-tag">SCSS/BEM</span>
-        <span class="skill-tag">GSAP</span>
-        <span class="skill-tag">Alpine.js</span>
-        <span class="skill-tag">WCAG 2.1 AA</span>
-        <span class="skill-tag">Figma</span>
-      </div>
-      <div class="skill-level-bar"><div class="skill-level-fill" data-width="88%"></div></div>
-    </div>
-
-    <div class="skill-card reveal">
-      <span class="skill-card-icon"><i class="fa-solid fa-gauge-high"></i></span>
-      <div class="skill-card-title">Performance & SEO</div>
-      <p class="skill-card-desc">Obsessed with Core Web Vitals. I audit, optimise, and squeeze every millisecond from loading — resulting in 30–60% improvement in real-world metrics.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">Core Web Vitals</span>
-        <span class="skill-tag">Object Caching</span>
-        <span class="skill-tag">CDN Config</span>
-        <span class="skill-tag">Technical SEO</span>
-        <span class="skill-tag">Yoast / RankMath</span>
+        <span class="skill-tag">HTML5 / CSS3</span>
+        <span class="skill-tag">LESS</span>
+        <span class="skill-tag">Bootstrap 5</span>
+        <span class="skill-tag">jQuery</span>
+        <span class="skill-tag">Responsive Design</span>
       </div>
       <div class="skill-level-bar"><div class="skill-level-fill" data-width="90%"></div></div>
     </div>
 
-    <div class="skill-card reveal reveal-delay-1">
-      <span class="skill-card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
-      <div class="skill-card-title">DevOps & Tooling</div>
-      <p class="skill-card-desc">Modern WordPress workflows with Git, WP-CLI, Composer, and CI/CD pipelines. I keep environments consistent and deployments boring (in the best way).</p>
+    <div class="skill-card reveal">
+      <span class="skill-card-icon"><i class="fa-solid fa-gauge-high"></i></span>
+      <div class="skill-card-title">Technical SEO & Performance</div>
+      <p class="skill-card-desc">Schema markup, meta structuring, image optimisation, and Core Web Vitals improvements. I build sites that rank well from day one, not as an afterthought.</p>
       <div class="skill-tags">
-        <span class="skill-tag">Git / GitHub Actions</span>
-        <span class="skill-tag">WP-CLI</span>
-        <span class="skill-tag">Composer</span>
-        <span class="skill-tag">Docker</span>
-        <span class="skill-tag">Kinsta / WP Engine</span>
+        <span class="skill-tag">Core Web Vitals</span>
+        <span class="skill-tag">On-page SEO</span>
+        <span class="skill-tag">Page Speed</span>
+        <span class="skill-tag">Schema Markup</span>
       </div>
       <div class="skill-level-bar"><div class="skill-level-fill" data-width="85%"></div></div>
     </div>
 
-    <div class="skill-card reveal reveal-delay-2">
+    <div class="skill-card reveal reveal-delay-1">
       <span class="skill-card-icon"><i class="fa-solid fa-database"></i></span>
-      <div class="skill-card-title">Backend & APIs</div>
-      <p class="skill-card-desc">PHP 8.x with OOP principles, MySQL query optimisation, and custom REST endpoints. I also wire up third-party APIs — CRMs, ERPs, payment processors.</p>
+      <div class="skill-card-title">Backend & PHP</div>
+      <p class="skill-card-desc">PHP-powered WordPress development including custom query loops, REST API integration, and server-side logic. I write clean, maintainable code your team can inherit confidently.</p>
       <div class="skill-tags">
-        <span class="skill-tag">PHP 8.x / OOP</span>
+        <span class="skill-tag">PHP</span>
         <span class="skill-tag">MySQL</span>
-        <span class="skill-tag">REST API</span>
-        <span class="skill-tag">Webhooks</span>
-        <span class="skill-tag">Stripe / PayPal</span>
+        <span class="skill-tag">WP REST API</span>
+        <span class="skill-tag">Custom Queries</span>
       </div>
-      <div class="skill-level-bar"><div class="skill-level-fill" data-width="80%"></div></div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="82%"></div></div>
+    </div>
+
+    <div class="skill-card reveal reveal-delay-2">
+      <span class="skill-card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
+      <div class="skill-card-title">CMS & Admin</div>
+      <p class="skill-card-desc">Comfortable owning the full CMS stack — user role configuration, performance plugin setup, multi-platform content management, and high-traffic site administration.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">WordPress CMS</span>
+        <span class="skill-tag">Site Admin</span>
+        <span class="skill-tag">Content Strategy</span>
+        <span class="skill-tag">UI/UX</span>
+      </div>
+      <div class="skill-level-bar"><div class="skill-level-fill" data-width="87%"></div></div>
     </div>
   </div>
 </section>
@@ -1071,41 +1078,44 @@
   <div class="timeline">
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
-      <div class="timeline-period">2022 — Present</div>
-      <div class="timeline-role">Senior WordPress Developer</div>
-      <div class="timeline-company">Digital Forge Agency · Remote</div>
-      <p class="timeline-body">Lead developer for a 12-person agency, owning the full stack for enterprise WordPress builds. Introduced code standards, peer review, and a component library that cut build time by 40%.</p>
-      <div class="timeline-achievements">
-        <div class="achievement">Architected a headless WordPress + Next.js platform serving 2M+ monthly visitors with sub-1s LCP</div>
-        <div class="achievement">Built a custom WooCommerce subscription platform with 3 payment providers and real-time inventory sync</div>
-        <div class="achievement">Reduced agency deploy time from 4 hours to 18 minutes via GitHub Actions + WP-CLI automation</div>
-        <div class="achievement">Mentored 3 junior developers through pair programming and internal workshops</div>
-      </div>
-    </div>
-
-    <div class="timeline-item reveal">
-      <div class="timeline-dot"></div>
-      <div class="timeline-period">2020 — 2022</div>
+      <div class="timeline-period">Sep 2024 — Present</div>
       <div class="timeline-role">WordPress Developer</div>
-      <div class="timeline-company">PixelCraft Studio · Mumbai</div>
-      <p class="timeline-body">Mid-level developer responsible for custom theme builds and WooCommerce integrations for e-commerce clients in the fashion and lifestyle verticals.</p>
+      <div class="timeline-company">iDigitalise · Digital Marketing & Technology · Mumbai</div>
+      <p class="timeline-body">Building custom WordPress solutions for diverse clients at a full-service digital agency. Responsible for the full development lifecycle — from requirements to deployment — while collaborating closely with design and marketing teams.</p>
       <div class="timeline-achievements">
-        <div class="achievement">Delivered 25+ client projects on time and within budget, maintaining a 4.9/5 client satisfaction score</div>
-        <div class="achievement">Built a bespoke product configurator plugin for a furniture brand — increased average order value by 23%</div>
-        <div class="achievement">Migrated a legacy VB.NET e-commerce site to WooCommerce, retaining 100% of SEO rankings</div>
+        <div class="achievement">Develop custom WordPress themes using ACF and Elementor Pro for enhanced content flexibility and client control</div>
+        <div class="achievement">Build responsive, cross-browser-compatible sites with HTML5, CSS3, JavaScript, and Bootstrap 5</div>
+        <div class="achievement">Implement technical SEO strategies improving website visibility and organic search rankings for clients</div>
+        <div class="achievement">Deliver high-performance, scalable WooCommerce solutions with custom payment and checkout flows</div>
+        <div class="achievement">Collaborate with designers to translate pixel-perfect mockups into production-ready WordPress themes</div>
       </div>
     </div>
 
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
-      <div class="timeline-period">2018 — 2020</div>
-      <div class="timeline-role">Junior Web Developer</div>
-      <div class="timeline-company">Freelance · Self-employed</div>
-      <p class="timeline-body">Started from scratch — no clients, just determination. Built my way up from fixing broken themes to delivering full projects. Learned the business side as much as the code.</p>
+      <div class="timeline-period">Mar 2024 — Aug 2024</div>
+      <div class="timeline-role">Freelance WordPress Developer</div>
+      <div class="timeline-company">Self-Employed · Mumbai</div>
+      <p class="timeline-body">Ran end-to-end freelance engagements — from client discovery to launch — managing every aspect of two complete custom WordPress builds independently.</p>
       <div class="timeline-achievements">
-        <div class="achievement">Acquired first 10 clients through Upwork and word-of-mouth; maintained 100% Job Success Score</div>
-        <div class="achievement">Self-taught PHP OOP, MySQL, and REST APIs through building real production projects</div>
-        <div class="achievement">Launched an open-source WordPress plugin with 500+ active installs</div>
+        <div class="achievement">Designed, developed, and deployed 2 custom WordPress websites from concept to launch with zero scope creep</div>
+        <div class="achievement">Managed full project lifecycle: client consultation, requirements, development, testing, and handover</div>
+        <div class="achievement">Applied performance optimisation and SEO best practices ensuring fast load times and early search visibility</div>
+        <div class="achievement">Delivered 100% on-time with full client satisfaction across both engagements</div>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Aug 2023 — Dec 2023</div>
+      <div class="timeline-role">Tech Executive — Website & Software</div>
+      <div class="timeline-company">Jio MAMI · Mumbai Academy of Moving Image · Contract</div>
+      <p class="timeline-body">Supported the digital infrastructure of the Jio MAMI Mumbai Film Festival 2023 — one of India's largest film festivals — managing the website, mobile app content, and a specialised festival management platform under real-time event pressure.</p>
+      <div class="timeline-achievements">
+        <div class="achievement">Administered CMS for the Jio MAMI 2023 website and mobile app, ensuring zero downtime during peak traffic</div>
+        <div class="achievement">Delivered accurate, timely content across multiple digital platforms throughout the festival run</div>
+        <div class="achievement">Coordinated deployment of DataKal Starbase — a specialised film festival management software solution</div>
+        <div class="achievement">Streamlined data management workflows, improving operational efficiency under high-pressure live conditions</div>
       </div>
     </div>
   </div>
@@ -1118,164 +1128,138 @@
 
   <div class="projects-grid" id="projectsGrid">
 
-    <!-- VISIBLE: Project 1 — Featured -->
+    <!-- Featured -->
     <div class="project-card project-card-featured">
       <div class="project-card-img">
         <svg class="project-pattern" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(201,168,76,0.4)" stroke-width="0.5"/>
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(27,58,92,0.5)" stroke-width="0.5"/>
           </pattern></defs>
           <rect width="100%" height="100%" fill="url(#grid1)"/>
-          <circle cx="200" cy="150" r="80" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
-          <circle cx="200" cy="150" r="120" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <circle cx="200" cy="150" r="80" fill="none" stroke="rgba(27,58,92,0.35)" stroke-width="1"/>
+          <circle cx="200" cy="150" r="120" fill="none" stroke="rgba(27,58,92,0.15)" stroke-width="1"/>
         </svg>
         <div class="project-icon-wrap"><i class="fa-solid fa-store"></i></div>
       </div>
       <div class="project-card-body">
-        <div class="project-type">Featured · WooCommerce + Custom Plugin</div>
-        <div class="project-title">Artisan Home Store</div>
-        <p class="project-desc">Full WooCommerce build for a premium furniture brand. Custom product configurator plugin lets customers visualise 3,000+ product combinations in real-time. Integrated with their ERP for live stock levels. Result: 34% increase in conversion rate.</p>
+        <div class="project-type">Featured · WooCommerce + ACF Theme</div>
+        <div class="project-title">Custom E-Commerce Store</div>
+        <p class="project-desc">Full WooCommerce build developed at iDigitalise for a retail client. Custom ACF-driven product pages, tailored checkout flow, and a fully responsive Bootstrap 5 theme. Integrated with payment gateway and optimised for Core Web Vitals — resulting in improved load times and higher conversion rates.</p>
         <div class="project-stack">
-          <span class="stack-tag">WordPress 6.x</span>
+          <span class="stack-tag">WordPress</span>
           <span class="stack-tag">WooCommerce</span>
-          <span class="stack-tag">Custom Plugin</span>
-          <span class="stack-tag">PHP 8.2</span>
-          <span class="stack-tag">Alpine.js</span>
-          <span class="stack-tag">Stripe</span>
-          <span class="stack-tag">REST API</span>
+          <span class="stack-tag">ACF</span>
+          <span class="stack-tag">PHP</span>
+          <span class="stack-tag">Bootstrap 5</span>
+          <span class="stack-tag">jQuery</span>
+          <span class="stack-tag">Technical SEO</span>
         </div>
       </div>
     </div>
 
-    <!-- VISIBLE: Project 2 -->
+    <!-- Project 2 -->
     <div class="project-card">
       <div class="project-card-img">
         <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-          <rect width="100%" height="100%" fill="#0e0e0c"/>
-          <rect x="30" y="40" width="120" height="140" rx="2" fill="none" stroke="rgba(122,158,126,0.4)" stroke-width="1"/>
-          <rect x="170" y="60" width="200" height="20" rx="1" fill="rgba(122,158,126,0.15)"/>
-          <rect x="170" y="90" width="160" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
-          <rect x="170" y="110" width="180" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
+          <rect width="100%" height="100%" fill="rgba(240,235,224,0.5)"/>
+          <rect x="30" y="40" width="120" height="140" rx="2" fill="none" stroke="rgba(27,58,92,0.35)" stroke-width="1"/>
+          <rect x="170" y="60" width="200" height="20" rx="1" fill="rgba(27,58,92,0.1)"/>
+          <rect x="170" y="90" width="160" height="10" rx="1" fill="rgba(27,58,92,0.06)"/>
+          <rect x="170" y="110" width="180" height="10" rx="1" fill="rgba(27,58,92,0.06)"/>
         </svg>
-        <div class="project-icon-wrap"><i class="fa-solid fa-newspaper"></i></div>
+        <div class="project-icon-wrap"><i class="fa-solid fa-film"></i></div>
       </div>
       <div class="project-card-body">
-        <div class="project-type">Custom Theme · Publishing</div>
-        <div class="project-title">The Daily Brief</div>
-        <p class="project-desc">Editorial WordPress theme for a news publication handling 500K daily readers. Built with block patterns, full-site editing, and aggressive caching. 98 PageSpeed score.</p>
+        <div class="project-type">CMS Administration · Events</div>
+        <div class="project-title">Jio MAMI Film Festival</div>
+        <p class="project-desc">Managed the content and technical operations of the Jio MAMI Mumbai Film Festival 2023 website and mobile app, keeping everything running smoothly across 5 days of high-traffic live event coverage.</p>
         <div class="project-stack">
-          <span class="stack-tag">Block Theme</span>
-          <span class="stack-tag">Full-Site Editing</span>
-          <span class="stack-tag">Redis Cache</span>
-          <span class="stack-tag">CDN</span>
+          <span class="stack-tag">WordPress CMS</span>
+          <span class="stack-tag">Mobile App</span>
+          <span class="stack-tag">DataKal Starbase</span>
+          <span class="stack-tag">High-Traffic</span>
         </div>
       </div>
     </div>
 
-    <!-- VISIBLE: Project 3 -->
+    <!-- Project 3 -->
     <div class="project-card">
       <div class="project-card-img">
         <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-          <rect width="100%" height="100%" fill="#0e0e0c"/>
-          <circle cx="200" cy="110" r="60" fill="none" stroke="rgba(192,82,42,0.3)" stroke-width="1" stroke-dasharray="5,5"/>
-          <circle cx="200" cy="110" r="30" fill="rgba(192,82,42,0.08)"/>
+          <rect width="100%" height="100%" fill="rgba(240,235,224,0.5)"/>
+          <circle cx="200" cy="110" r="60" fill="none" stroke="rgba(192,82,42,0.35)" stroke-width="1" stroke-dasharray="5,5"/>
+          <circle cx="200" cy="110" r="30" fill="rgba(192,82,42,0.06)"/>
         </svg>
-        <div class="project-icon-wrap"><i class="fa-solid fa-hospital"></i></div>
+        <div class="project-icon-wrap"><i class="fa-solid fa-briefcase"></i></div>
       </div>
       <div class="project-card-body">
-        <div class="project-type">Plugin Development · Healthcare</div>
-        <div class="project-title">MedConnect Booking</div>
-        <p class="project-desc">Custom appointment booking plugin for a 12-clinic healthcare network. HIPAA-aware data handling, real-time availability via REST API, and SMS notifications.</p>
-        <div class="project-stack">
-          <span class="stack-tag">Custom Plugin</span>
-          <span class="stack-tag">REST API</span>
-          <span class="stack-tag">Twilio SMS</span>
-          <span class="stack-tag">HIPAA Aware</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- HIDDEN: Project 4 -->
-    <div class="project-card hidden">
-      <div class="project-card-img">
-        <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-          <rect width="100%" height="100%" fill="#0e0e0c"/>
-          <polygon points="200,40 340,180 60,180" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
-          <polygon points="200,70 310,170 90,170" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
-        </svg>
-        <div class="project-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></div>
-      </div>
-      <div class="project-card-body">
-        <div class="project-type">LMS · Education</div>
-        <div class="project-title">AcademyPro LMS</div>
-        <p class="project-desc">Headless WordPress REST API backend powering a React-based LMS frontend. Custom progress tracking, certificate generation, and Stripe course subscriptions.</p>
-        <div class="project-stack">
-          <span class="stack-tag">Headless WP</span>
-          <span class="stack-tag">REST API</span>
-          <span class="stack-tag">Next.js</span>
-          <span class="stack-tag">Stripe</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- HIDDEN: Project 5 -->
-    <div class="project-card hidden">
-      <div class="project-card-img">
-        <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-          <rect width="100%" height="100%" fill="#0e0e0c"/>
-          <rect x="50" y="50" width="300" height="120" rx="4" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
-          <rect x="70" y="70" width="80" height="80" rx="2" fill="rgba(201,168,76,0.06)"/>
-          <rect x="170" y="75" width="160" height="12" rx="2" fill="rgba(201,168,76,0.15)"/>
-          <rect x="170" y="100" width="130" height="8" rx="2" fill="rgba(255,255,255,0.06)"/>
-          <rect x="170" y="118" width="100" height="8" rx="2" fill="rgba(255,255,255,0.06)"/>
-        </svg>
-        <div class="project-icon-wrap"><i class="fa-solid fa-house-chimney"></i></div>
-      </div>
-      <div class="project-card-body">
-        <div class="project-type">Custom Theme · Real Estate</div>
-        <div class="project-title">EstateView Pro</div>
-        <p class="project-desc">Property listing platform with map-based search, mortgage calculators, and agent CRM integration. Over 10,000 listings with lightning-fast filtered search via Elasticsearch.</p>
+        <div class="project-type">Freelance · Custom Theme</div>
+        <div class="project-title">Business Website #1</div>
+        <p class="project-desc">Custom WordPress theme built during freelance engagement — from client consultation to launch. Responsive, SEO-optimised, and built with ACF for easy content management. Delivered on time with full client sign-off.</p>
         <div class="project-stack">
           <span class="stack-tag">Custom Theme</span>
-          <span class="stack-tag">Elasticsearch</span>
-          <span class="stack-tag">Google Maps API</span>
-          <span class="stack-tag">CRM Sync</span>
+          <span class="stack-tag">ACF</span>
+          <span class="stack-tag">Bootstrap 5</span>
+          <span class="stack-tag">SEO</span>
         </div>
       </div>
     </div>
 
-    <!-- HIDDEN: Project 6 -->
+    <!-- Hidden Project 4 -->
     <div class="project-card hidden">
       <div class="project-card-img">
         <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-          <rect width="100%" height="100%" fill="#0e0e0c"/>
-          <circle cx="100" cy="110" r="50" fill="none" stroke="rgba(122,158,126,0.3)" stroke-width="1"/>
-          <circle cx="200" cy="110" r="50" fill="none" stroke="rgba(122,158,126,0.2)" stroke-width="1"/>
-          <circle cx="300" cy="110" r="50" fill="none" stroke="rgba(122,158,126,0.15)" stroke-width="1"/>
+          <rect width="100%" height="100%" fill="rgba(240,235,224,0.5)"/>
+          <polygon points="200,40 340,180 60,180" fill="none" stroke="rgba(27,58,92,0.25)" stroke-width="1"/>
+          <polygon points="200,70 310,170 90,170" fill="none" stroke="rgba(27,58,92,0.15)" stroke-width="0.5"/>
+        </svg>
+        <div class="project-icon-wrap"><i class="fa-solid fa-globe"></i></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-type">Freelance · Custom Theme</div>
+        <div class="project-title">Business Website #2</div>
+        <p class="project-desc">Second freelance WordPress project — a fully responsive business site with custom post types, Elementor Pro page builder, and on-page SEO configuration. Achieved 100% client satisfaction.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Elementor Pro</span>
+          <span class="stack-tag">Custom CPTs</span>
+          <span class="stack-tag">Responsive</span>
+          <span class="stack-tag">On-page SEO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden Project 5 -->
+    <div class="project-card hidden">
+      <div class="project-card-img">
+        <svg class="project-pattern" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="rgba(240,235,224,0.5)"/>
+          <rect x="50" y="50" width="300" height="120" rx="4" fill="none" stroke="rgba(27,58,92,0.2)" stroke-width="1"/>
+          <rect x="70" y="70" width="80" height="80" rx="2" fill="rgba(27,58,92,0.05)"/>
+          <rect x="170" y="75" width="160" height="12" rx="2" fill="rgba(27,58,92,0.08)"/>
+          <rect x="170" y="100" width="130" height="8" rx="2" fill="rgba(27,58,92,0.05)"/>
+          <rect x="170" y="118" width="100" height="8" rx="2" fill="rgba(27,58,92,0.05)"/>
         </svg>
         <div class="project-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
       </div>
       <div class="project-card-body">
-        <div class="project-type">SaaS · Analytics</div>
-        <div class="project-title">WP Pulse Dashboard</div>
-        <p class="project-desc">Real-time WordPress performance monitoring SaaS. Tracks Core Web Vitals, uptime, and database query health across client sites with customisable alert thresholds.</p>
+        <div class="project-type">Agency Work · SEO Optimisation</div>
+        <div class="project-title">SEO Performance Rebuild</div>
+        <p class="project-desc">Technical SEO audit and rebuild for an iDigitalise client with weak organic rankings. Restructured meta data, added schema markup, fixed Core Web Vitals, and improved internal linking architecture.</p>
         <div class="project-stack">
-          <span class="stack-tag">PHP 8.2</span>
-          <span class="stack-tag">WebSockets</span>
-          <span class="stack-tag">Chart.js</span>
-          <span class="stack-tag">WP Cron</span>
+          <span class="stack-tag">Technical SEO</span>
+          <span class="stack-tag">Schema Markup</span>
+          <span class="stack-tag">Core Web Vitals</span>
+          <span class="stack-tag">Performance</span>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- Load More -->
   <div class="load-more-wrap">
     <button class="btn-load-more" id="loadMoreBtn">
       <i class="fa-solid fa-chevron-down"></i>
       Load More Projects
-      <span id="remainingCount" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--gold);margin-left:0.25rem">(3 more)</span>
+      <span id="remainingCount" style="font-family:var(--font-mono);font-size:0.65rem;color:var(--navy);margin-left:0.25rem">(2 more)</span>
     </button>
   </div>
 </section>
@@ -1289,67 +1273,67 @@
     <div class="process-step">
       <div class="process-step-num">01</div>
       <div class="process-step-title">Discover & Define</div>
-      <p class="process-step-desc">I start by asking the uncomfortable questions. What's the actual business goal? Who are the users? What does success look like in 3 months?</p>
+      <p class="process-step-desc">What's the goal? Who are the users? What does success look like? I ask the business questions before touching a line of code.</p>
     </div>
     <div class="process-step">
       <div class="process-step-num">02</div>
-      <div class="process-step-title">Architect First</div>
-      <p class="process-step-desc">Before writing a line of code, I plan the data model, plugin structure, and performance strategy. Architectural decisions made early save weeks of refactoring later.</p>
+      <div class="process-step-title">Plan the Structure</div>
+      <p class="process-step-desc">Map out the WordPress architecture — post types, ACF groups, theme hierarchy — before building. Good structure prevents painful refactors later.</p>
     </div>
     <div class="process-step">
       <div class="process-step-num">03</div>
-      <div class="process-step-title">Build Iteratively</div>
-      <p class="process-step-desc">Weekly demos, no big reveals. I ship working code in short cycles so you always know where we are. Feedback loops beat Gantt charts every time.</p>
+      <div class="process-step-title">Build & Iterate</div>
+      <p class="process-step-desc">Regular check-ins and demos. No big reveals. Working code in short cycles means you always know where we stand and can steer early.</p>
     </div>
     <div class="process-step">
       <div class="process-step-num">04</div>
-      <div class="process-step-title">Optimise & Ship</div>
-      <p class="process-step-desc">Performance audits, cross-browser testing, accessibility checks, and staged deployments. I hand over fully documented code and run team training if needed.</p>
+      <div class="process-step-title">Optimise & Launch</div>
+      <p class="process-step-desc">Performance audits, cross-browser and mobile testing, SEO checks, then a staged go-live. I don't hand over a mess — I hand over documented, clean code.</p>
     </div>
     <div class="process-step">
       <div class="process-step-num">05</div>
       <div class="process-step-title">Support & Grow</div>
-      <p class="process-step-desc">Launch is the beginning. I monitor, iterate, and help you respond to what real users actually do — not what we assumed in the brief.</p>
+      <p class="process-step-desc">Launch is just the start. I support ongoing maintenance, content updates, and iterative improvements as your site and business evolve.</p>
     </div>
   </div>
 </section>
 
 <!-- EDUCATION -->
-<section id="education">
+<section id="education" style="background: var(--bg2);">
   <div class="section-label">Education & Growth</div>
   <h2 class="section-title">The foundation<br>underneath</h2>
 
   <div class="edu-grid">
     <div class="edu-card reveal">
-      <div class="edu-card-year">18</div>
-      <div class="edu-degree">B.Sc. Computer Science</div>
+      <div class="edu-card-year">IT</div>
+      <div class="edu-degree">B.Sc. Information Technology</div>
       <div class="edu-institution">University of Mumbai</div>
-      <div class="edu-period">2015 – 2018</div>
-      <p class="edu-desc">Graduated with First Class Honours. Dissertation on optimising database query performance in CMS applications — directly applicable to every WordPress project I touch.</p>
+      <div class="edu-period">Graduated</div>
+      <p class="edu-desc">Undergraduate degree covering web technologies, databases, networking, and software development fundamentals — directly applicable to every WordPress project I build.</p>
     </div>
 
     <div class="edu-card reveal reveal-delay-1">
-      <div class="edu-card-year">22</div>
-      <div class="edu-degree">WordPress Core Contributor</div>
-      <div class="edu-institution">WordPress.org</div>
-      <div class="edu-period">2022 — Present</div>
-      <p class="edu-desc">Active contributor to WordPress core. Submitted patches to the Gutenberg project and contributed documentation. WordCamp speaker in 2023 on REST API performance.</p>
+      <div class="edu-card-year">FS</div>
+      <div class="edu-degree">Full Stack Web Development</div>
+      <div class="edu-institution">SDAC Infotech · Borivali</div>
+      <div class="edu-period">Certification</div>
+      <p class="edu-desc">Intensive full-stack certification covering HTML, CSS, JavaScript, PHP, and MySQL — the exact stack powering every WordPress site I build professionally.</p>
     </div>
 
     <div class="edu-card reveal reveal-delay-2">
-      <div class="edu-card-year">23</div>
-      <div class="edu-degree">AWS Certified Developer</div>
-      <div class="edu-institution">Amazon Web Services</div>
-      <div class="edu-period">2023</div>
-      <p class="edu-desc">Associate-level certification covering serverless architecture, S3, CloudFront, and Lambda — applied when deploying WordPress at scale with high availability requirements.</p>
+      <div class="edu-card-year">WP</div>
+      <div class="edu-degree">WordPress Ecosystem</div>
+      <div class="edu-institution">Self-Directed · Ongoing</div>
+      <div class="edu-period">2022 — Present</div>
+      <p class="edu-desc">Deep self-study of the WordPress developer handbook, WooCommerce docs, ACF documentation, and real-world problem solving through production projects with live clients.</p>
     </div>
 
     <div class="edu-card reveal reveal-delay-3">
       <div class="edu-card-year">∞</div>
       <div class="edu-degree">Continuous Learning</div>
-      <div class="edu-institution">Books, Podcasts & Side Projects</div>
+      <div class="edu-institution">Courses, Docs & Side Projects</div>
       <div class="edu-period">Every day</div>
-      <p class="edu-desc">Currently reading: "The Art of Readable Code". Recent courses: Advanced PHP Design Patterns, TypeScript for Backend Developers. Currently building: a WordPress performance monitoring SaaS.</p>
+      <p class="edu-desc">Keeping up with Gutenberg, headless WordPress, and performance tooling. Actively learning modern PHP patterns, REST API design, and advanced WooCommerce customisation.</p>
     </div>
   </div>
 </section>
@@ -1357,39 +1341,39 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="hero-bg-grid"></div>
-  <div class="section-label" style="justify-content: center; margin-bottom: 2rem;">Let's Build Something</div>
+  <div class="section-label-light">Let's Build Something</div>
   <h2 class="contact-title">Ready to<br><em>hire me?</em></h2>
-  <p class="contact-subtitle">I'm actively looking for my next WordPress developer role — full-time, remote or hybrid. Let's talk.</p>
+  <p class="contact-subtitle">I'm actively looking for my next WordPress developer role — full-time or contract, on-site or remote in Mumbai. Let's talk.</p>
 
-  <a href="mailto:alex.rivera@example.com" class="email-big">alex.rivera@example.com</a>
+  <a href="mailto:shankarsaud.web@gmail.com" class="email-big">shankarsaud.web@gmail.com</a>
 
   <div class="contact-links">
-    <a href="#" class="contact-link"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
-    <a href="#" class="contact-link"><i class="fa-brands fa-github"></i> GitHub</a>
-    <a href="#" class="contact-link"><i class="fa-solid fa-globe"></i> Portfolio Site</a>
-    <a href="#" class="contact-link"><i class="fa-solid fa-file-arrow-down"></i> Download CV</a>
+    <a href="https://www.linkedin.com/in/shankar-saud-56b391221/" target="_blank" class="contact-link"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+    <a href="https://shankarportfolio.hoscraft.in/" target="_blank" class="contact-link"><i class="fa-solid fa-globe"></i> Portfolio Site</a>
+    <a href="tel:+917559229459" class="contact-link"><i class="fa-solid fa-phone"></i> +91 75592 29459</a>
+    <a href="mailto:shankarsaud.web@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> Send Email</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2024 Alex Rivera. Built with WordPress love <i class="fa-solid fa-heart" style="color:var(--gold)"></i></p>
-  <p>Designed & coded by hand · Mumbai, India</p>
+  <p>© 2025 Shankar Maha Singh Saud · WordPress Developer</p>
+  <p>Mumbai, Maharashtra &nbsp;·&nbsp; Built with care <i class="fa-solid fa-heart" style="color:var(--navy)"></i></p>
 </footer>
 
 <script>
-  /* ---- NAV SCROLL ---- */
+  /* NAV SCROLL */
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
   });
 
-  /* ---- MARQUEE CONTENT ---- */
-  const skills = ['WordPress', 'WooCommerce', 'PHP 8.x', 'Gutenberg Blocks', 'REST API', 'Custom Themes', 'Plugin Development', 'Performance', 'SEO', 'GSAP', 'Alpine.js', 'Next.js', 'MySQL', 'DevOps', 'Headless WP'];
+  /* MARQUEE */
+  const skills = ['WordPress', 'WooCommerce', 'ACF', 'Custom Themes', 'PHP', 'Elementor Pro', 'Bootstrap 5', 'Technical SEO', 'Responsive Design', 'jQuery', 'Custom CPTs', 'Performance', 'UI/UX', 'LESS', 'JavaScript'];
   const track = document.getElementById('marqueeTrack');
   const items = [...skills, ...skills].map(s => `<span class="marquee-item"><span class="marquee-dot"></span>${s}</span>`).join('');
   track.innerHTML = items + items;
 
-  /* ---- SKILL BARS on scroll ---- */
+  /* SKILL BARS */
   function animateSkillBars() {
     document.querySelectorAll('.skill-level-fill').forEach(bar => {
       const rect = bar.getBoundingClientRect();
@@ -1399,11 +1383,10 @@
     });
   }
 
-  /* ---- REVEAL ON SCROLL ---- */
+  /* REVEAL ON SCROLL */
   function revealElements() {
     document.querySelectorAll('.reveal').forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.88) {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.88) {
         el.classList.add('visible');
       }
     });
@@ -1414,10 +1397,9 @@
   window.addEventListener('load', revealElements);
   revealElements();
 
-  /* ---- LOAD MORE PROJECTS ---- */
+  /* LOAD MORE */
   const loadMoreBtn = document.getElementById('loadMoreBtn');
   const hiddenCards = document.querySelectorAll('.project-card.hidden');
-  const remainingCount = document.getElementById('remainingCount');
 
   loadMoreBtn.addEventListener('click', () => {
     hiddenCards.forEach((card, i) => {
@@ -1437,7 +1419,7 @@
     loadMoreBtn.style.display = 'none';
   });
 
-  /* ---- SMOOTH SCROLL ---- */
+  /* SMOOTH SCROLL */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
