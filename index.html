@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shankar Saud — WordPress Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1f44;
+    --gold: #d2a517;
+    --gold-light: #e8bf45;
+    --gold-dim: rgba(210,165,23,0.15);
+    --white: #ffffff;
+    --off-white: #f5f3ee;
+    --text-muted: rgba(255,255,255,0.55);
+    --card-bg: rgba(255,255,255,0.04);
+    --border: rgba(210,165,23,0.2);
+  }
+
+  @font-face {
+    font-family: 'GlacialIndifference';
+    src: local('Glacial Indifference');
+    font-weight: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Glacial Indifference', 'Nunito', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(10,31,68,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    border: none;
+    padding: 10px 24px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 0 80px;
+  }
+
+  /* Big WP logo background */
+  #hero::after {
+    content: 'W';
+    position: absolute;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'League Spartan', sans-serif;
+    font-size: clamp(400px, 55vw, 800px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.025);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+
+  .hero-left {
+    padding: 0 60px 0 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    margin-bottom: 28px;
+    background: var(--gold-dim);
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .hero-name {
+    font-family: 'League Spartan', sans-serif;
+    font-size: clamp(48px, 6vw, 82px);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -2px;
+    margin-bottom: 6px;
+    color: var(--white);
+  }
+
+  .hero-name .first { display: block; }
+  .hero-name .last {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 22px 0 24px;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.65);
+    max-width: 460px;
+    margin-bottom: 40px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 44px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 16px 36px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 16px 36px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Hero Right — image panel */
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-right: 80px;
+  }
+
+  .image-frame {
+    position: relative;
+    width: 420px;
+    height: 520px;
+    flex-shrink: 0;
+  }
+
+  /* Corner accent lines */
+  .image-frame::before,
+  .image-frame::after {
+    content: '';
+    position: absolute;
+    width: 60px; height: 60px;
+    z-index: 3;
+  }
+  .image-frame::before {
+    top: -12px; left: -12px;
+    border-top: 3px solid var(--gold);
+    border-left: 3px solid var(--gold);
+  }
+  .image-frame::after {
+    bottom: -12px; right: -12px;
+    border-bottom: 3px solid var(--gold);
+    border-right: 3px solid var(--gold);
+  }
+
+  .image-frame-inner {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Placeholder gradient for where the photo would go */
+  .dev-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: linear-gradient(135deg, #0d2a5e 0%, #1a3a7a 40%, #0a1f44 100%);
+  }
+
+  /* Photo overlay gradient at bottom */
+  .image-frame-inner::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, var(--navy));
+  }
+
+  /* Gold glow dot */
+  .image-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'League Spartan', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    z-index: 4;
+    white-space: nowrap;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'League Spartan', sans-serif;
+    z-index: 2;
+    animation: bounceDown 2s infinite;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(var(--gold), transparent);
+  }
+
+  @keyframes bounceDown {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ─── SECTION SHARED ─── */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+
+  .section-eyebrow {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    color: var(--white);
+  }
+
+  .section-title span {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--gold);
+  }
+
+  /* ─── SKILLS SECTION ─── */
+  #skills {
+    padding: 120px 80px;
+    background: linear-gradient(180deg, var(--navy) 0%, #071529 100%);
+    border-top: 1px solid var(--border);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .skill-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, border-color 0.3s, transform 0.2s;
+    cursor: default;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .skill-card:hover {
+    background: rgba(210,165,23,0.07);
+    border-color: rgba(210,165,23,0.4);
+    transform: translateY(-3px);
+  }
+
+  .skill-card:hover::before { opacity: 1; }
+
+  .skill-icon {
+    width: 48px; height: 48px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .skill-icon svg {
+    width: 100%; height: 100%;
+  }
+
+  .skill-card-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: rgba(210,165,23,0.1);
+    border: 1px solid rgba(210,165,23,0.25);
+    color: var(--gold-light);
+    padding: 5px 12px;
+  }
+
+  .skill-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* big skill number behind */
+  .skill-num {
+    position: absolute;
+    top: 16px; right: 20px;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    user-select: none;
+  }
+
+  /* ─── PROJECTS SECTION ─── */
+  #projects {
+    padding: 120px 80px;
+    border-top: 1px solid var(--border);
+    background: var(--navy);
+  }
+
+  .projects-layout {
+    display: grid;
+    gap: 2px;
+  }
+
+  .project-featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .project-featured:hover { border-color: rgba(210,165,23,0.5); }
+
+  .project-visual {
+    position: relative;
+    height: 380px;
+    overflow: hidden;
+  }
+
+  .project-visual-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Different bg per project */
+  .proj-bg-1 { background: linear-gradient(135deg, #0d2a5e 0%, #163366 100%); }
+  .proj-bg-2 { background: linear-gradient(135deg, #071529 0%, #0a1f44 100%); }
+  .proj-bg-3 { background: linear-gradient(135deg, #0c2448 0%, #0f2b56 100%); }
+
+  .proj-screen {
+    width: 80%;
+    height: 75%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    background: rgba(255,255,255,0.04);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .proj-screen-bar {
+    height: 28px;
+    background: rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .proj-screen-content {
+    padding: 16px;
+    height: calc(100% - 28px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .proj-line {
+    height: 8px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .proj-line.gold { background: rgba(210,165,23,0.3); width: 60%; }
+  .proj-line.w80 { width: 80%; }
+  .proj-line.w60 { width: 60%; }
+  .proj-line.w40 { width: 40%; }
+  .proj-line.h40 { height: 40px; }
+  .proj-line.h60 { height: 60px; }
+
+  .proj-woo {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .proj-card-mini {
+    flex: 1;
+    height: 70px;
+    background: rgba(210,165,23,0.1);
+    border: 1px solid rgba(210,165,23,0.2);
+    border-radius: 2px;
+  }
+
+  .project-info {
+    padding: 44px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .project-type {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .project-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+
+  .project-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 28px;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+
+  .project-link {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s;
+  }
+
+  .project-link:hover { gap: 14px; }
+
+  .projects-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 2px;
+  }
+
+  .project-card-sm {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card-sm:hover {
+    background: rgba(210,165,23,0.05);
+    border-color: rgba(210,165,23,0.4);
+  }
+
+  .project-card-sm::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(210,165,23,0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card-sm:hover::after { opacity: 1; }
+
+  /* ─── FOOTER CTA ─── */
+  #contact {
+    padding: 100px 80px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    background: linear-gradient(180deg, #071529 0%, var(--navy) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(210,165,23,0.07), transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-title {
+    font-family: 'League Spartan', sans-serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 0.95;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-title span { color: var(--gold); }
+
+  .contact-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin-bottom: 44px;
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .contact-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-info-row {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 60px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .contact-info-label {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .contact-info-val {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gold);
+  }
+
+  /* ─── ANIMATIONS ON LOAD ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.25s; }
+  .d3 { animation-delay: 0.4s; }
+  .d4 { animation-delay: 0.55s; }
+  .d5 { animation-delay: 0.7s; }
+  .d6 { animation-delay: 0.85s; }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    #hero { grid-template-columns: 1fr; padding: 140px 40px 80px; }
+    .hero-right { display: none; }
+    .hero-left { padding: 0; }
+    nav { padding: 20px 30px; }
+    .nav-links { display: none; }
+    #skills, #projects, #contact { padding: 80px 30px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .project-featured { grid-template-columns: 1fr; }
+    .project-visual { display: none; }
+    .projects-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">S<span>.</span>Saud</a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+  </ul>
+  <a href="mailto:shankarsaud.web@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag fade-up d1">Available for Projects</div>
+
+    <h1 class="hero-name fade-up d2">
+      <span class="first">Shankar</span>
+      <span class="last">Saud</span>
+    </h1>
+
+    <p class="hero-title fade-up d3">WordPress Developer</p>
+
+    <p class="hero-desc fade-up d4">
+      Custom Theme Development · WooCommerce · ACF · Elementor Pro · Technical SEO. 
+      Building responsive, high-performance websites that convert — from pixel-perfect front-ends to powerful back-end customizations.
+    </p>
+
+    <div class="hero-stats fade-up d5">
+      <div>
+        <span class="stat-num">2+</span>
+        <span class="stat-label">Years Exp.</span>
+      </div>
+      <div>
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Projects Delivered</span>
+      </div>
+      <div>
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Client Satisfaction</span>
+      </div>
+    </div>
+
+    <div class="hero-actions fade-up d6">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="https://shankarportfolio.hoscraft.in" target="_blank" class="btn-outline">Live Portfolio</a>
+    </div>
+  </div>
+
+  <div class="hero-right fade-up d3">
+    <div class="image-frame">
+      <div class="image-frame-inner">
+        <!-- Dev illustration in the brand style -->
+        <svg class="dev-photo" viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0d2a5e"/>
+              <stop offset="100%" stop-color="#071529"/>
+            </linearGradient>
+            <linearGradient id="monitorGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a3a7a"/>
+              <stop offset="100%" stop-color="#0a1f44"/>
+            </linearGradient>
+          </defs>
+          <rect width="420" height="520" fill="url(#bgGrad)"/>
+          <!-- Desk -->
+          <rect x="40" y="340" width="340" height="12" rx="2" fill="rgba(255,255,255,0.08)"/>
+          <!-- Monitor stand -->
+          <rect x="195" y="280" width="30" height="62" rx="2" fill="rgba(255,255,255,0.1)"/>
+          <rect x="160" y="338" width="100" height="6" rx="2" fill="rgba(255,255,255,0.12)"/>
+          <!-- Monitor -->
+          <rect x="80" y="120" width="260" height="165" rx="6" fill="url(#monitorGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+          <!-- Screen -->
+          <rect x="92" y="132" width="236" height="141" rx="3" fill="rgba(5,15,35,0.95)"/>
+          <!-- WP logo on screen -->
+          <circle cx="210" cy="180" r="42" fill="none" stroke="rgba(210,165,23,0.5)" stroke-width="2"/>
+          <circle cx="210" cy="180" r="36" fill="rgba(210,165,23,0.1)"/>
+          <text x="210" y="192" text-anchor="middle" font-family="League Spartan, Arial Black, sans-serif" font-weight="900" font-size="36" fill="#d2a517" opacity="0.9">W</text>
+          <!-- Code lines on screen -->
+          <rect x="105" y="236" width="80" height="4" rx="2" fill="rgba(210,165,23,0.3)"/>
+          <rect x="190" y="236" width="60" height="4" rx="2" fill="rgba(255,255,255,0.15)"/>
+          <rect x="255" y="236" width="40" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
+          <!-- Keyboard -->
+          <rect x="100" y="352" width="220" height="32" rx="4" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <!-- Keys suggestion -->
+          <rect x="108" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="124" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="140" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="156" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="172" y="358" width="12" height="9" rx="1" fill="rgba(210,165,23,0.25)"/>
+          <rect x="188" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="204" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="220" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="236" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="252" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="268" y="358" width="12" height="9" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="130" y="372" width="160" height="7" rx="2" fill="rgba(255,255,255,0.08)"/>
+          <!-- Floating tags -->
+          <g transform="translate(30, 150)">
+            <rect width="90" height="32" rx="3" fill="rgba(210,165,23,0.15)" stroke="rgba(210,165,23,0.3)" stroke-width="1"/>
+            <text x="45" y="21" text-anchor="middle" font-family="League Spartan, sans-serif" font-weight="700" font-size="11" fill="#d2a517" letter-spacing="1">WooCommerce</text>
+          </g>
+          <g transform="translate(300, 100)">
+            <rect width="72" height="32" rx="3" fill="rgba(210,165,23,0.15)" stroke="rgba(210,165,23,0.3)" stroke-width="1"/>
+            <text x="36" y="21" text-anchor="middle" font-family="League Spartan, sans-serif" font-weight="700" font-size="11" fill="#d2a517" letter-spacing="1">PHP / JS</text>
+          </g>
+          <g transform="translate(20, 240)">
+            <rect width="64" height="32" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+            <text x="32" y="21" text-anchor="middle" font-family="League Spartan, sans-serif" font-weight="700" font-size="11" fill="rgba(255,255,255,0.5)" letter-spacing="1">HTML5</text>
+          </g>
+          <!-- Gradient overlay at bottom -->
+          <defs>
+            <linearGradient id="fadeBottom" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="transparent"/>
+              <stop offset="100%" stop-color="#0a1f44"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="340" width="420" height="180" fill="url(#fadeBottom)"/>
+        </svg>
+      </div>
+      <div class="image-badge">Mumbai, India 🇮🇳</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">What I Bring</span>
+    <h2 class="section-title">Skills & <span>Expertise</span></h2>
+  </div>
+
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <div class="skill-num">01</div>
+      <div class="skill-icon">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" stroke="#d2a517" stroke-width="2" opacity="0.4"/>
+          <circle cx="24" cy="24" r="14" stroke="#d2a517" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="24" y="30" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="18" fill="#d2a517">W</text>
+        </svg>
+      </div>
+      <div class="skill-card-title">WordPress Development</div>
+      <p class="skill-desc">Custom theme development from scratch, custom post types, plugin development, and WordPress CMS administration for large-scale sites.</p>
+      <div class="skill-tags">
+        <span class="tag">Custom Themes</span>
+        <span class="tag">CPT</span>
+        <span class="tag">Plugin Dev</span>
+        <span class="tag">WP Admin</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-num">02</div>
+      <div class="skill-icon">
+        <svg viewBox="0 0 48 48" fill="none">
+          <rect x="4" y="8" width="40" height="32" rx="3" stroke="#d2a517" stroke-width="2" opacity="0.4"/>
+          <rect x="10" y="14" width="28" height="5" rx="1" fill="#d2a517" opacity="0.3"/>
+          <rect x="10" y="22" width="18" height="3" rx="1" fill="rgba(255,255,255,0.3)"/>
+          <rect x="10" y="28" width="22" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
+          <circle cx="36" cy="32" r="7" fill="rgba(210,165,23,0.2)" stroke="#d2a517" stroke-width="1.5"/>
+          <text x="36" y="35.5" text-anchor="middle" font-size="8" font-weight="900" fill="#d2a517" font-family="Arial">$</text>
+        </svg>
+      </div>
+      <div class="skill-card-title">WooCommerce & E-Commerce</div>
+      <p class="skill-desc">End-to-end WooCommerce setup — product configuration, custom checkout flows, payment gateway integrations, and order management systems.</p>
+      <div class="skill-tags">
+        <span class="tag">WooCommerce</span>
+        <span class="tag">Payment Gateways</span>
+        <span class="tag">Custom Checkout</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-num">03</div>
+      <div class="skill-icon">
+        <svg viewBox="0 0 48 48" fill="none">
+          <rect x="6" y="6" width="15" height="15" rx="2" stroke="#d2a517" stroke-width="2" opacity="0.6"/>
+          <rect x="27" y="6" width="15" height="15" rx="2" stroke="#d2a517" stroke-width="2" opacity="0.4"/>
+          <rect x="6" y="27" width="15" height="15" rx="2" stroke="#d2a517" stroke-width="2" opacity="0.4"/>
+          <rect x="27" y="27" width="15" height="15" rx="2" fill="rgba(210,165,23,0.15)" stroke="#d2a517" stroke-width="2" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="skill-card-title">ACF & Elementor Pro</div>
+      <p class="skill-desc">Advanced Custom Fields for flexible content architecture, paired with Elementor Pro for pixel-perfect visual page building and dynamic templates.</p>
+      <div class="skill-tags">
+        <span class="tag">ACF</span>
+        <span class="tag">Elementor Pro</span>
+        <span class="tag">Dynamic Templates</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-num">04</div>
+      <div class="skill-icon">
+        <svg viewBox="0 0 48 48" fill="none">
+          <polyline points="6,36 16,20 26,28 36,12 42,18" stroke="#d2a517" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          <circle cx="36" cy="12" r="3" fill="#d2a517"/>
+          <line x1="6" y1="40" x2="42" y2="40" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="skill-card-title">Technical SEO & Performance</div>
+      <p class="skill-desc">Schema markup, Core Web Vitals optimization, page speed improvements, and on-page SEO strategies that boost organic search rankings.</p>
+      <div class="skill-tags">
+        <span class="tag">Schema Markup</span>
+        <span class="tag">Core Web Vitals</span>
+        <span class="tag">Page Speed</span>
+        <span class="tag">On-page SEO</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-num">05</div>
+      <div class="skill-icon">
+        <svg viewBox="0 0 48 48" fill="none">
+          <rect x="4" y="10" width="40" height="28" rx="3" stroke="#d2a517" stroke-width="2" opacity="0.4"/>
+          <line x1="4" y1="20" x2="44" y2="20" stroke="#d2a517" stroke-width="1" opacity="0.4"/>
+          <circle cx="9" cy="15" r="2" fill="#d2a517" opacity="0.5"/>
+          <circle cx="15" cy="15" r="2" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="21" cy="15" r="2" fill="rgba(255,255,255,0.3)"/>
+          <text x="24" y="36" text-anchor="middle" font-family="monospace" font-size="11" fill="#d2a517" opacity="0.8">&lt;/&gt;</text>
+        </svg>
+      </div>
+      <div class="skill-card-title">Frontend Stack</div>
+      <p class="skill-desc">Responsive, cross-browser-compatible interfaces built with modern HTML5, CSS3, JavaScript, jQuery, and Bootstrap 5 — matching designs precisely.</p>
+      <div class="skill-tags">
+        <span class="tag">HTML5 / CSS3</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Bootstrap 5</span>
+        <span class="tag">PHP</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-num">06</div>
+      <div class="skill-icon">
+        <svg viewBox="0 0 48 48" fill="none">
+          <rect x="8" y="8" width="32" height="24" rx="3" stroke="#d2a517" stroke-width="2" opacity="0.5"/>
+          <rect x="4" y="14" width="32" height="24" rx="3" fill="rgba(10,31,68,0.9)" stroke="#d2a517" stroke-width="2" opacity="0.7"/>
+          <rect x="10" y="20" width="14" height="3" rx="1" fill="#d2a517" opacity="0.6"/>
+          <rect x="10" y="26" width="20" height="3" rx="1" fill="rgba(255,255,255,0.25)"/>
+          <rect x="10" y="32" width="10" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
+        </svg>
+      </div>
+      <div class="skill-card-title">UI/UX & Responsive Design</div>
+      <p class="skill-desc">Mobile-first, user-centered design implementations. From wireframing to live deployment — crafting seamless experiences across all device sizes.</p>
+      <div class="skill-tags">
+        <span class="tag">Responsive Design</span>
+        <span class="tag">UI/UX</span>
+        <span class="tag">Cross-browser</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Selected Work</span>
+    <h2 class="section-title">Project <span>Showcase</span></h2>
+  </div>
+
+  <div class="projects-layout">
+
+    <!-- Featured Project 1 -->
+    <div class="project-featured reveal">
+      <div class="project-visual">
+        <div class="project-visual-inner proj-bg-1">
+          <div class="proj-screen">
+            <div class="proj-screen-bar">
+              <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            </div>
+            <div class="proj-screen-content">
+              <div class="proj-line gold"></div>
+              <div class="proj-woo">
+                <div class="proj-card-mini"></div>
+                <div class="proj-card-mini"></div>
+                <div class="proj-card-mini"></div>
+              </div>
+              <div class="proj-line w80"></div>
+              <div class="proj-line w60"></div>
+              <div class="proj-line h40" style="background:rgba(210,165,23,0.08)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-type">WooCommerce · E-Commerce</div>
+        <h3 class="project-title">Custom E-Commerce Store</h3>
+        <p class="project-desc">Full WooCommerce build with custom product layouts, bespoke checkout flow, and integrated payment gateways. Performance-optimized for fast load times and strong conversion rates.</p>
+        <div class="project-tech">
+          <span class="tag">WooCommerce</span>
+          <span class="tag">Custom Theme</span>
+          <span class="tag">ACF</span>
+          <span class="tag">Payment Gateway</span>
+        </div>
+        <a href="https://shankarportfolio.hoscraft.in" class="project-link" target="_blank">
+          View Project <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="#d2a517" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Featured Project 2 -->
+    <div class="project-featured reveal" style="grid-template-columns: 1fr 1fr; direction: ltr;">
+      <div class="project-info" style="padding: 44px 48px; border-right: 1px solid var(--border);">
+        <div class="project-type">Corporate · Branding</div>
+        <h3 class="project-title">iDigitalise Agency Website</h3>
+        <p class="project-desc">Pixel-perfect custom WordPress theme for a digital marketing agency. Built with ACF flexible content, Elementor Pro templates, and full technical SEO implementation.</p>
+        <div class="project-tech">
+          <span class="tag">Custom Theme</span>
+          <span class="tag">ACF</span>
+          <span class="tag">Elementor Pro</span>
+          <span class="tag">Technical SEO</span>
+        </div>
+        <a href="https://shankarportfolio.hoscraft.in" class="project-link" target="_blank">
+          View Project <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M1 5H15M15 5L11 1M15 5L11 9" stroke="#d2a517" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+      <div class="project-visual">
+        <div class="project-visual-inner proj-bg-2">
+          <div class="proj-screen">
+            <div class="proj-screen-bar">
+              <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            </div>
+            <div class="proj-screen-content">
+              <div class="proj-line gold"></div>
+              <div class="proj-line h60" style="background:rgba(255,255,255,0.04); border:1px solid rgba(210,165,23,0.15)"></div>
+              <div class="proj-line w80"></div>
+              <div class="proj-line w40"></div>
+              <div class="proj-line w60"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Two smaller cards -->
+  <div class="projects-row">
+
+    <div class="project-card-sm reveal">
+      <div class="project-type">Film Festival · CMS</div>
+      <h3 class="project-title" style="font-family:'League Spartan',sans-serif;font-size:24px;font-weight:900;letter-spacing:-0.5px;">Jio MAMI Film Festival 2023</h3>
+      <p class="project-desc" style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.55);">Administered the CMS for Mumbai Film Festival's official website and app during high-traffic event periods. Zero critical downtime across the festival run.</p>
+      <div class="project-tech" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+        <span class="tag">CMS Admin</span>
+        <span class="tag">DataKal Starbase</span>
+        <span class="tag">Performance</span>
+        <span class="tag">Content Ops</span>
+      </div>
+    </div>
+
+    <div class="project-card-sm reveal">
+      <div class="project-type">Freelance · Full Stack</div>
+      <h3 class="project-title" style="font-family:'League Spartan',sans-serif;font-size:24px;font-weight:900;letter-spacing:-0.5px;">Freelance WordPress Projects</h3>
+      <p class="project-desc" style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.55);">End-to-end development of 2 custom WordPress websites — from requirements, wireframing, and development through to launch. 100% on-time delivery.</p>
+      <div class="project-tech" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+        <span class="tag">End-to-end Dev</span>
+        <span class="tag">SEO</span>
+        <span class="tag">Maintenance</span>
+        <span class="tag">Client Success</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CONTACT CTA ─── -->
+<section id="contact">
+  <h2 class="contact-title reveal">Let's Build<br>Something <span>Great.</span></h2>
+  <p class="contact-sub reveal">Open to full-time roles and freelance projects. If you need a WordPress developer who cares about quality, performance, and results — let's talk.</p>
+  <div class="contact-actions reveal">
+    <a href="mailto:shankarsaud.web@gmail.com" class="btn-primary">Get In Touch</a>
+    <a href="https://shankarportfolio.hoscraft.in" target="_blank" class="btn-outline">View Portfolio</a>
+  </div>
+  <div class="contact-info-row reveal">
+    <div class="contact-info-item">
+      <span class="contact-info-label">Email</span>
+      <span class="contact-info-val">shankarsaud.web@gmail.com</span>
+    </div>
+    <div class="contact-info-item">
+      <span class="contact-info-label">Phone</span>
+      <span class="contact-info-val">+91 7559229459</span>
+    </div>
+    <div class="contact-info-item">
+      <span class="contact-info-label">Location</span>
+      <span class="contact-info-val">Mumbai, Maharashtra</span>
+    </div>
+    <div class="contact-info-item">
+      <span class="contact-info-label">LinkedIn</span>
+      <span class="contact-info-val">shankar-saud-56b391221</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      // Stagger within grid
+      const siblings = e.target.parentElement.querySelectorAll('.reveal');
+      let delay = 0;
+      siblings.forEach((s, idx) => { if (s === e.target) delay = idx * 80; });
+      setTimeout(() => e.target.classList.add('visible'), delay);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
